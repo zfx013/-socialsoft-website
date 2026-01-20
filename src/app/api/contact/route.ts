@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
     // Envoi de l'email
     const { data, error } = await resend.emails.send({
       from: 'SocialSoft Website <onboarding@resend.dev>', // Changera après vérification du domaine
-      to: ['Luis@socialsoft.fr'],
+      to: ['luis-pinto.seca@outlook.fr'], // TODO: Changer pour contact@socialsoft.fr après vérification du domaine
       replyTo: email,
       subject: `[Contact Site Web] ${subject}`,
       html: `
