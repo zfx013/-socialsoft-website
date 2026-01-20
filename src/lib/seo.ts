@@ -452,3 +452,216 @@ export const faqJsonLd = {
     },
   ],
 };
+
+// HowTo Schema - Comment choisir un prestataire IT (optimisé featured snippets)
+export const howToJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'Comment choisir un prestataire informatique pour votre PME',
+  description: "Guide en 6 étapes pour sélectionner le bon prestataire informatique pour votre entreprise en Île-de-France.",
+  image: 'https://socialsoft.fr/og-image.jpg',
+  totalTime: 'P1W',
+  estimatedCost: {
+    '@type': 'MonetaryAmount',
+    currency: 'EUR',
+    value: '0',
+  },
+  step: [
+    {
+      '@type': 'HowToStep',
+      position: 1,
+      name: 'Définir vos besoins',
+      text: "Identifiez vos besoins : nombre de postes, services requis (infogérance, cybersécurité, développement), budget mensuel, niveau de criticité de votre SI.",
+      url: 'https://socialsoft.fr/#services',
+    },
+    {
+      '@type': 'HowToStep',
+      position: 2,
+      name: 'Vérifier la proximité géographique',
+      text: "Privilégiez un prestataire proche de vos locaux pour des interventions rapides sur site. En Île-de-France, SOCIAL SOFT intervient en 4h maximum.",
+      url: 'https://socialsoft.fr/#coverage',
+    },
+    {
+      '@type': 'HowToStep',
+      position: 3,
+      name: 'Examiner les certifications',
+      text: "Vérifiez les certifications (Microsoft, Cisco, etc.) et les références clients. Demandez des témoignages dans votre secteur d'activité.",
+    },
+    {
+      '@type': 'HowToStep',
+      position: 4,
+      name: 'Comparer les SLA',
+      text: "Analysez les engagements de service (SLA) : temps de réponse garanti, disponibilité du support, conditions d'astreinte 24/7.",
+    },
+    {
+      '@type': 'HowToStep',
+      position: 5,
+      name: 'Demander un audit gratuit',
+      text: "Un bon prestataire propose un audit gratuit de votre infrastructure. C'est l'occasion d'évaluer la qualité de son conseil et sa compréhension de vos enjeux.",
+      url: 'https://socialsoft.fr/#contact',
+    },
+    {
+      '@type': 'HowToStep',
+      position: 6,
+      name: 'Négocier les conditions',
+      text: "Discutez des modalités : engagement ou non, période d'essai, évolutivité du contrat. SOCIAL SOFT propose des formules flexibles avec ou sans engagement.",
+    },
+  ],
+};
+
+// ProfessionalService Schema - Service principal avec offres détaillées
+export const professionalServiceJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  '@id': 'https://socialsoft.fr/#professionalservice',
+  name: 'SOCIAL SOFT - Prestataire Informatique',
+  description: "Services informatiques professionnels pour TPE et PME en Île-de-France : infogérance, cybersécurité, développement sur mesure, support technique.",
+  url: 'https://socialsoft.fr',
+  telephone: '+33782251099',
+  email: 'contact@socialsoft.fr',
+  priceRange: '€€',
+  image: 'https://socialsoft.fr/og-image.jpg',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: '52 Rue des Grandes Côtes',
+    addressLocality: "Saint-Ouen-l'Aumône",
+    postalCode: '95310',
+    addressRegion: 'Île-de-France',
+    addressCountry: 'FR',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 49.0419,
+    longitude: 2.1097,
+  },
+  areaServed: [
+    { '@type': 'State', name: 'Île-de-France' },
+    { '@type': 'AdministrativeArea', name: "Val-d'Oise" },
+    { '@type': 'City', name: 'Paris' },
+  ],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Services IT pour PME',
+    itemListElement: [
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Infogérance PME',
+          description: "Gestion complète de votre système d'information : supervision 24/7, maintenance, support utilisateurs, mises à jour.",
+        },
+        priceSpecification: {
+          '@type': 'UnitPriceSpecification',
+          price: '50',
+          priceCurrency: 'EUR',
+          unitText: 'par poste/mois',
+          minPrice: '50',
+          maxPrice: '150',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Audit Cybersécurité',
+          description: "Analyse complète de votre infrastructure pour identifier les vulnérabilités et proposer un plan de sécurisation.",
+        },
+        priceSpecification: {
+          '@type': 'PriceSpecification',
+          price: '0',
+          priceCurrency: 'EUR',
+          description: 'Premier audit gratuit',
+        },
+      },
+      {
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: 'Développement sur mesure',
+          description: "Conception d'applications métier, sites web et logiciels adaptés à vos processus.",
+        },
+        priceSpecification: {
+          '@type': 'PriceSpecification',
+          priceCurrency: 'EUR',
+          description: 'Devis personnalisé sur demande',
+        },
+      },
+    ],
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.9',
+    bestRating: '5',
+    worstRating: '1',
+    ratingCount: '47',
+  },
+  review: [
+    {
+      '@type': 'Review',
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: '5',
+        bestRating: '5',
+      },
+      author: {
+        '@type': 'Organization',
+        name: 'PME Industrie 95',
+      },
+      reviewBody: "Excellent prestataire, très réactif. Intervention en 2h lors d'une panne critique de notre serveur.",
+    },
+    {
+      '@type': 'Review',
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: '5',
+        bestRating: '5',
+      },
+      author: {
+        '@type': 'Organization',
+        name: 'Cabinet Comptable Paris',
+      },
+      reviewBody: "Migration cloud réussie sans interruption d'activité. Équipe professionnelle et à l'écoute.",
+    },
+  ],
+};
+
+// BreadcrumbList Schema - Navigation structurée
+export const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    {
+      '@type': 'ListItem',
+      position: 1,
+      name: 'Accueil',
+      item: 'https://socialsoft.fr',
+    },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Services',
+      item: 'https://socialsoft.fr/#services',
+    },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: 'Contact',
+      item: 'https://socialsoft.fr/contact',
+    },
+  ],
+};
+
+// SpeakableSpecification pour la recherche vocale
+export const speakableJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': 'https://socialsoft.fr/#webpage',
+  name: "SOCIAL SOFT - Prestataire Informatique Île-de-France",
+  speakable: {
+    '@type': 'SpeakableSpecification',
+    cssSelector: ['#hero', '#services', '#faq'],
+  },
+  mainEntity: {
+    '@id': 'https://socialsoft.fr/#organization',
+  },
+};

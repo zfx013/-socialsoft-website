@@ -108,6 +108,47 @@ const additionalFaqs = [
     question: "Comment protéger ma PME des ransomwares ?",
     answer: "Pour protéger votre PME des ransomwares, adoptez ces 5 mesures essentielles : 1) Sauvegardes automatisées hors-ligne (règle 3-2-1), 2) Solution EDR/antivirus professionnelle sur tous les postes, 3) Formation des employés aux techniques de phishing, 4) Mises à jour systématiques des systèmes et logiciels, 5) Pare-feu nouvelle génération avec filtrage. SOCIAL SOFT propose un audit cybersécurité gratuit.",
   },
+  // Questions optimisées recherche vocale
+  {
+    question: "C'est quoi la règle de sauvegarde 3-2-1 ?",
+    answer: "La règle 3-2-1 est une stratégie de sauvegarde recommandée : 3 copies de vos données, sur 2 supports différents (disque dur + cloud par exemple), dont 1 copie hors site (cloud ou site distant). Cette méthode protège contre les pannes matérielles, les ransomwares et les sinistres. SOCIAL SOFT met en place cette stratégie pour ses clients PME.",
+  },
+  {
+    question: "Pourquoi externaliser son informatique ?",
+    answer: "Externaliser son informatique présente plusieurs avantages : 1) Réduction des coûts (pas d'embauche d'informaticien en interne), 2) Accès à une expertise variée (réseau, sécurité, cloud), 3) Disponibilité garantie (SLA contractuel), 4) Veille technologique continue, 5) Concentration sur votre cœur de métier. Pour une PME de moins de 50 personnes, l'externalisation est souvent plus rentable qu'un service IT interne.",
+  },
+  {
+    question: "Qu'est-ce qu'un SLA en informatique ?",
+    answer: "Un SLA (Service Level Agreement) est un contrat qui définit les engagements de votre prestataire informatique : temps de réponse garanti (ex: 2h pour une panne critique), taux de disponibilité du support (ex: 99.9%), pénalités en cas de non-respect. Chez SOCIAL SOFT, nos SLA sont clairement définis dans chaque contrat d'infogérance.",
+  },
+  {
+    question: "Comment savoir si mon entreprise a besoin d'un infogérant ?",
+    answer: "Votre entreprise a besoin d'un infogérant si : vous n'avez pas d'informaticien en interne, vos collaborateurs perdent du temps sur des problèmes IT, vous avez subi des pannes ou incidents de sécurité, votre SI est critique pour votre activité, vous souhaitez vous concentrer sur votre métier. Un audit gratuit permet d'évaluer vos besoins.",
+  },
+  {
+    question: "Quelle est la différence entre un MSP et un infogérant ?",
+    answer: "MSP (Managed Service Provider) et infogérant désignent le même type de prestataire : une entreprise qui gère votre système informatique de façon externalisée. Le terme MSP est d'origine anglophone, infogérant est son équivalent français. SOCIAL SOFT est un MSP/infogérant spécialisé pour les PME d'Île-de-France.",
+  },
+  {
+    question: "Comment migrer vers Microsoft 365 sans perdre mes données ?",
+    answer: "Pour une migration Microsoft 365 réussie : 1) Audit de l'existant (emails, fichiers, contacts), 2) Planification avec calendrier précis, 3) Migration par lots pour limiter les risques, 4) Tests et validation à chaque étape, 5) Formation des utilisateurs. SOCIAL SOFT réalise des migrations M365 sans interruption d'activité grâce à une méthodologie éprouvée.",
+  },
+  {
+    question: "Combien de temps faut-il pour installer une baie serveur ?",
+    answer: "L'installation d'une baie serveur prend généralement 2 à 5 jours selon la complexité : 1 jour pour une petite baie (PME < 20 postes), 2-3 jours pour une configuration moyenne avec virtualisation, 4-5 jours pour une infrastructure complexe avec haute disponibilité. SOCIAL SOFT intervient en Île-de-France pour l'installation et la configuration complète.",
+  },
+  {
+    question: "Mon entreprise est-elle conforme au RGPD ?",
+    answer: "Pour être conforme au RGPD, votre entreprise doit : tenir un registre des traitements, informer les personnes concernées, sécuriser les données personnelles, pouvoir répondre aux demandes d'accès/suppression, notifier les violations dans les 72h. SOCIAL SOFT accompagne les PME dans leur mise en conformité RGPD avec des solutions techniques adaptées.",
+  },
+  {
+    question: "Quel est le coût d'une cyberattaque pour une PME ?",
+    answer: "Une cyberattaque coûte en moyenne 25 000 à 50 000€ à une PME française : rançon éventuelle, perte d'exploitation, restauration des systèmes, perte de clients, atteinte à la réputation. 60% des PME victimes déposent le bilan dans les 6 mois. Investir dans la cybersécurité préventive avec SOCIAL SOFT coûte 10 à 20 fois moins cher.",
+  },
+  {
+    question: "Peut-on télétravailler en toute sécurité ?",
+    answer: "Le télétravail sécurisé nécessite : 1) VPN chiffré pour accéder au réseau d'entreprise, 2) Authentification forte (MFA), 3) Antivirus/EDR sur les postes distants, 4) Politique de mots de passe robuste, 5) Sensibilisation des collaborateurs. SOCIAL SOFT déploie des solutions de télétravail sécurisées pour les PME.",
+  },
 ];
 
 // Toutes les FAQ pour le schema JSON-LD (SEO)
