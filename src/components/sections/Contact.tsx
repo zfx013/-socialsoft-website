@@ -128,7 +128,7 @@ export default function Contact() {
     setError(null);
 
     try {
-      await fetch('https://script.google.com/macros/s/AKfycbzJe1QiiGthrERD8M4sKDbCa29UZwn7n5twZilV4Tt82JtSoFRKphU2asN-U_vdPXQu/exec', {
+      await fetch('https://script.google.com/macros/s/AKfycby2klpY8gBsa2euIznYGGyfMCVLkGoBvFsXvCCnJ2Hd48CVHxJaHGyWgkIK5nt0HMyeUA/exec', {
         method: 'POST',
         mode: 'no-cors',
         headers: {
