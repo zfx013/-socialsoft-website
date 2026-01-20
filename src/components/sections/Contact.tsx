@@ -128,8 +128,12 @@ export default function Contact() {
     setError(null);
 
     try {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbzJe1QiiGthrERD8M4sKDbCa29UZwn7n5twZilV4Tt82JtSoFRKphU2asN-U_vdPXQu/exec', {
+      await fetch('https://script.google.com/macros/s/AKfycbzJe1QiiGthrERD8M4sKDbCa29UZwn7n5twZilV4Tt82JtSoFRKphU2asN-U_vdPXQu/exec', {
         method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain',
+        },
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
@@ -138,12 +142,6 @@ export default function Contact() {
           message: formData.message,
         }),
       });
-
-      const data = await response.json();
-
-      if (!data.success) {
-        throw new Error(data.message || 'Erreur lors de l\'envoi');
-      }
 
       setIsSubmitted(true);
 
