@@ -128,18 +128,26 @@ export default function Contact() {
     setError(null);
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          access_key: '14594310-a3dc-4be5-a952-c249760aa2ca',
+          subject: `[Contact Site Web] ${formData.subject}`,
+          from_name: 'SocialSoft Website',
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || 'Non renseigné',
+          message: formData.message,
+        }),
       });
 
       const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Erreur lors de l\'envoi');
+      if (!data.success) {
+        throw new Error(data.message || 'Erreur lors de l\'envoi');
       }
 
       setIsSubmitted(true);
