@@ -110,6 +110,28 @@ export default function Coverage() {
                 </div>
               </SectionTransition>
 
+              {/* Villes d'intervention - SEO local */}
+              <SectionTransition animation="slide-up" delay={0.5}>
+                <div className="p-4 rounded-xl bg-dark-700/30 border border-dark-600/50">
+                  <p className="text-xs text-light-300 font-medium mb-2">Villes principales d&apos;intervention :</p>
+                  <p className="text-xs text-light-400 leading-relaxed">
+                    <strong className="text-light-200">Val-d&apos;Oise (95)</strong> : Saint-Ouen-l&apos;Aumône, Cergy, Pontoise, Argenteuil, Sarcelles, Franconville, Ermont, Herblay, Taverny, Bezons, Eaubonne, Montmorency, Enghien-les-Bains
+                    {' • '}
+                    <strong className="text-light-200">Hauts-de-Seine (92)</strong> : Nanterre, Boulogne-Billancourt, Colombes, Courbevoie, Asnières, Rueil-Malmaison, Levallois-Perret, Issy-les-Moulineaux, Neuilly, La Défense
+                    {' • '}
+                    <strong className="text-light-200">Yvelines (78)</strong> : Versailles, Sartrouville, Saint-Germain-en-Laye, Poissy, Conflans-Sainte-Honorine, Mantes-la-Jolie
+                    {' • '}
+                    <strong className="text-light-200">Paris (75)</strong> : Tous arrondissements
+                    {' • '}
+                    <strong className="text-light-200">Seine-Saint-Denis (93)</strong> : Saint-Denis, Aubervilliers, Montreuil, Bobigny, Pantin
+                    {' • '}
+                    <strong className="text-light-200">Val-de-Marne (94)</strong> : Créteil, Vitry, Saint-Maur, Champigny
+                    {' • '}
+                    <strong className="text-light-200">Essonne (91)</strong> : Évry, Corbeil, Massy
+                  </p>
+                </div>
+              </SectionTransition>
+
             </div>
           </div>
 

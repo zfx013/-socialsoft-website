@@ -1,0 +1,124 @@
+# SOCIAL SOFT - Services Informatiques Ile-de-France
+
+> SOCIAL SOFT est une entreprise de services informatiques basee a Saint-Ouen-l'Aumone (Val-d'Oise, Ile-de-France). Nous accompagnons les TPE et PME de 1 a 250 salaries dans leur transformation digitale depuis notre creation. Notre equipe d'experts intervient sur site en Ile-de-France et a distance dans toute la France.
+
+## A propos de SOCIAL SOFT
+
+SOCIAL SOFT est un prestataire informatique specialise dans l'accompagnement des petites et moyennes entreprises. Notre mission est de fournir des solutions IT sur mesure, fiables et securisees, permettant a nos clients de se concentrer sur leur coeur de metier.
+
+- **Localisation** : Saint-Ouen-l'Aumone, Val-d'Oise (95), Ile-de-France
+- **Zone d'intervention sur site** : Ile-de-France (Paris, Hauts-de-Seine, Seine-Saint-Denis, Val-de-Marne, Essonne, Yvelines, Val-d'Oise, Seine-et-Marne)
+- **Zone d'intervention a distance** : France entiere et international
+- **Clientele cible** : TPE et PME de 1 a 250 salaries
+- **Note moyenne** : 4.9/5 basee sur 47 avis clients
+
+## Services proposes
+
+### Developpement sur mesure
+Le developpement sur mesure consiste a creer des applications web, logiciels et sites internet specifiquement concus pour repondre aux besoins uniques de votre entreprise. Contrairement aux solutions standardisees, nos developpements s'adaptent a vos processus metier existants.
+
+- Sites web professionnels et vitrines
+- Applications metier sur mesure
+- Logiciels de gestion adaptes
+- Integration d'API et systemes existants
+- Maintenance et evolution applicative
+
+### Infrastructure et Reseaux
+L'infrastructure informatique est le socle technique de votre entreprise. Nous concevons, installons et maintenons des infrastructures performantes et securisees.
+
+- Installation de baies serveurs
+- Cablage reseau structure (cuivre et fibre)
+- Configuration switches et routeurs
+- Mise en place de VPN securises
+- Virtualisation (VMware, Hyper-V)
+- Solutions WiFi professionnelles
+
+### Cybersecurite
+La cybersecurite protege votre entreprise contre les menaces informatiques. 43% des cyberattaques ciblent les TPE/PME, rendant la protection indispensable.
+
+- Audits de securite informatique
+- Installation et gestion de pare-feu
+- Solutions antivirus et EDR professionnels
+- Protection contre les ransomwares
+- Mise en conformite RGPD
+- Sensibilisation des collaborateurs
+- Plan de continuite d'activite (PCA/PRA)
+
+### Support et Maintenance
+Le support informatique assure le bon fonctionnement quotidien de votre systeme d'information avec une reactivite optimale.
+
+- Helpdesk et support utilisateurs
+- Maintenance preventive et curative
+- Telemaintenance et prise en main a distance
+- Intervention sur site en 4h (contrat Premium)
+- Gestion de parc informatique
+- Supervision et monitoring 24/7
+
+### Cloud et Hebergement
+Le cloud computing permet d'acceder a vos ressources informatiques depuis n'importe ou, avec flexibilite et securite.
+
+- Migration vers le cloud (Azure, AWS, Google Cloud)
+- Deploiement Microsoft 365 et Teams
+- Sauvegarde cloud automatisee
+- Hebergement serveurs en datacenter francais
+- Solutions collaboratives
+
+### Conseil et Accompagnement
+Le conseil informatique vous aide a prendre les bonnes decisions technologiques pour votre entreprise.
+
+- Audit de l'existant
+- Schema directeur informatique
+- Accompagnement transformation digitale
+- Choix de solutions adaptees
+- Formation des equipes
+
+## Pourquoi choisir SOCIAL SOFT ?
+
+1. **Proximite** : Base dans le Val-d'Oise, nous intervenons rapidement sur site en Ile-de-France
+2. **Expertise** : Equipe de techniciens certifies avec plus de 10 ans d'experience
+3. **Reactivite** : Intervention en moins de 4h pour les urgences critiques
+4. **Transparence** : Tarifs clairs, devis gratuits, pas de frais caches
+5. **Accompagnement** : Un interlocuteur unique qui connait votre infrastructure
+6. **Flexibilite** : Contrats avec ou sans engagement adaptes a votre budget
+
+## Contact
+
+- **Telephone** : 07 82 25 10 99
+- **Email support** : support@socialsoft.fr
+- **Email contact** : contact@socialsoft.fr
+- **Adresse** : 52 Rue des Grandes Cotes, 95310 Saint-Ouen-l'Aumone, France
+- **Site web** : https://socialsoft.fr
+
+## Horaires
+
+- Lundi au Vendredi : 9h00 - 18h00
+- Support d'urgence disponible 24/7 pour les clients sous contrat
+
+## Villes d'intervention principales
+
+Val-d'Oise (95) : Saint-Ouen-l'Aumone, Cergy, Pontoise, Argenteuil, Sarcelles, Franconville, Ermont, Herblay, Taverny, Bezons
+
+Hauts-de-Seine (92) : Nanterre, Boulogne-Billancourt, Colombes, Courbevoie, Asnieres-sur-Seine, Rueil-Malmaison, Levallois-Perret, Issy-les-Moulineaux, Neuilly-sur-Seine
+
+Yvelines (78) : Versailles, Sartrouville, Saint-Germain-en-Laye, Poissy, Conflans-Sainte-Honorine
+
+Paris (75) : Tous arrondissements
+
+Seine-Saint-Denis (93) : Saint-Denis, Aubervilliers, Montreuil, Bobigny
+
+## Questions frequentes
+
+### Combien coute un prestataire informatique pour une PME ?
+Les tarifs varient selon les besoins : de 50 a 150 EUR HT par poste et par mois pour une infogerance complete. SOCIAL SOFT propose un audit gratuit pour etablir un devis personnalise.
+
+### Quel est le delai d'intervention en cas de panne ?
+Pour les clients sous contrat Premium, nous garantissons une prise en charge en moins de 2h et une intervention sur site en moins de 4h en Ile-de-France. Le support a distance est immediat.
+
+### Proposez-vous des contrats sans engagement ?
+Oui, nous proposons des formules flexibles : contrat mensuel sans engagement, contrat annuel avec tarif preferentiel (-15%), ou interventions ponctuelles a la demande.
+
+### Dans quelles villes intervenez-vous ?
+Nous intervenons sur site dans toute l'Ile-de-France (8 departements) et proposons du support a distance partout en France et a l'international.
+
+### Comment choisir entre infogerance et maintenance ponctuelle ?
+L'infogerance est recommandee pour les entreprises de plus de 5 postes souhaitant une gestion proactive. La maintenance ponctuelle convient aux tres petites structures avec des besoins occasionnels.
