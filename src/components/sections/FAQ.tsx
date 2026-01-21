@@ -2,12 +2,12 @@
 
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown, HelpCircle, Plus } from 'lucide-react';
+import { ChevronDown, HelpCircle } from 'lucide-react';
 import GlowEffect from '@/components/effects/GlowEffect';
 import SplitText from '@/components/effects/SplitText';
 
-// Questions principales affichées par défaut (4 essentielles)
-const mainFaqs = [
+// Questions visibles pour les utilisateurs (les 6 originales)
+const visibleFaqs = [
   {
     question: "Qu'est-ce que l'infogérance informatique ?",
     answer: "L'infogérance est l'externalisation de la gestion de votre système informatique à un prestataire spécialisé. Elle comprend : supervision du parc, maintenance préventive et corrective, gestion des sauvegardes, sécurité, support utilisateurs et conseils stratégiques. C'est la solution idéale pour les PME souhaitant un SI performant sans équipe IT interne.",
@@ -17,8 +17,16 @@ const mainFaqs = [
     answer: "Nos délais d'intervention en Île-de-France sont garantis par contrat (SLA) : Panne critique (serveur HS, ransomware) : 4 heures maximum. Panne majeure (poste bloqué, imprimante) : 8 heures. Demande standard : 24-48 heures. Le support à distance démarre en moins de 30 minutes pour 80% des incidents.",
   },
   {
+    question: "Dans quelles villes d'Île-de-France intervenez-vous ?",
+    answer: "SocialSoft intervient sur toute l'Île-de-France : Paris (75), Hauts-de-Seine (92), Seine-Saint-Denis (93), Val-de-Marne (94), Val-d'Oise (95), Yvelines (78), Essonne (91), Seine-et-Marne (77). Notre siège à Saint-Ouen-l'Aumône nous permet d'être particulièrement réactifs dans le Val-d'Oise et le nord parisien.",
+  },
+  {
     question: 'Comment sécuriser mon entreprise contre les cyberattaques ?',
     answer: "Une protection efficace repose sur 5 piliers : 1) Antivirus/EDR professionnel sur tous les postes, 2) Pare-feu nouvelle génération, 3) Sauvegardes 3-2-1 testées régulièrement, 4) Formation des employés au phishing, 5) Mises à jour automatiques. Nous auditons gratuitement votre sécurité et proposons des solutions adaptées à votre entreprise.",
+  },
+  {
+    question: "Quels types d'entreprises accompagnez-vous ?",
+    answer: "Nous accompagnons les TPE et PME de 1 à 250 salariés en Île-de-France, tous secteurs : commerce, industrie, services, santé, immobilier, transport, associations. Notre offre s'adapte à chaque taille : du pack TPE (1-10 postes) à l'infogérance complète pour PME (10-250 postes).",
   },
   {
     question: 'Proposez-vous des contrats sans engagement ?',
@@ -26,16 +34,8 @@ const mainFaqs = [
   },
 ];
 
-// Questions supplémentaires (affichées au clic sur "Plus de questions")
-const additionalFaqs = [
-  {
-    question: "Dans quelles villes d'Île-de-France intervenez-vous ?",
-    answer: "SocialSoft intervient sur toute l'Île-de-France : Paris (75), Hauts-de-Seine (92), Seine-Saint-Denis (93), Val-de-Marne (94), Val-d'Oise (95), Yvelines (78), Essonne (91), Seine-et-Marne (77). Notre siège à Saint-Ouen-l'Aumône nous permet d'être particulièrement réactifs dans le Val-d'Oise et le nord parisien.",
-  },
-  {
-    question: "Quels types d'entreprises accompagnez-vous ?",
-    answer: "Nous accompagnons les TPE et PME de 1 à 250 salariés en Île-de-France, tous secteurs : commerce, industrie, services, santé, immobilier, transport, associations. Notre offre s'adapte à chaque taille : du pack TPE (1-10 postes) à l'infogérance complète pour PME (10-250 postes).",
-  },
+// Questions cachées visuellement mais accessibles pour SEO et IA
+const hiddenFaqs = [
   {
     question: 'Comment choisir son infogérant informatique ?',
     answer: "Pour bien choisir votre infogérant, vérifiez : 1) Sa proximité géographique (intervention rapide), 2) Ses certifications (Microsoft, Cisco, etc.), 3) Ses SLA (délais d'intervention garantis), 4) Ses références clients dans votre secteur, 5) La clarté de son offre, 6) Sa disponibilité (astreinte 24/7 ?). SocialSoft répond à tous ces critères en Île-de-France.",
@@ -108,7 +108,6 @@ const additionalFaqs = [
     question: "Comment protéger ma PME des ransomwares ?",
     answer: "Pour protéger votre PME des ransomwares, adoptez ces 5 mesures essentielles : 1) Sauvegardes automatisées hors-ligne (règle 3-2-1), 2) Solution EDR/antivirus professionnelle sur tous les postes, 3) Formation des employés aux techniques de phishing, 4) Mises à jour systématiques des systèmes et logiciels, 5) Pare-feu nouvelle génération avec filtrage. SOCIAL SOFT propose un audit cybersécurité gratuit.",
   },
-  // Questions optimisées recherche vocale
   {
     question: "C'est quoi la règle de sauvegarde 3-2-1 ?",
     answer: "La règle 3-2-1 est une stratégie de sauvegarde recommandée : 3 copies de vos données, sur 2 supports différents (disque dur + cloud par exemple), dont 1 copie hors site (cloud ou site distant). Cette méthode protège contre les pannes matérielles, les ransomwares et les sinistres. SOCIAL SOFT met en place cette stratégie pour ses clients PME.",
@@ -149,10 +148,18 @@ const additionalFaqs = [
     question: "Peut-on télétravailler en toute sécurité ?",
     answer: "Le télétravail sécurisé nécessite : 1) VPN chiffré pour accéder au réseau d'entreprise, 2) Authentification forte (MFA), 3) Antivirus/EDR sur les postes distants, 4) Politique de mots de passe robuste, 5) Sensibilisation des collaborateurs. SOCIAL SOFT déploie des solutions de télétravail sécurisées pour les PME.",
   },
+  {
+    question: "Combien coûte un prestataire informatique pour une PME ?",
+    answer: "Les tarifs d'un prestataire informatique varient selon les besoins. Pour une infogérance complète, comptez entre 50€ et 150€ HT par poste et par mois. SOCIAL SOFT propose un audit gratuit pour établir un devis personnalisé adapté à votre structure et vos besoins.",
+  },
+  {
+    question: "Quel est le prix d'un contrat d'infogérance ?",
+    answer: "Le prix d'un contrat d'infogérance dépend du nombre de postes, du niveau de service (SLA) et des services inclus. En moyenne : 50-80€/poste/mois pour une formule basique, 80-120€/poste/mois pour une formule standard avec cybersécurité, 120-150€/poste/mois pour une infogérance premium 24/7.",
+  },
 ];
 
 // Toutes les FAQ pour le schema JSON-LD (SEO)
-const allFaqs = [...mainFaqs, ...additionalFaqs];
+const allFaqs = [...visibleFaqs, ...hiddenFaqs];
 
 // Génération du schema JSON-LD pour les rich snippets Google
 const faqJsonLd = {
@@ -238,14 +245,11 @@ function FAQItem({ question, answer, isOpen, onClick, index }: FAQItemProps) {
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
-  const [showAll, setShowAll] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
 
   const handleClick = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
-
-  const displayedFaqs = showAll ? allFaqs : mainFaqs;
 
   return (
     <section
@@ -253,7 +257,7 @@ export default function FAQ() {
       id="faq"
       className="relative py-24 lg:py-32 bg-dark-900 overflow-hidden"
     >
-      {/* Schema JSON-LD pour les rich snippets Google */}
+      {/* Schema JSON-LD pour les rich snippets Google (toutes les questions) */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
@@ -285,9 +289,9 @@ export default function FAQ() {
           </p>
         </div>
 
-        {/* FAQ Items */}
+        {/* FAQ Items visibles */}
         <div className="space-y-4">
-          {displayedFaqs.map((faq, index) => (
+          {visibleFaqs.map((faq, index) => (
             <FAQItem
               key={index}
               question={faq.question}
@@ -299,24 +303,16 @@ export default function FAQ() {
           ))}
         </div>
 
-        {/* Bouton Plus de questions */}
-        {!showAll && (
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-            viewport={{ once: true, amount: 0.5 }}
-            className="mt-8 text-center"
-          >
-            <button
-              onClick={() => setShowAll(true)}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-dark-700/50 border border-dark-600 hover:border-accent-blue/50 hover:bg-dark-700 text-light-100 font-medium transition-all duration-300 group"
-            >
-              <Plus className="w-5 h-5 text-accent-blue group-hover:rotate-90 transition-transform duration-300" />
-              Plus de questions ({additionalFaqs.length})
-            </button>
-          </motion.div>
-        )}
+        {/* FAQ cachées pour SEO et IA (invisibles pour les utilisateurs) */}
+        <div className="sr-only" aria-hidden="false">
+          <h3>Questions supplémentaires</h3>
+          {hiddenFaqs.map((faq, index) => (
+            <div key={index}>
+              <h4>{faq.question}</h4>
+              <p>{faq.answer}</p>
+            </div>
+          ))}
+        </div>
 
         {/* CTA */}
         <motion.div
