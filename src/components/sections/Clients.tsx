@@ -44,7 +44,7 @@ export default function Clients() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-20">
           <motion.span
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -98,7 +98,7 @@ export default function Clients() {
           {testimonials.map((testimonial, index) => (
             <SectionTransition key={index} animation="slide-up" delay={index * 0.1}>
             <div
-              className="group relative p-6 lg:p-8 rounded-2xl bg-dark-800/30 border border-dark-700 hover:border-accent-blue/30 transition-all duration-300 h-full"
+              className="group relative p-8 lg:p-10 rounded-2xl bg-dark-800/30 border border-dark-700 hover:border-accent-blue/30 transition-all duration-300 h-full"
             >
               {/* Quote icon */}
               <div className="absolute -top-3 -left-3 w-10 h-10 rounded-xl bg-accent-blue/10 flex items-center justify-center">
