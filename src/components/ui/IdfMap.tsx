@@ -153,25 +153,6 @@ export default function IdfMap() {
           </filter>
         </defs>
 
-        {/* Lignes de connexion depuis le siège */}
-        {isVisible && departments.map((dept, i) => (
-          <motion.line
-            key={`line-${dept.id}`}
-            x1={headquarters.x}
-            y1={headquarters.y}
-            x2={dept.center.x}
-            y2={dept.center.y}
-            stroke={activeConnection === i ? '#06B6D4' : '#3B82F6'}
-            strokeWidth={activeConnection === i ? 3 : 1}
-            strokeOpacity={activeConnection === i ? 0.9 : 0.15}
-            strokeDasharray={activeConnection === i ? '0' : '6 6'}
-            filter={activeConnection === i ? 'url(#glow)' : undefined}
-            initial={{ pathLength: 0, opacity: 0 }}
-            animate={{ pathLength: 1, opacity: 1 }}
-            transition={{ duration: 1, delay: i * 0.1 }}
-          />
-        ))}
-
         {/* Départements */}
         {departments.map((dept, i) => {
           const isHovered = hoveredDept === dept.id;
