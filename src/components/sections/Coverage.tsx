@@ -72,7 +72,7 @@ export default function Coverage() {
             <div className="space-y-4">
               {/* Intervention sur site */}
               <SectionTransition animation="slide-up" delay={0.3}>
-                <div className="p-5 rounded-xl bg-dark-700/50 border border-accent-cyan/30 hover:border-accent-cyan/50 transition-colors">
+                <div className="p-4 rounded-xl bg-dark-700/50 border border-accent-cyan/30 hover:border-accent-cyan/50 transition-colors">
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-3 h-3 rounded-full bg-accent-cyan animate-pulse"></div>
                     <span className="text-accent-cyan font-semibold">Intervention sur site</span>
@@ -92,7 +92,7 @@ export default function Coverage() {
 
               {/* Développement */}
               <SectionTransition animation="slide-up" delay={0.4}>
-                <div className="p-5 rounded-xl bg-dark-700/50 border border-accent-blue/30 hover:border-accent-blue/50 transition-colors">
+                <div className="p-4 rounded-xl bg-dark-700/50 border border-accent-blue/30 hover:border-accent-blue/50 transition-colors">
                   <div className="flex items-center gap-3 mb-3">
                     <div className="w-3 h-3 rounded-full bg-accent-blue animate-pulse"></div>
                     <span className="text-accent-blue font-semibold">Développement logiciel</span>

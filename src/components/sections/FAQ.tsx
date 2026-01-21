@@ -202,7 +202,7 @@ function FAQItem({ question, answer, isOpen, onClick, index }: FAQItemProps) {
         onClick={onClick}
         aria-expanded={isOpen}
         aria-controls={`faq-answer-${index}`}
-        className={`w-full text-left p-7 rounded-2xl transition-all duration-300 ${
+        className={`w-full text-left p-6 rounded-2xl transition-all duration-300 ${
           isOpen
             ? 'bg-dark-700/80 border border-accent-blue/30'
             : 'bg-dark-800/50 border border-dark-600 hover:border-dark-500 hover:bg-dark-700/50'
@@ -268,7 +268,7 @@ export default function FAQ() {
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}

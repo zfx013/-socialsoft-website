@@ -219,7 +219,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 3.5 }}
-          className="inline-flex items-center gap-2 px-5 py-2.5 mb-10 rounded-full bg-dark-700/50 border border-dark-600 text-light-200 text-sm backdrop-blur-sm hover:border-accent-blue/50 hover:bg-dark-600/50 transition-all cursor-pointer"
+          className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-dark-700/50 border border-dark-600 text-light-200 text-sm backdrop-blur-sm hover:border-accent-blue/50 hover:bg-dark-600/50 transition-all cursor-pointer"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
         >
@@ -232,7 +232,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 3.4 }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-light-100 mb-8 leading-tight"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-light-100 mb-6 leading-tight"
         >
           Votre IT, de la{' '}
           <span className="text-gradient">conception</span>
@@ -245,7 +245,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 3.6 }}
-          className="text-lg sm:text-xl text-light-200 max-w-2xl mx-auto mb-12"
+          className="text-lg sm:text-xl text-light-100 max-w-2xl mx-auto mb-10"
         >
           Accompagnement complet pour TPE et PME : conseil, développement, infrastructure, support.
         </motion.p>

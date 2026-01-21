@@ -75,7 +75,7 @@ export default function Stats() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-20 lg:py-28 bg-dark-900 overflow-hidden"
+      className="relative pt-0 pb-20 lg:pt-0 lg:pb-28 bg-dark-900 overflow-hidden"
     >
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-5">
@@ -102,7 +102,7 @@ export default function Stats() {
                 className="relative group"
               >
                 {/* Card */}
-                <div className="relative p-8 lg:p-10 rounded-2xl bg-dark-800/50 border border-dark-700 hover:border-accent-blue/30 transition-all duration-300 text-center">
+                <div className="relative p-6 lg:p-8 rounded-2xl bg-dark-800/50 border border-dark-700 hover:border-accent-blue/30 transition-all duration-300 text-center">
                   {/* Icon */}
                   <div className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-accent-blue/20 to-accent-cyan/10 text-accent-blue mb-4 group-hover:scale-110 transition-transform duration-300">
                     <Icon className="w-7 h-7" />

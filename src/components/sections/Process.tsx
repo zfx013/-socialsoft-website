@@ -141,14 +141,14 @@ export default function Process() {
                   {/* Content */}
                   <div className={`flex-1 ${isEven ? 'lg:text-right' : 'lg:text-left'}`}>
                     <div
-                      className={`inline-block p-8 rounded-2xl bg-dark-700/50 border border-dark-600 hover:border-accent-blue/30 transition-all duration-300 ${
+                      className={`inline-block p-6 rounded-2xl bg-dark-700/50 border border-dark-600 hover:border-accent-blue/30 transition-all duration-300 ${
                         isEven ? 'lg:ml-auto' : 'lg:mr-auto'
                       }`}
                     >
-                      <div className={`flex items-center gap-4 mb-5 ${isEven ? 'lg:flex-row-reverse' : ''}`}>
-                        <div className={`w-14 h-14 rounded-xl bg-gradient-to-r ${step.color} p-0.5`}>
+                      <div className={`flex items-center gap-4 mb-4 ${isEven ? 'lg:flex-row-reverse' : ''}`}>
+                        <div className={`w-12 h-12 rounded-xl bg-gradient-to-r ${step.color} p-0.5`}>
                           <div className="w-full h-full rounded-xl bg-dark-800 flex items-center justify-center">
-                            <Icon className="w-7 h-7 text-light-100" />
+                            <Icon className="w-6 h-6 text-light-100" />
                           </div>
                         </div>
                         <h3 className="text-xl font-semibold text-light-100">

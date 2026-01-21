@@ -180,7 +180,7 @@ export default function Colibri() {
                     ease: [0.25, 0.1, 0.25, 1]
                   }}
                   viewport={{ once: true, amount: 0.2 }}
-                  className="p-6 rounded-xl bg-dark-800/50 border border-dark-700 hover:border-accent-cyan/30 transition-colors group"
+                  className="p-5 rounded-xl bg-dark-800/50 border border-dark-700 hover:border-accent-cyan/30 transition-colors group"
                 >
                   <div className="w-12 h-12 rounded-lg bg-accent-cyan/10 flex items-center justify-center mb-4 group-hover:bg-accent-cyan/20 transition-colors">
                     <feature.icon className="w-6 h-6 text-accent-cyan" />

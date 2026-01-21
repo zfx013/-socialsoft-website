@@ -32,7 +32,7 @@ export default function WhyUs() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-16">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
@@ -95,7 +95,7 @@ function WhyUsCard({ item, index }: WhyUsCardProps) {
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="group relative flex gap-6 p-7 lg:p-9 rounded-2xl bg-dark-700/30 border border-dark-600 hover:border-accent-cyan/30 transition-all duration-300 overflow-hidden h-full"
+      className="group relative flex gap-5 p-6 lg:p-8 rounded-2xl bg-dark-700/30 border border-dark-600 hover:border-accent-cyan/30 transition-all duration-300 overflow-hidden h-full"
     >
       {/* Animated border glow */}
       <AnimatePresence>

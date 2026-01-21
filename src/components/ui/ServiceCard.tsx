@@ -74,7 +74,7 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
         transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
         transformStyle: 'preserve-3d',
       }}
-      className="group relative p-8 lg:p-10 rounded-2xl bg-dark-800/80 backdrop-blur-sm border border-dark-600 hover:border-accent-blue/50 transition-all duration-300 h-full overflow-hidden"
+      className="group relative p-6 lg:p-8 rounded-2xl bg-dark-800/80 backdrop-blur-sm border border-dark-600 hover:border-accent-blue/50 transition-all duration-300 h-full overflow-hidden"
     >
       {/* Animated border glow */}
       <motion.div
@@ -164,10 +164,10 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
 
       {/* Icon with 3D lift */}
       <div
-        className="relative mb-6 inline-flex items-center justify-center w-16 h-16 rounded-xl bg-gradient-to-br from-accent-blue/20 to-accent-cyan/10 text-accent-blue group-hover:from-accent-blue group-hover:to-accent-cyan group-hover:text-white transition-all duration-300 group-hover:shadow-lg group-hover:shadow-accent-blue/30"
+        className="relative mb-5 inline-flex items-center justify-center w-14 h-14 rounded-xl bg-gradient-to-br from-accent-blue/20 to-accent-cyan/10 text-accent-blue group-hover:from-accent-blue group-hover:to-accent-cyan group-hover:text-white transition-all duration-300 group-hover:shadow-lg group-hover:shadow-accent-blue/30"
         style={{ transform: 'translateZ(20px)' }}
       >
-        <Icon className="w-8 h-8" />
+        <Icon className="w-7 h-7" />
         {/* Icon glow pulse */}
         <motion.div
           className="absolute inset-0 rounded-xl bg-accent-cyan/20"
@@ -181,10 +181,10 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
 
       {/* Content with 3D lift */}
       <div style={{ transform: 'translateZ(10px)' }} className="relative">
-        <h3 className="relative text-xl font-semibold text-light-100 mb-4 group-hover:text-white transition-colors duration-300">
+        <h3 className="relative text-xl font-semibold text-light-100 mb-3 group-hover:text-white transition-colors duration-300">
           {service.title}
         </h3>
-        <p className="relative text-light-200 leading-relaxed">
+        <p className="relative text-light-200 leading-relaxed text-sm">
           {service.description}
         </p>
       </div>

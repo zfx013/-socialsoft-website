@@ -117,7 +117,7 @@ export default function Services() {
     <section
       ref={sectionRef}
       id="services"
-      className="relative py-24 lg:py-32 bg-dark-900 overflow-hidden"
+      className="relative pt-16 pb-8 lg:pt-32 lg:pb-12 bg-dark-900 overflow-hidden"
     >
       {/* Background glow */}
       <GlowEffect className="top-0 right-0 -translate-y-1/2 translate-x-1/2" size="lg" />
@@ -128,8 +128,8 @@ export default function Services() {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Titre */}
-        <div ref={titleRef} className="mb-16 lg:mb-20 text-center">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-light-100 mb-6">
+        <div ref={titleRef} className="mb-10 lg:mb-16 text-center">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-light-100 mb-4">
             Nos services
           </h2>
           <p className="text-lg text-light-200 max-w-2xl mx-auto">
