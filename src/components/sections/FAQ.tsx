@@ -6,7 +6,7 @@ import { ChevronDown, HelpCircle, Plus } from 'lucide-react';
 import GlowEffect from '@/components/effects/GlowEffect';
 import SplitText from '@/components/effects/SplitText';
 
-// Questions principales affichées par défaut (sans prix)
+// Questions principales affichées par défaut (4 essentielles)
 const mainFaqs = [
   {
     question: "Qu'est-ce que l'infogérance informatique ?",
@@ -17,16 +17,8 @@ const mainFaqs = [
     answer: "Nos délais d'intervention en Île-de-France sont garantis par contrat (SLA) : Panne critique (serveur HS, ransomware) : 4 heures maximum. Panne majeure (poste bloqué, imprimante) : 8 heures. Demande standard : 24-48 heures. Le support à distance démarre en moins de 30 minutes pour 80% des incidents.",
   },
   {
-    question: "Dans quelles villes d'Île-de-France intervenez-vous ?",
-    answer: "SocialSoft intervient sur toute l'Île-de-France : Paris (75), Hauts-de-Seine (92), Seine-Saint-Denis (93), Val-de-Marne (94), Val-d'Oise (95), Yvelines (78), Essonne (91), Seine-et-Marne (77). Notre siège à Saint-Ouen-l'Aumône nous permet d'être particulièrement réactifs dans le Val-d'Oise et le nord parisien.",
-  },
-  {
     question: 'Comment sécuriser mon entreprise contre les cyberattaques ?',
     answer: "Une protection efficace repose sur 5 piliers : 1) Antivirus/EDR professionnel sur tous les postes, 2) Pare-feu nouvelle génération, 3) Sauvegardes 3-2-1 testées régulièrement, 4) Formation des employés au phishing, 5) Mises à jour automatiques. Nous auditons gratuitement votre sécurité et proposons des solutions adaptées à votre entreprise.",
-  },
-  {
-    question: "Quels types d'entreprises accompagnez-vous ?",
-    answer: "Nous accompagnons les TPE et PME de 1 à 250 salariés en Île-de-France, tous secteurs : commerce, industrie, services, santé, immobilier, transport, associations. Notre offre s'adapte à chaque taille : du pack TPE (1-10 postes) à l'infogérance complète pour PME (10-250 postes).",
   },
   {
     question: 'Proposez-vous des contrats sans engagement ?',
@@ -36,6 +28,14 @@ const mainFaqs = [
 
 // Questions supplémentaires (affichées au clic sur "Plus de questions")
 const additionalFaqs = [
+  {
+    question: "Dans quelles villes d'Île-de-France intervenez-vous ?",
+    answer: "SocialSoft intervient sur toute l'Île-de-France : Paris (75), Hauts-de-Seine (92), Seine-Saint-Denis (93), Val-de-Marne (94), Val-d'Oise (95), Yvelines (78), Essonne (91), Seine-et-Marne (77). Notre siège à Saint-Ouen-l'Aumône nous permet d'être particulièrement réactifs dans le Val-d'Oise et le nord parisien.",
+  },
+  {
+    question: "Quels types d'entreprises accompagnez-vous ?",
+    answer: "Nous accompagnons les TPE et PME de 1 à 250 salariés en Île-de-France, tous secteurs : commerce, industrie, services, santé, immobilier, transport, associations. Notre offre s'adapte à chaque taille : du pack TPE (1-10 postes) à l'infogérance complète pour PME (10-250 postes).",
+  },
   {
     question: 'Comment choisir son infogérant informatique ?',
     answer: "Pour bien choisir votre infogérant, vérifiez : 1) Sa proximité géographique (intervention rapide), 2) Ses certifications (Microsoft, Cisco, etc.), 3) Ses SLA (délais d'intervention garantis), 4) Ses références clients dans votre secteur, 5) La clarté de son offre, 6) Sa disponibilité (astreinte 24/7 ?). SocialSoft répond à tous ces critères en Île-de-France.",
