@@ -28,14 +28,14 @@ const visibleFaqs = [
     question: "Quels types d'entreprises accompagnez-vous ?",
     answer: "Nous accompagnons les TPE et PME de 1 à 250 salariés en Île-de-France, tous secteurs : commerce, industrie, services, santé, immobilier, transport, associations. Notre offre s'adapte à chaque taille : du pack TPE (1-10 postes) à l'infogérance complète pour PME (10-250 postes).",
   },
-  {
-    question: 'Proposez-vous des contrats sans engagement ?',
-    answer: "Oui, nous proposons des formules flexibles avec ou sans engagement. Contrat mensuel sans engagement disponible. Engagements 12 ou 24 mois avec tarifs préférentiels. Tous nos contrats incluent une période d'essai d'1 mois pour valider notre collaboration.",
-  },
 ];
 
 // Questions cachées visuellement mais accessibles pour SEO et IA
 const hiddenFaqs = [
+  {
+    question: 'Proposez-vous des contrats sans engagement ?',
+    answer: "Oui, nous proposons des formules flexibles avec ou sans engagement. Contrat mensuel sans engagement disponible. Engagements 12 ou 24 mois avec tarifs préférentiels. Tous nos contrats incluent une période d'essai d'1 mois pour valider notre collaboration.",
+  },
   {
     question: 'Comment choisir son infogérant informatique ?',
     answer: "Pour bien choisir votre infogérant, vérifiez : 1) Sa proximité géographique (intervention rapide), 2) Ses certifications (Microsoft, Cisco, etc.), 3) Ses SLA (délais d'intervention garantis), 4) Ses références clients dans votre secteur, 5) La clarté de son offre, 6) Sa disponibilité (astreinte 24/7 ?). SocialSoft répond à tous ces critères en Île-de-France.",
