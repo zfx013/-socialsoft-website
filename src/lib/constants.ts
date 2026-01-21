@@ -12,8 +12,8 @@ export const contact = {
   phone: '0782251099',
   phoneFormatted: '07 82 25 10 99',
   phoneLink: 'tel:+33782251099',
-  email: 'support@socialsoft.fr',
-  emailLink: 'mailto:support@socialsoft.fr',
+  email: 'contact@socialsoft.fr',
+  emailLink: 'mailto:contact@socialsoft.fr',
   linkedin: 'https://www.linkedin.com/company/socialsoft-fr/',
   mapsLink:
     "https://www.google.com/maps/search/?api=1&query=52+Rue+des+Grandes+Côtes+95310+Saint-Ouen-l%27Aumône+France",

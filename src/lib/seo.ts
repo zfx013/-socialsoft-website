@@ -153,7 +153,7 @@ export const jsonLd = {
         },
         {
           '@type': 'ContactPoint',
-          email: 'support@socialsoft.fr',
+          email: 'contact@socialsoft.fr',
           contactType: 'technical support',
           availableLanguage: ['French'],
           areaServed: 'FR',
