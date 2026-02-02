@@ -198,7 +198,7 @@ function NetworkTopology() {
     xs: 'w-5 h-5',
   };
 
-  const centerX = 230;
+  const centerX = 260;
   const centerY = 260;
 
   return (
@@ -281,17 +281,6 @@ function NetworkTopology() {
           </div>
         );
       })}
-
-      {/* Indicateurs de zone */}
-      <div
-        className="absolute top-3 right-3 px-3 py-1.5 rounded-lg bg-dark-800/80 border border-dark-600 transition-all duration-500"
-        style={{ opacity: isInView ? 1 : 0, transitionDelay: '0.8s' }}
-      >
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 status-dot" />
-          <span className="text-[11px] text-light-300">14 appareils connectés</span>
-        </div>
-      </div>
 
       {/* Styles */}
       <style jsx>{`
