@@ -11,9 +11,9 @@ export default function Home() {
     <>
       <Hero />
       <Services />
+      <AboutCTA />
       <Stats />
       <Poles />
-      <AboutCTA />
       <Contact />
       <FloatingContact />
     </>
