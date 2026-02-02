@@ -198,11 +198,11 @@ function NetworkTopology() {
     xs: 'w-5 h-5',
   };
 
-  const centerX = 200;
-  const centerY = 200;
+  const centerX = 230;
+  const centerY = 230;
 
   return (
-    <div ref={ref} className="relative w-full max-w-2xl mx-auto h-[480px]">
+    <div ref={ref} className="relative w-full max-w-2xl ml-auto mr-0 h-[450px]">
       {/* Lignes de connexion SVG */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ overflow: 'visible' }}>
         <defs>
