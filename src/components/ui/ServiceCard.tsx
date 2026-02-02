@@ -2,6 +2,7 @@
 
 import { useRef, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 import type { Service } from '@/lib/constants';
 
 interface ServiceCardProps {
@@ -11,7 +12,7 @@ interface ServiceCardProps {
 
 export default function ServiceCard({ service, index }: ServiceCardProps) {
   const Icon = service.icon;
-  const cardRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLAnchorElement>(null);
   const rafRef = useRef<number | null>(null);
   const [rotateX, setRotateX] = useState(0);
   const [rotateY, setRotateY] = useState(0);
@@ -61,9 +62,12 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
     setIsHovered(false);
   }, []);
 
+  const MotionLink = motion.create(Link);
+
   return (
-    <motion.div
+    <MotionLink
       ref={cardRef}
+      href={service.href}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.4, delay: index * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
@@ -74,7 +78,7 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
         transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`,
         transformStyle: 'preserve-3d',
       }}
-      className="group relative p-6 lg:p-8 rounded-2xl bg-dark-800/80 backdrop-blur-sm border border-dark-600 hover:border-accent-blue/50 transition-all duration-300 h-full overflow-hidden"
+      className="block group relative p-6 lg:p-8 rounded-2xl bg-dark-800/80 backdrop-blur-sm border border-dark-600 hover:border-accent-blue/50 transition-all duration-300 h-full overflow-hidden"
     >
       {/* Animated border glow */}
       <motion.div
@@ -242,6 +246,6 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
           </div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </MotionLink>
   );
 }

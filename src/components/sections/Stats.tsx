@@ -3,7 +3,8 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { gsap } from 'gsap';
-import { Users, Briefcase, Award, Heart } from 'lucide-react';
+import { Users, Briefcase, Award, Heart, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 import { siteStats } from '@/lib/config';
 
 const stats = [
@@ -69,8 +70,13 @@ export default function Stats() {
   return (
     <section
       ref={sectionRef}
-      className="relative pt-0 pb-20 lg:pt-0 lg:pb-28 bg-dark-900 overflow-hidden"
+      className="relative py-20 lg:py-28 bg-dark-900 overflow-hidden"
     >
+      {/* Background glow */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent-blue/5 rounded-full blur-3xl" />
+      </div>
+
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-5">
         <div
@@ -83,7 +89,33 @@ export default function Stats() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-12">
+        {/* Badge Partenaire des associations */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          viewport={{ once: true }}
+          className="flex justify-center mb-6"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/30">
+            <Heart className="w-4 h-4 text-emerald-400" />
+            <span className="text-emerald-400 text-sm font-medium">Partenaire des associations</span>
+          </div>
+        </motion.div>
+
+        {/* Title */}
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          viewport={{ once: true }}
+          className="text-3xl sm:text-4xl font-bold text-light-100 mb-12 text-center"
+        >
+          Pourquoi choisir SOCIAL SOFT ?
+        </motion.h2>
+
+        {/* Stats grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-12 mb-10">
           {stats.map((stat, index) => {
             const Icon = stat.icon;
             return (
@@ -91,7 +123,7 @@ export default function Stats() {
                 key={stat.label}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: 0.2 + index * 0.1 }}
                 viewport={{ once: true }}
                 className="relative group"
               >
@@ -127,18 +159,21 @@ export default function Stats() {
           })}
         </div>
 
-        {/* Badge Partenaire des associations */}
+        {/* CTA Button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
           viewport={{ once: true }}
-          className="mt-10 flex justify-center"
+          className="flex justify-center"
         >
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-emerald-500/10 border border-emerald-500/30">
-            <Heart className="w-5 h-5 text-emerald-400" />
-            <span className="text-emerald-400 font-medium">Partenaire des associations</span>
-          </div>
+          <Link
+            href="/pourquoi-nous"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-dark-700 border border-dark-600 text-light-100 font-medium hover:border-accent-blue/50 hover:bg-dark-600 transition-all group"
+          >
+            En savoir plus sur nous
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
         </motion.div>
       </div>
     </section>
