@@ -235,7 +235,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="text-lg sm:text-xl text-light-100 max-w-2xl mx-auto mb-12"
         >
-          Accompagnement complet pour TPE, PME et associations : conseil, développement, infrastructure, support.
+          Accompagnement complet pour TPE, PME et Associations : conseil, développement, infrastructure, support.
         </motion.p>
 
         {/* CTAs */}
