@@ -40,11 +40,13 @@ export default function TextReveal({
 
     const text = textRef.current.innerText;
     const chars = text.split('');
+    const originalContent = textRef.current.innerHTML;
 
     // Pour l'animation decode, on utilise une approche différente
     if (animation === 'decode') {
       const originalText = text;
       let hasTriggered = false;
+      let decodeInterval: NodeJS.Timeout | null = null;
 
       const decode = () => {
         if (hasTriggered) return;
@@ -54,9 +56,9 @@ export default function TextReveal({
         let iteration = 0;
         const maxIterations = originalText.length * 3;
 
-        const interval = setInterval(() => {
+        decodeInterval = setInterval(() => {
           if (!textRef.current) {
-            clearInterval(interval);
+            if (decodeInterval) clearInterval(decodeInterval);
             return;
           }
 
@@ -74,23 +76,32 @@ export default function TextReveal({
           iteration++;
 
           if (iteration > maxIterations) {
-            clearInterval(interval);
-            textRef.current.innerHTML = originalText
-              .split('')
-              .map(char => char === ' ' ? '&nbsp;' : `<span class="text-glow-${glowColor}">${char}</span>`)
-              .join('');
+            if (decodeInterval) clearInterval(decodeInterval);
+            if (textRef.current) {
+              textRef.current.innerHTML = originalText
+                .split('')
+                .map(char => char === ' ' ? '&nbsp;' : `<span class="text-glow-${glowColor}">${char}</span>`)
+                .join('');
+            }
             setIsDecoding(false);
           }
         }, 40);
       };
 
-      ScrollTrigger.create({
+      const trigger = ScrollTrigger.create({
         trigger: containerRef.current,
         start: 'top 80%',
         onEnter: decode,
       });
 
-      return;
+      return () => {
+        if (decodeInterval) clearInterval(decodeInterval);
+        trigger.kill();
+        // Restore original content
+        if (textRef.current) {
+          textRef.current.innerHTML = originalContent;
+        }
+      };
     }
 
     // Remplacer le texte par des spans pour chaque caractère
@@ -135,12 +146,18 @@ export default function TextReveal({
       });
     }, containerRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      // Restore original content to prevent React unmount errors
+      if (textRef.current) {
+        textRef.current.innerHTML = originalContent;
+      }
+    };
   }, [animation, scrub, stagger, glowColor]);
 
   return (
     <div ref={containerRef} className={`${className} ${isDecoding ? 'decoding' : ''}`}>
-      <span ref={textRef} className="inline-block">
+      <span ref={textRef} className="inline-block" suppressHydrationWarning>
         {children}
       </span>
       <style jsx>{`

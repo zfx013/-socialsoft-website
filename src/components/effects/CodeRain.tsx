@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface CodeRainProps {
   className?: string;
@@ -110,74 +110,76 @@ export default function CodeRain({
   );
 }
 
-// Version avec des vraies lignes de code
+// Version avec des vraies lignes de code - RÉÉCRIT en React pur (pas de manipulation DOM directe)
 export function CodeStream({ className = '' }: { className?: string }) {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [lines, setLines] = useState<Array<{ id: number; text: string; top: number; duration: number }>>([]);
+  const [mounted, setMounted] = useState(false);
+  const nextId = useRef(0);
+
+  const codeSnippets = [
+    'const deploy = async () => {',
+    '  await build();',
+    '  return success;',
+    '};',
+    'function optimize(data) {',
+    '  return data.map(x => x * 2);',
+    '}',
+    'npm install --save',
+    'git commit -m "feat"',
+    'docker-compose up -d',
+    'SELECT * FROM users',
+    'kubectl apply -f',
+    'terraform plan',
+    'import { useState }',
+    'export default App;',
+    'interface Props {',
+    '  data: string[];',
+    '}',
+    'async function fetch() {',
+    '  const res = await api();',
+    '}',
+  ];
 
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    setMounted(true);
 
+    if (typeof window === 'undefined') return;
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReduced) return;
 
-    const codeSnippets = [
-      'const deploy = async () => {',
-      '  await build();',
-      '  return success;',
-      '};',
-      'function optimize(data) {',
-      '  return data.map(x => x * 2);',
-      '}',
-      'npm install --save',
-      'git commit -m "feat"',
-      'docker-compose up -d',
-      'SELECT * FROM users',
-      'kubectl apply -f',
-      'terraform plan',
-      'import { useState }',
-      'export default App;',
-      'interface Props {',
-      '  data: string[];',
-      '}',
-      'async function fetch() {',
-      '  const res = await api();',
-      '}',
-    ];
-
     const createLine = () => {
-      const line = document.createElement('div');
-      line.className = 'code-line';
-      line.textContent = codeSnippets[Math.floor(Math.random() * codeSnippets.length)];
-      line.style.cssText = `
-        position: absolute;
-        font-family: monospace;
-        font-size: 12px;
-        color: rgba(6, 182, 212, 0.2);
-        white-space: nowrap;
-        animation: slideCode ${15 + Math.random() * 10}s linear forwards;
-        top: ${Math.random() * 100}%;
-        left: -300px;
-      `;
-      container.appendChild(line);
+      const id = nextId.current++;
+      const duration = 15 + Math.random() * 10;
+      setLines(prev => [...prev, {
+        id,
+        text: codeSnippets[Math.floor(Math.random() * codeSnippets.length)],
+        top: Math.random() * 100,
+        duration,
+      }]);
 
+      // Remove line after animation completes
       setTimeout(() => {
-        line.remove();
-      }, 25000);
+        setLines(prev => prev.filter(line => line.id !== id));
+      }, duration * 1000);
     };
 
     // Create initial lines
+    const initialTimeouts: NodeJS.Timeout[] = [];
     for (let i = 0; i < 5; i++) {
-      setTimeout(createLine, i * 2000);
+      initialTimeouts.push(setTimeout(createLine, i * 2000));
     }
 
     // Continue creating lines
     const interval = setInterval(createLine, 3000);
 
     return () => {
+      initialTimeouts.forEach(clearTimeout);
       clearInterval(interval);
+      setLines([]); // Clean up all lines on unmount
     };
   }, []);
+
+  if (!mounted) return null;
 
   return (
     <>
@@ -199,10 +201,26 @@ export function CodeStream({ className = '' }: { className?: string }) {
           }
         }
       `}</style>
-      <div
-        ref={containerRef}
-        className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}
-      />
+      <div className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}>
+        {lines.map(line => (
+          <div
+            key={line.id}
+            className="code-line"
+            style={{
+              position: 'absolute',
+              fontFamily: 'monospace',
+              fontSize: '12px',
+              color: 'rgba(6, 182, 212, 0.2)',
+              whiteSpace: 'nowrap',
+              animation: `slideCode ${line.duration}s linear forwards`,
+              top: `${line.top}%`,
+              left: '-300px',
+            }}
+          >
+            {line.text}
+          </div>
+        ))}
+      </div>
     </>
   );
 }

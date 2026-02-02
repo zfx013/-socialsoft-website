@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -31,9 +31,16 @@ export default function SplitText({
   trigger = true,
 }: SplitTextProps) {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+  const originalTextRef = useRef(children);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    setMounted(true);
+    originalTextRef.current = children;
+  }, [children]);
+
+  useEffect(() => {
+    if (!containerRef.current || !mounted) return;
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
@@ -50,6 +57,9 @@ export default function SplitText({
     } else {
       elements = text.split('\n');
     }
+
+    // Store original content for cleanup
+    const originalContent = container.innerHTML;
 
     // Create spans
     container.innerHTML = elements
@@ -105,7 +115,7 @@ export default function SplitText({
     gsap.set(splitElements, animations[animation]);
 
     const ctx = gsap.context(() => {
-      const tl = gsap.to(splitElements, {
+      gsap.to(splitElements, {
         ...animationTo[animation],
         duration,
         stagger: {
@@ -122,15 +132,25 @@ export default function SplitText({
             }
           : undefined,
       });
-
-      return () => tl.kill();
     }, container);
 
-    return () => ctx.revert();
-  }, [children, type, animation, stagger, duration, delay, trigger]);
+    return () => {
+      ctx.revert();
+      // Restore original content to prevent React unmount errors
+      if (containerRef.current) {
+        containerRef.current.innerHTML = originalContent;
+      }
+    };
+  }, [children, type, animation, stagger, duration, delay, trigger, mounted]);
 
+  // Use suppressHydrationWarning because we modify innerHTML
   return (
-    <div ref={containerRef} className={className} style={{ perspective: '1000px' }}>
+    <div
+      ref={containerRef}
+      className={className}
+      style={{ perspective: '1000px' }}
+      suppressHydrationWarning
+    >
       {children}
     </div>
   );
