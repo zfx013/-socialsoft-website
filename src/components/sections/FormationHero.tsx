@@ -220,15 +220,15 @@ export default function FormationHero() {
                 href="https://travail-emploi.gouv.fr/qualiopi-marque-de-certification-qualite-des-prestataires-de-formation"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block mb-5 hover:opacity-90 transition-opacity"
+                className="group block mb-5"
               >
-                <div className="relative w-full rounded-xl overflow-hidden">
+                <div className="relative w-full rounded-xl overflow-hidden border-2 border-transparent group-hover:border-emerald-500/50 group-hover:shadow-lg group-hover:shadow-emerald-500/20 transition-all duration-300">
                   <Image
                     src="/images/logo-qualiopi.png"
                     alt="Certification Qualiopi - La certification qualité a été délivrée au titre des catégories d'actions suivantes : Actions de formation"
                     width={400}
                     height={180}
-                    className="object-contain w-full h-auto rounded-xl"
+                    className="object-contain w-full h-auto rounded-xl group-hover:scale-[1.02] transition-transform duration-300"
                   />
                 </div>
               </a>
