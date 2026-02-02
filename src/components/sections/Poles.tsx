@@ -19,7 +19,6 @@ type IconKey = keyof typeof iconMap;
 // Import dynamique pour les composants 3D
 const Scene = dynamic(() => import('@/components/three/Scene'), { ssr: false });
 const Hummingbirds = dynamic(() => import('@/components/three/Hummingbirds'), { ssr: false });
-const ServerRoom = dynamic(() => import('@/components/three/ServerRoom'), { ssr: false });
 
 // ============================================
 // TERMINAL ANIMÉ - Effet de frappe réaliste
@@ -138,41 +137,202 @@ function AnimatedTerminal() {
 }
 
 // ============================================
-// IT VISUAL - Salle serveur 3D avec Three.js
+// IT VISUAL - Dashboard Monitoring NOC
 // ============================================
-function ServerRoomVisual() {
+function MonitoringDashboard() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
 
   return (
-    <div ref={ref} className="relative w-full max-w-xl mx-auto h-[450px]">
-      {/* Scène 3D avec les serveurs */}
+    <div ref={ref} className="relative w-full max-w-lg mx-auto">
+      {/* Fenêtre du dashboard */}
       <div
-        className="absolute inset-0 transition-opacity duration-1000"
-        style={{ opacity: isInView ? 1 : 0 }}
-      >
-        <Suspense fallback={
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-8 h-8 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
-          </div>
-        }>
-          <Scene className="!absolute inset-0">
-            <ServerRoom rackCount={3} />
-          </Scene>
-        </Suspense>
-      </div>
-
-      {/* Label */}
-      <div
-        className="absolute bottom-4 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full bg-dark-800/90 border border-blue-500/30 backdrop-blur-sm transition-all duration-500 z-10"
+        className="rounded-2xl overflow-hidden shadow-2xl border border-dark-600 transition-all duration-700"
         style={{
           opacity: isInView ? 1 : 0,
-          transform: isInView ? 'translateX(-50%) translateY(0)' : 'translateX(-50%) translateY(20px)',
-          transitionDelay: '0.8s',
+          transform: isInView ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.95)',
         }}
       >
-        <span className="text-sm font-medium text-blue-400">Infrastructure supervisée 24/7</span>
+        {/* Barre de titre */}
+        <div className="bg-dark-700 px-4 py-3 flex items-center justify-between border-b border-dark-600">
+          <div className="flex items-center gap-2">
+            <div className="flex gap-2">
+              <div className="w-3 h-3 rounded-full bg-red-500" />
+              <div className="w-3 h-3 rounded-full bg-yellow-500" />
+              <div className="w-3 h-3 rounded-full bg-green-500" />
+            </div>
+            <span className="text-xs text-light-400 ml-2 font-medium">Supervision — SOCIAL SOFT NOC</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <span className="status-dot w-2 h-2 rounded-full bg-emerald-400" />
+            <span className="text-xs text-emerald-400">Live</span>
+          </div>
+        </div>
+
+        {/* Contenu du dashboard */}
+        <div className="bg-dark-900 p-4">
+          {/* Métriques principales */}
+          <div className="grid grid-cols-3 gap-3 mb-4">
+            {/* Uptime */}
+            <div
+              className="metric-card bg-dark-800 rounded-xl p-3 border border-dark-600 transition-all duration-500"
+              style={{
+                opacity: isInView ? 1 : 0,
+                transform: isInView ? 'translateY(0)' : 'translateY(20px)',
+                transitionDelay: '0.2s',
+              }}
+            >
+              <p className="text-xs text-light-400 mb-1">Uptime</p>
+              <p className="text-2xl font-bold text-emerald-400">99.9%</p>
+              <div className="mt-2 h-1 bg-dark-700 rounded-full overflow-hidden">
+                <div className="uptime-bar h-full bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-full" style={{ width: isInView ? '99.9%' : '0%', transition: 'width 1.5s ease-out 0.5s' }} />
+              </div>
+            </div>
+
+            {/* Réponse */}
+            <div
+              className="metric-card bg-dark-800 rounded-xl p-3 border border-dark-600 transition-all duration-500"
+              style={{
+                opacity: isInView ? 1 : 0,
+                transform: isInView ? 'translateY(0)' : 'translateY(20px)',
+                transitionDelay: '0.3s',
+              }}
+            >
+              <p className="text-xs text-light-400 mb-1">Temps réponse</p>
+              <p className="text-2xl font-bold text-blue-400">12ms</p>
+              <div className="mt-2 h-1 bg-dark-700 rounded-full overflow-hidden">
+                <div className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full" style={{ width: isInView ? '15%' : '0%', transition: 'width 1.5s ease-out 0.6s' }} />
+              </div>
+            </div>
+
+            {/* Sécurité */}
+            <div
+              className="metric-card bg-dark-800 rounded-xl p-3 border border-dark-600 transition-all duration-500"
+              style={{
+                opacity: isInView ? 1 : 0,
+                transform: isInView ? 'translateY(0)' : 'translateY(20px)',
+                transitionDelay: '0.4s',
+              }}
+            >
+              <p className="text-xs text-light-400 mb-1">Menaces</p>
+              <p className="text-2xl font-bold text-cyan-400">0</p>
+              <div className="mt-2 flex items-center gap-1">
+                <span className="w-2 h-2 rounded-full bg-emerald-400" />
+                <span className="text-xs text-emerald-400">Protégé</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Graphique de performance */}
+          <div
+            className="bg-dark-800 rounded-xl p-4 border border-dark-600 mb-4 transition-all duration-500"
+            style={{
+              opacity: isInView ? 1 : 0,
+              transitionDelay: '0.5s',
+            }}
+          >
+            <div className="flex items-center justify-between mb-3">
+              <p className="text-sm text-light-300 font-medium">Performance réseau</p>
+              <div className="flex items-center gap-3 text-xs">
+                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-blue-400" />CPU</span>
+                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-emerald-400" />RAM</span>
+              </div>
+            </div>
+            {/* Graphique SVG animé */}
+            <svg viewBox="0 0 300 60" className="w-full h-16">
+              {/* Grille */}
+              <line x1="0" y1="20" x2="300" y2="20" stroke="#374151" strokeWidth="0.5" strokeDasharray="4" />
+              <line x1="0" y1="40" x2="300" y2="40" stroke="#374151" strokeWidth="0.5" strokeDasharray="4" />
+              {/* Ligne CPU */}
+              <path
+                d="M 0 45 Q 30 35, 60 40 T 120 30 T 180 35 T 240 25 T 300 30"
+                fill="none"
+                stroke="#3b82f6"
+                strokeWidth="2"
+                className="graph-line-1"
+                style={{
+                  strokeDasharray: 400,
+                  strokeDashoffset: isInView ? 0 : 400,
+                  transition: 'stroke-dashoffset 2s ease-out 0.6s',
+                }}
+              />
+              {/* Ligne RAM */}
+              <path
+                d="M 0 50 Q 30 45, 60 48 T 120 42 T 180 45 T 240 38 T 300 40"
+                fill="none"
+                stroke="#22c55e"
+                strokeWidth="2"
+                className="graph-line-2"
+                style={{
+                  strokeDasharray: 400,
+                  strokeDashoffset: isInView ? 0 : 400,
+                  transition: 'stroke-dashoffset 2s ease-out 0.8s',
+                }}
+              />
+              {/* Points animés */}
+              {isInView && (
+                <>
+                  <circle r="3" fill="#3b82f6" className="graph-dot">
+                    <animate attributeName="cx" values="0;300" dur="3s" repeatCount="indefinite" />
+                    <animate attributeName="cy" values="45;40;30;35;25;30" dur="3s" repeatCount="indefinite" />
+                  </circle>
+                  <circle r="3" fill="#22c55e" className="graph-dot">
+                    <animate attributeName="cx" values="0;300" dur="3s" repeatCount="indefinite" begin="0.5s" />
+                    <animate attributeName="cy" values="50;48;42;45;38;40" dur="3s" repeatCount="indefinite" begin="0.5s" />
+                  </circle>
+                </>
+              )}
+            </svg>
+          </div>
+
+          {/* Services monitorés */}
+          <div
+            className="grid grid-cols-2 gap-2 transition-all duration-500"
+            style={{
+              opacity: isInView ? 1 : 0,
+              transitionDelay: '0.7s',
+            }}
+          >
+            {[
+              { name: 'Serveurs', status: 'ok', count: '12/12' },
+              { name: 'Réseau', status: 'ok', count: '100%' },
+              { name: 'Sauvegardes', status: 'ok', count: 'À jour' },
+              { name: 'Firewall', status: 'ok', count: 'Actif' },
+            ].map((service, i) => (
+              <div
+                key={i}
+                className="flex items-center justify-between bg-dark-800/50 rounded-lg px-3 py-2 border border-dark-700"
+              >
+                <div className="flex items-center gap-2">
+                  <span className={`w-2 h-2 rounded-full ${service.status === 'ok' ? 'bg-emerald-400 status-pulse' : 'bg-amber-400'}`} />
+                  <span className="text-xs text-light-300">{service.name}</span>
+                </div>
+                <span className="text-xs font-medium text-light-400">{service.count}</span>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
+
+      {/* Glow effect derrière */}
+      <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/10 via-cyan-500/10 to-blue-500/10 rounded-3xl blur-2xl -z-10" />
+
+      {/* Styles pour animations */}
+      <style jsx>{`
+        .status-dot {
+          animation: pulse-dot 2s ease-in-out infinite;
+        }
+        .status-pulse {
+          animation: pulse-dot 2s ease-in-out infinite;
+        }
+        @keyframes pulse-dot {
+          0%, 100% { opacity: 1; box-shadow: 0 0 0 0 currentColor; }
+          50% { opacity: 0.7; box-shadow: 0 0 8px 2px currentColor; }
+        }
+        .graph-dot {
+          filter: drop-shadow(0 0 4px currentColor);
+        }
+      `}</style>
     </div>
   );
 }
@@ -284,7 +444,7 @@ function PoleSection({ pole, index, isReversed }: PoleSectionProps) {
   const renderVisual = () => {
     switch (pole.id) {
       case 'it':
-        return <ServerRoomVisual />;
+        return <MonitoringDashboard />;
       case 'dev':
         return <AnimatedTerminal />;
       case 'formation':
