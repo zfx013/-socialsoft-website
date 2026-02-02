@@ -232,7 +232,7 @@ export const jsonLd = {
                 itemOffered: {
                   '@type': 'Service',
                   name: 'Infogérance complète',
-                  description: "Externalisation de la gestion de votre système d'information avec engagement de service (SLA). Supervision 24/7, maintenance préventive et curative.",
+                  description: "Externalisation de la gestion de votre système d'information. Supervision 24/7, maintenance préventive et curative, support réactif.",
                   serviceType: 'Infogérance informatique',
                   areaServed: { '@type': 'State', name: 'Île-de-France' },
                 },
@@ -362,7 +362,7 @@ export const faqJsonLd = {
       name: "Quel est le prix d'un contrat d'infogérance ?",
       acceptedAnswer: {
         '@type': 'Answer',
-        text: "Le prix d'un contrat d'infogérance dépend du nombre de postes, du niveau de service (SLA) et des services inclus. En moyenne : 50-80€/poste/mois pour une formule basique, 80-120€/poste/mois pour une formule standard avec cybersécurité, 120-150€/poste/mois pour une infogérance premium 24/7.",
+        text: "Le prix d'un contrat d'infogérance dépend du nombre de postes, du niveau de service et des options incluses. En moyenne : 50-80€/poste/mois pour une formule basique, 80-120€/poste/mois pour une formule standard avec cybersécurité, 120-150€/poste/mois pour une infogérance premium 24/7.",
       },
     },
     // Questions sur l'infogérance
@@ -379,7 +379,7 @@ export const faqJsonLd = {
       name: 'Comment choisir son infogérant informatique ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: "Pour bien choisir votre infogérant : 1) Vérifiez sa proximité géographique pour les interventions sur site, 2) Examinez ses certifications et références clients, 3) Comparez les SLA proposés (temps de réponse, disponibilité), 4) Assurez-vous qu'il couvre tous vos besoins (cybersécurité, cloud, etc.), 5) Demandez un audit gratuit pour évaluer la qualité du conseil.",
+        text: "Pour bien choisir votre infogérant : 1) Vérifiez sa proximité géographique pour les interventions sur site, 2) Examinez ses certifications et références clients, 3) Comparez les délais d'intervention garantis, 4) Assurez-vous qu'il couvre tous vos besoins (cybersécurité, cloud, etc.), 5) Demandez un audit gratuit pour évaluer la qualité du conseil.",
       },
     },
     // Questions sur les délais
@@ -490,8 +490,8 @@ export const howToJsonLd = {
     {
       '@type': 'HowToStep',
       position: 4,
-      name: 'Comparer les SLA',
-      text: "Analysez les engagements de service (SLA) : temps de réponse garanti, disponibilité du support, conditions d'astreinte 24/7.",
+      name: 'Comparer les engagements',
+      text: "Analysez les engagements de service : temps de réponse garanti, disponibilité du support, conditions d'astreinte 24/7.",
     },
     {
       '@type': 'HowToStep',

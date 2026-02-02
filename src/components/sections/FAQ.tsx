@@ -14,7 +14,7 @@ const visibleFaqs = [
   },
   {
     question: "Quel est le délai d'intervention pour une panne informatique ?",
-    answer: "Nos délais d'intervention en Île-de-France sont garantis par contrat (SLA) : Panne critique (serveur HS, ransomware) : 4 heures maximum. Panne majeure (poste bloqué, imprimante) : 8 heures. Demande standard : 24-48 heures. Le support à distance démarre en moins de 30 minutes pour 80% des incidents.",
+    answer: "Nos délais d'intervention en Île-de-France sont garantis par contrat : Panne critique (serveur HS, ransomware) : 4 heures maximum. Panne majeure (poste bloqué, imprimante) : 8 heures. Demande standard : 24-48 heures. Le support à distance démarre en moins de 30 minutes pour 80% des incidents.",
   },
   {
     question: "Dans quelles villes d'Île-de-France intervenez-vous ?",
@@ -38,7 +38,7 @@ const hiddenFaqs = [
   },
   {
     question: 'Comment choisir son infogérant informatique ?',
-    answer: "Pour bien choisir votre infogérant, vérifiez : 1) Sa proximité géographique (intervention rapide), 2) Ses certifications (Microsoft, Cisco, etc.), 3) Ses SLA (délais d'intervention garantis), 4) Ses références clients dans votre secteur, 5) La clarté de son offre, 6) Sa disponibilité (astreinte 24/7 ?). SocialSoft répond à tous ces critères en Île-de-France.",
+    answer: "Pour bien choisir votre infogérant, vérifiez : 1) Sa proximité géographique (intervention rapide), 2) Ses certifications (Microsoft, Cisco, etc.), 3) Ses délais d'intervention garantis, 4) Ses références clients dans votre secteur, 5) La clarté de son offre, 6) Sa disponibilité (astreinte 24/7 ?). SocialSoft répond à tous ces critères en Île-de-France.",
   },
   {
     question: 'Quelle est la différence entre infogérance et maintenance informatique ?',
@@ -78,7 +78,7 @@ const hiddenFaqs = [
   },
   {
     question: 'Que comprend un contrat de maintenance informatique ?',
-    answer: "Nos contrats de maintenance incluent : supervision proactive 24/7, mises à jour systèmes et logiciels, gestion antivirus, sauvegardes vérifiées, support téléphonique et à distance illimité, interventions sur site selon SLA, reporting mensuel. Options : astreinte 24/7, gestion cloud, conformité RGPD.",
+    answer: "Nos contrats de maintenance incluent : supervision proactive 24/7, mises à jour systèmes et logiciels, gestion antivirus, sauvegardes vérifiées, support téléphonique et à distance illimité, interventions sur site, reporting mensuel. Options : astreinte 24/7, gestion cloud, conformité RGPD.",
   },
   {
     question: 'Formez-vous les équipes aux outils informatiques ?',
@@ -114,11 +114,7 @@ const hiddenFaqs = [
   },
   {
     question: "Pourquoi externaliser son informatique ?",
-    answer: "Externaliser son informatique présente plusieurs avantages : 1) Réduction des coûts (pas d'embauche d'informaticien en interne), 2) Accès à une expertise variée (réseau, sécurité, cloud), 3) Disponibilité garantie (SLA contractuel), 4) Veille technologique continue, 5) Concentration sur votre cœur de métier. Pour une PME de moins de 50 personnes, l'externalisation est souvent plus rentable qu'un service IT interne.",
-  },
-  {
-    question: "Qu'est-ce qu'un SLA en informatique ?",
-    answer: "Un SLA (Service Level Agreement) est un contrat qui définit les engagements de votre prestataire informatique : temps de réponse garanti (ex: 2h pour une panne critique), taux de disponibilité du support (ex: 99.9%), pénalités en cas de non-respect. Chez SOCIAL SOFT, nos SLA sont clairement définis dans chaque contrat d'infogérance.",
+    answer: "Externaliser son informatique présente plusieurs avantages : 1) Réduction des coûts (pas d'embauche d'informaticien en interne), 2) Accès à une expertise variée (réseau, sécurité, cloud), 3) Disponibilité et réactivité garanties, 4) Veille technologique continue, 5) Concentration sur votre cœur de métier. Pour une PME de moins de 50 personnes, l'externalisation est souvent plus rentable qu'un service IT interne.",
   },
   {
     question: "Comment savoir si mon entreprise a besoin d'un infogérant ?",
@@ -154,7 +150,7 @@ const hiddenFaqs = [
   },
   {
     question: "Quel est le prix d'un contrat d'infogérance ?",
-    answer: "Le prix d'un contrat d'infogérance dépend du nombre de postes, du niveau de service (SLA) et des services inclus. En moyenne : 50-80€/poste/mois pour une formule basique, 80-120€/poste/mois pour une formule standard avec cybersécurité, 120-150€/poste/mois pour une infogérance premium 24/7.",
+    answer: "Le prix d'un contrat d'infogérance dépend du nombre de postes, du niveau de service et des options incluses. En moyenne : 50-80€/poste/mois pour une formule basique, 80-120€/poste/mois pour une formule standard avec cybersécurité, 120-150€/poste/mois pour une infogérance premium 24/7.",
   },
 ];
 

@@ -55,16 +55,6 @@ export const siteStats = {
 };
 
 // ============================================
-// WORDING URGENCE (Option B - sans délai chiffré)
-// ============================================
-export const urgenceWording = {
-  short: 'Prise en charge rapide',
-  full: 'Prise en charge rapide de vos urgences',
-  description: 'Délais d\'intervention garantis sur contrat (SLA)',
-  details: 'Contrats adaptables selon vos besoins critiques',
-};
-
-// ============================================
 // NAVIGATION
 // ============================================
 export const navigation = {
@@ -104,7 +94,7 @@ export const poles = [
     id: 'it',
     title: 'IT & Infrastructure',
     subtitle: 'Infogérance & Support',
-    description: 'Supervision, maintenance, cybersécurité, réseaux et serveurs. Prise en charge rapide de vos urgences avec des SLA adaptés à vos besoins.',
+    description: 'Supervision, maintenance, cybersécurité, réseaux et serveurs. Une équipe réactive pour accompagner votre entreprise au quotidien.',
     href: '/it',
     icon: 'Server',
     features: ['Infogérance 24/7', 'Cybersécurité', 'Cloud & Hybride', 'Support réactif'],

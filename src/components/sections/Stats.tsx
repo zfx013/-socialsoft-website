@@ -3,8 +3,8 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { gsap } from 'gsap';
-import { Users, Briefcase, Award, Zap } from 'lucide-react';
-import { siteStats, urgenceWording } from '@/lib/config';
+import { Users, Briefcase, Award } from 'lucide-react';
+import { siteStats } from '@/lib/config';
 
 const stats = [
   {
@@ -27,15 +27,6 @@ const stats = [
     suffix: siteStats.experience.suffix,
     label: siteStats.experience.label,
     description: siteStats.experience.description,
-  },
-  {
-    icon: Zap,
-    value: null, // Pas de chiffre pour l'urgence
-    suffix: '',
-    label: urgenceWording.short,
-    description: urgenceWording.description,
-    isText: true,
-    textValue: 'SLA',
   },
 ];
 
@@ -92,7 +83,7 @@ export default function Stats() {
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:gap-12">
           {stats.map((stat, index) => {
             const Icon = stat.icon;
             return (
@@ -113,11 +104,7 @@ export default function Stats() {
 
                   {/* Value */}
                   <div className="text-4xl lg:text-5xl font-bold text-light-100 mb-2">
-                    {stat.isText ? (
-                      <span className="tabular-nums">{stat.textValue}</span>
-                    ) : (
-                      <Counter value={stat.value!} suffix={stat.suffix} inView={isInView} />
-                    )}
+                    <Counter value={stat.value} suffix={stat.suffix} inView={isInView} />
                   </div>
 
                   {/* Label */}

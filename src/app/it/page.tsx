@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Coverage from '@/components/sections/Coverage';
 import Contact from '@/components/sections/Contact';
 import FloatingContact from '@/components/ui/FloatingContact';
-import { servicesIT, siteStats, urgenceWording, siteContact } from '@/lib/config';
+import { servicesIT, siteStats, siteContact } from '@/lib/config';
 
 export const metadata: Metadata = {
   title: "IT & Infrastructure | Infogérance PME Île-de-France",
@@ -157,11 +157,11 @@ export default function ITPage() {
               Réactivité garantie
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold text-light-100 mb-6">
-              {urgenceWording.full}
+              Un support réactif à vos côtés
             </h2>
             <p className="text-lg text-light-200 mb-8 leading-relaxed">
-              {urgenceWording.description}. Nous adaptons notre accompagnement selon le niveau
-              de criticité de votre infrastructure et vos besoins spécifiques.
+              Notre équipe intervient rapidement pour résoudre vos problèmes informatiques.
+              Nous adaptons notre accompagnement selon vos besoins spécifiques.
             </p>
           </div>
           <div className="max-w-4xl mx-auto">
