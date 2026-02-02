@@ -10,11 +10,13 @@ import { navigation } from '@/lib/config';
 
 const services = [
   { name: 'Développement sur mesure', href: '/developpement' },
+  { name: 'Applications métier', href: '/developpement' },
   { name: 'Infrastructure & Réseaux', href: '/it' },
   { name: 'Cybersécurité', href: '/it' },
   { name: 'Support & Maintenance', href: '/it' },
   { name: 'Cloud & Hébergement', href: '/it' },
-  { name: 'Formation', href: '/formation' },
+  { name: 'Formation Bureautique', href: '/formation' },
+  { name: 'Formation Qualiopi', href: '/formation' },
 ];
 
 export default function Footer() {
