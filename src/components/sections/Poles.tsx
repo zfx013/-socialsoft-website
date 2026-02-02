@@ -199,7 +199,7 @@ function NetworkTopology() {
   };
 
   const centerX = 230;
-  const centerY = 230;
+  const centerY = 260;
 
   return (
     <div ref={ref} className="relative w-full max-w-2xl ml-auto mr-0 h-[450px]">
