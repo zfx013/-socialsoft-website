@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Award, Clock, Users, BookOpen, CheckCircle, ExternalLink } from 'lucide-react';
+import { Award, Clock, Users, BookOpen, ExternalLink } from 'lucide-react';
 import Contact from '@/components/sections/Contact';
 import FloatingContact from '@/components/ui/FloatingContact';
 import FormationHero from '@/components/sections/FormationHero';
@@ -112,68 +112,6 @@ export default function FormationPage() {
               Accéder à Colibri
               <ExternalLink className="w-4 h-4" />
             </a>
-          </div>
-        </div>
-      </section>
-
-      {/* Financement */}
-      <section className="relative py-24 lg:py-32 bg-dark-800 overflow-hidden">
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-teal-500/10 border border-teal-500/20 text-sm text-teal-400 mb-6">
-                <Award className="w-4 h-4" />
-                Certification Qualiopi
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-light-100 mb-6">
-                Des formations financées
-              </h2>
-              <p className="text-lg text-light-200 mb-6 leading-relaxed">
-                Notre certification Qualiopi atteste de la qualité de nos formations et vous permet
-                de bénéficier de financements pour former vos équipes.
-              </p>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" />
-                  <span className="text-light-200">Prise en charge par votre OPCO (selon conditions)</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" />
-                  <span className="text-light-200">Éligibilité au Compte Personnel de Formation (CPF)</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" />
-                  <span className="text-light-200">Intégration dans votre plan de formation entreprise</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" />
-                  <span className="text-light-200">Accompagnement dans vos démarches de financement</span>
-                </li>
-              </ul>
-            </div>
-            <div className="relative">
-              <div className="p-8 rounded-3xl bg-gradient-to-br from-dark-700 to-dark-800 border border-dark-600">
-                <div className="text-center mb-8">
-                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 mb-4">
-                    <Award className="w-10 h-10 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-light-100 mb-2">Qualiopi</h3>
-                  <p className="text-light-300">Certification qualité des formations</p>
-                </div>
-                <div className="space-y-4">
-                  <div className="p-4 rounded-xl bg-dark-900/50 border border-dark-600">
-                    <p className="text-sm text-light-300 text-center">
-                      Processus certifié pour les actions de formation professionnelle
-                    </p>
-                  </div>
-                  <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
-                    <p className="text-sm text-light-200 text-center font-medium">
-                      Gage de qualité et d&apos;éligibilité aux financements publics
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>

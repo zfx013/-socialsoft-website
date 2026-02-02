@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import dynamic from 'next/dynamic';
-import { GraduationCap, Award, Users, ExternalLink, ArrowDown } from 'lucide-react';
+import { GraduationCap, Award, Users, ExternalLink, ArrowDown, CheckCircle } from 'lucide-react';
 import GlowEffect from '@/components/effects/GlowEffect';
 import { siteStats, siteContact } from '@/lib/config';
 
@@ -208,8 +208,44 @@ export default function FormationHero() {
             </motion.div>
           </div>
 
-          {/* Espace pour les colibris sur desktop */}
-          <div className="hidden lg:block" />
+          {/* Carte Qualiopi - Formations financées */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: mounted ? 1 : 0, x: mounted ? 0 : 30 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            className="hidden lg:block"
+          >
+            <div className="p-6 rounded-2xl bg-dark-800/70 backdrop-blur-sm border border-dark-600">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center">
+                  <Award className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-light-100">Qualiopi</h3>
+                  <p className="text-sm text-light-400">Certification qualité</p>
+                </div>
+              </div>
+
+              <p className="text-sm text-light-300 mb-4">
+                Formations éligibles aux financements publics
+              </p>
+
+              <ul className="space-y-2">
+                <li className="flex items-center gap-2 text-sm text-light-200">
+                  <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                  Prise en charge OPCO
+                </li>
+                <li className="flex items-center gap-2 text-sm text-light-200">
+                  <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                  Éligible CPF
+                </li>
+                <li className="flex items-center gap-2 text-sm text-light-200">
+                  <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                  Plan de formation
+                </li>
+              </ul>
+            </div>
+          </motion.div>
         </div>
       </div>
 
