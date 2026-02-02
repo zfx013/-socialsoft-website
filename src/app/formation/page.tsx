@@ -81,7 +81,7 @@ export default function FormationPage() {
       </section>
 
       {/* Programmes de formation */}
-      <section className="relative py-24 lg:py-32 bg-dark-900 overflow-hidden">
+      <section id="formations" className="relative py-24 lg:py-32 bg-dark-900 overflow-hidden">
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-light-100 mb-4">

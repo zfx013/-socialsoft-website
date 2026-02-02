@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import dynamic from 'next/dynamic';
-import { GraduationCap, Award, Users, ExternalLink, ArrowDown, CheckCircle } from 'lucide-react';
+import { GraduationCap, Award, Users, ArrowDown, CheckCircle } from 'lucide-react';
 import GlowEffect from '@/components/effects/GlowEffect';
 import { siteStats, siteContact } from '@/lib/config';
 
@@ -191,13 +191,11 @@ export default function FormationHero() {
               className="flex flex-wrap justify-center lg:justify-start gap-4"
             >
               <a
-                href={siteContact.colibriUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#formations"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium hover:opacity-90 transition-opacity"
               >
                 Découvrir nos formations
-                <ExternalLink className="w-4 h-4" />
+                <ArrowDown className="w-4 h-4" />
               </a>
               <a
                 href={siteContact.phoneLink}
