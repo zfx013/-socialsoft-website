@@ -1,8 +1,10 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { X } from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { X, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { navigation, contact } from '@/lib/constants';
 
 interface MenuOverlayProps {
@@ -10,6 +12,8 @@ interface MenuOverlayProps {
 }
 
 export default function MenuOverlay({ onClose }: MenuOverlayProps) {
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+
   const overlayVariants = {
     hidden: { opacity: 0 },
     visible: { opacity: 1 },
@@ -35,6 +39,10 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
     }),
   };
 
+  const toggleDropdown = (name: string) => {
+    setOpenDropdown(openDropdown === name ? null : name);
+  };
+
   return (
     <motion.div
       variants={overlayVariants}
@@ -42,7 +50,7 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
       animate="visible"
       exit="exit"
       transition={{ duration: 0.3 }}
-      className="fixed inset-0 z-50 bg-dark-900/98 backdrop-blur-lg"
+      className="fixed inset-0 z-50 bg-dark-900/98 backdrop-blur-lg overflow-y-auto"
       role="dialog"
       aria-modal="true"
       aria-label="Menu de navigation"
@@ -59,7 +67,7 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
       {/* Menu content */}
       <motion.div
         variants={menuVariants}
-        className="flex flex-col items-center justify-center h-full px-4"
+        className="flex flex-col items-center justify-center min-h-screen px-4 py-20"
       >
         {/* Logo */}
         <motion.div
@@ -78,20 +86,64 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
         </motion.div>
 
         {/* Navigation */}
-        <nav className="flex flex-col items-center gap-6 mb-12">
+        <nav className="flex flex-col items-center gap-4 mb-12 w-full max-w-sm">
           {navigation.map((item, i) => (
-            <motion.a
+            <motion.div
               key={item.name}
-              href={item.href}
-              onClick={onClose}
               custom={i}
               variants={itemVariants}
               initial="hidden"
               animate="visible"
-              className="text-3xl sm:text-4xl font-bold text-light-100 hover:text-accent-blue transition-colors duration-200"
+              className="w-full text-center"
             >
-              {item.name}
-            </motion.a>
+              {item.dropdown && item.items ? (
+                <div>
+                  <button
+                    onClick={() => toggleDropdown(item.name)}
+                    className="flex items-center justify-center gap-2 w-full text-3xl sm:text-4xl font-bold text-light-100 hover:text-accent-blue transition-colors duration-200"
+                  >
+                    {item.name}
+                    <ChevronDown
+                      className={`w-6 h-6 transition-transform duration-200 ${
+                        openDropdown === item.name ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </button>
+                  <AnimatePresence>
+                    {openDropdown === item.name && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="flex flex-col gap-3 mt-4 mb-2">
+                          {item.items.map((subItem) => (
+                            <Link
+                              key={subItem.href}
+                              href={subItem.href}
+                              onClick={onClose}
+                              className="text-xl text-light-300 hover:text-accent-blue transition-colors"
+                            >
+                              {subItem.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              ) : (
+                <Link
+                  href={item.href}
+                  onClick={onClose}
+                  className="text-3xl sm:text-4xl font-bold text-light-100 hover:text-accent-blue transition-colors duration-200"
+                >
+                  {item.name}
+                </Link>
+              )}
+            </motion.div>
           ))}
         </nav>
 

@@ -3,16 +3,18 @@
 import { useRef } from 'react';
 import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
+import Link from 'next/link';
 import { Linkedin, Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react';
-import { contact, navigation } from '@/lib/constants';
+import { contact } from '@/lib/constants';
+import { navigation } from '@/lib/config';
 
 const services = [
-  'Développement sur mesure',
-  'Infrastructure & Réseaux',
-  'Cybersécurité',
-  'Support & Maintenance',
-  'Cloud & Hébergement',
-  'Conseil IT',
+  { name: 'Développement sur mesure', href: '/developpement' },
+  { name: 'Infrastructure & Réseaux', href: '/it' },
+  { name: 'Cybersécurité', href: '/it' },
+  { name: 'Support & Maintenance', href: '/it' },
+  { name: 'Cloud & Hébergement', href: '/it' },
+  { name: 'Formation', href: '/formation' },
 ];
 
 export default function Footer() {
@@ -98,14 +100,14 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3">
               {services.map((service) => (
-                <li key={service}>
-                  <a
-                    href="#services"
+                <li key={service.name}>
+                  <Link
+                    href={service.href}
                     className="text-light-400 hover:text-light-100 transition-colors text-sm flex items-center gap-2 group"
                   >
                     <span className="w-1 h-1 rounded-full bg-accent-blue/50 group-hover:bg-accent-blue transition-colors" />
-                    {service}
-                  </a>
+                    {service.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -118,15 +120,15 @@ export default function Footer() {
               Navigation
             </h3>
             <ul className="space-y-3">
-              {navigation.map((item) => (
+              {navigation.footer.map((item) => (
                 <li key={item.name}>
-                  <a
+                  <Link
                     href={item.href}
                     className="text-light-400 hover:text-light-100 transition-colors text-sm flex items-center gap-2 group"
                   >
                     <span className="w-1 h-1 rounded-full bg-accent-cyan/50 group-hover:bg-accent-cyan transition-colors" />
                     {item.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

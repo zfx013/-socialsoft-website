@@ -2,8 +2,9 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu } from 'lucide-react';
+import { Menu, ChevronDown } from 'lucide-react';
 import { gsap } from 'gsap';
 import { navigation } from '@/lib/constants';
 import MenuOverlay from './MenuOverlay';
@@ -43,7 +44,7 @@ function NavLink({ href, children }: NavLinkProps) {
   };
 
   return (
-    <a
+    <Link
       ref={linkRef}
       href={href}
       onMouseMove={handleMouseMove}
@@ -58,7 +59,76 @@ function NavLink({ href, children }: NavLinkProps) {
         transition={{ duration: 0.2 }}
         className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-gradient-to-r from-accent-blue to-accent-cyan origin-left"
       />
-    </a>
+    </Link>
+  );
+}
+
+interface DropdownItem {
+  name: string;
+  href: string;
+  description?: string;
+}
+
+interface NavDropdownProps {
+  label: string;
+  items: DropdownItem[];
+}
+
+function NavDropdown({ label, items }: NavDropdownProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  return (
+    <div
+      ref={dropdownRef}
+      className="relative"
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
+      <button
+        className="flex items-center gap-1 text-light-200 hover:text-light-100 transition-colors duration-200 font-medium py-2"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        {label}
+        <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-full left-0 mt-2 w-64 py-2 bg-dark-800 border border-dark-600 rounded-xl shadow-xl"
+          >
+            {items.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="block px-4 py-3 hover:bg-dark-700 transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                <span className="block text-light-100 font-medium">{item.name}</span>
+                {item.description && (
+                  <span className="block text-sm text-light-400 mt-0.5">{item.description}</span>
+                )}
+              </Link>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }
 
@@ -113,21 +183,21 @@ export default function Header() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex items-center justify-between">
             {/* Logo */}
-            <motion.a
-              href="/"
-              className="relative z-10"
+            <motion.div
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              <Image
-                src="/images/logo-white.svg"
-                alt="SOCIAL SOFT"
-                width={150}
-                height={40}
-                className="h-8 sm:h-10 w-auto"
-                priority
-              />
-            </motion.a>
+              <Link href="/" className="relative z-10">
+                <Image
+                  src="/images/logo-white.svg"
+                  alt="SOCIAL SOFT"
+                  width={150}
+                  height={40}
+                  className="h-8 sm:h-10 w-auto"
+                  priority
+                />
+              </Link>
+            </motion.div>
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-10">
@@ -138,7 +208,11 @@ export default function Header() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: index * 0.05 }}
                 >
-                  <NavLink href={item.href}>{item.name}</NavLink>
+                  {item.dropdown && item.items ? (
+                    <NavDropdown label={item.name} items={item.items} />
+                  ) : (
+                    <NavLink href={item.href}>{item.name}</NavLink>
+                  )}
                 </motion.div>
               ))}
             </div>

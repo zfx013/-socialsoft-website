@@ -1,23 +1,11 @@
 import { Code, Lightbulb, Server, HardDrive, Cloud, Shield, Headphones, LucideIcon } from 'lucide-react';
 
-export const contact = {
-  company: 'SOCIAL SOFT',
-  address: {
-    street: '52 Rue des Grandes Côtes',
-    city: "Saint-Ouen-l'Aumône",
-    postalCode: '95310',
-    region: 'Île-de-France',
-    country: 'France',
-  },
-  phone: '0782251099',
-  phoneFormatted: '07 82 25 10 99',
-  phoneLink: 'tel:+33782251099',
-  email: 'contact@socialsoft.fr',
-  emailLink: 'mailto:contact@socialsoft.fr',
-  linkedin: 'https://www.linkedin.com/company/socialsoft-fr/',
-  mapsLink:
-    "https://www.google.com/maps/search/?api=1&query=52+Rue+des+Grandes+Côtes+95310+Saint-Ouen-l%27Aumône+France",
-};
+// Import centralisé depuis config.ts
+import { siteContact, navigation as navConfig } from './config';
+
+// Re-export pour compatibilité avec le code existant
+export const contact = siteContact;
+export const navigation = navConfig.main;
 
 export interface Service {
   id: string;
@@ -90,9 +78,3 @@ export const whyUs = [
   },
 ];
 
-export const navigation = [
-  { name: 'Services', href: '/#services' },
-  { name: 'Pourquoi nous', href: '/#pourquoi-nous' },
-  { name: 'Clients', href: '/#clients' },
-  { name: 'Contact', href: '/#contact' },
-];

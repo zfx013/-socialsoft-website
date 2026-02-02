@@ -3,36 +3,39 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { gsap } from 'gsap';
-import { Users, Briefcase, Award, Clock } from 'lucide-react';
+import { Users, Briefcase, Award, Zap } from 'lucide-react';
+import { siteStats, urgenceWording } from '@/lib/config';
 
 const stats = [
   {
     icon: Briefcase,
-    value: 150,
-    suffix: '+',
-    label: 'Projets réalisés',
-    description: 'depuis notre création',
+    value: siteStats.projets.value,
+    suffix: siteStats.projets.suffix,
+    label: siteStats.projets.label,
+    description: siteStats.projets.description,
   },
   {
     icon: Users,
-    value: 50,
-    suffix: '+',
-    label: 'Clients satisfaits',
-    description: 'TPE et PME accompagnées',
+    value: siteStats.clients.value,
+    suffix: siteStats.clients.suffix,
+    label: siteStats.clients.label,
+    description: siteStats.clients.description,
   },
   {
     icon: Award,
-    value: 10,
-    suffix: ' ans',
-    label: "D'expertise",
-    description: 'dans le secteur IT',
+    value: siteStats.experience.value,
+    suffix: siteStats.experience.suffix,
+    label: siteStats.experience.label,
+    description: siteStats.experience.description,
   },
   {
-    icon: Clock,
-    value: 4,
-    suffix: 'h',
-    label: 'Intervention urgence',
-    description: 'délai garanti sous contrat',
+    icon: Zap,
+    value: null, // Pas de chiffre pour l'urgence
+    suffix: '',
+    label: urgenceWording.short,
+    description: urgenceWording.description,
+    isText: true,
+    textValue: 'SLA',
   },
 ];
 
@@ -110,7 +113,11 @@ export default function Stats() {
 
                   {/* Value */}
                   <div className="text-4xl lg:text-5xl font-bold text-light-100 mb-2">
-                    <Counter value={stat.value} suffix={stat.suffix} inView={isInView} />
+                    {stat.isText ? (
+                      <span className="tabular-nums">{stat.textValue}</span>
+                    ) : (
+                      <Counter value={stat.value!} suffix={stat.suffix} inView={isInView} />
+                    )}
                   </div>
 
                   {/* Label */}

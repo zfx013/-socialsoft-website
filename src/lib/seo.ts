@@ -121,7 +121,7 @@ export const jsonLd = {
         height: 100,
       },
       image: 'https://socialsoft.fr/og-image.jpg',
-      telephone: '+33782251099',
+      telephone: '+33183901406',
       email: 'contact@socialsoft.fr',
       foundingDate: '2020',
       numberOfEmployees: {
@@ -146,7 +146,7 @@ export const jsonLd = {
       contactPoint: [
         {
           '@type': 'ContactPoint',
-          telephone: '+33782251099',
+          telephone: '+33183901406',
           contactType: 'customer service',
           availableLanguage: ['French', 'English'],
           areaServed: 'FR',
@@ -168,7 +168,7 @@ export const jsonLd = {
       description:
         "Prestataire informatique pour TPE et PME en Île-de-France. Services : développement sur mesure, infogérance, cybersécurité, maintenance et support technique. Intervention sur site dans le Val-d'Oise et toute l'Île-de-France.",
       url: 'https://socialsoft.fr',
-      telephone: '+33782251099',
+      telephone: '+33183901406',
       email: 'contact@socialsoft.fr',
       priceRange: '€€',
       currenciesAccepted: 'EUR',
