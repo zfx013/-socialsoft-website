@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, createContext, useContext, useCallback, ReactNode } from 'react';
+import { useEffect, useRef, createContext, useContext, useState, ReactNode } from 'react';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -22,8 +22,11 @@ interface SmoothScrollProps {
 export default function SmoothScroll({ children }: SmoothScrollProps) {
   const lenisRef = useRef<Lenis | null>(null);
   const rafCallbackRef = useRef<((time: number) => void) | null>(null);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    setMounted(true);
+
     // Check if we're on the client
     if (typeof window === 'undefined') return;
 
@@ -34,7 +37,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       return; // Pas de smooth scroll si l'utilisateur préfère moins de mouvement
     }
 
-    // Initialiser Lenis
+    // Initialiser Lenis avec wrapper: document.body pour éviter les conflits DOM
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // easeOutExpo
@@ -42,6 +45,8 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       gestureOrientation: 'vertical',
       smoothWheel: true,
       touchMultiplier: 2,
+      wrapper: window as unknown as HTMLElement, // Utiliser window au lieu d'un wrapper DOM
+      content: document.documentElement,
     });
 
     lenisRef.current = lenis;
