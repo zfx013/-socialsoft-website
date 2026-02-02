@@ -1,11 +1,9 @@
 'use client';
 
-import { useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Server, Code, GraduationCap, ArrowRight, ChevronRight } from 'lucide-react';
+import { useRef } from 'react';
+import { motion, useInView } from 'framer-motion';
+import { Server, Code, GraduationCap, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import GlowEffect from '@/components/effects/GlowEffect';
-import SplitText from '@/components/effects/SplitText';
 import { poles } from '@/lib/config';
 
 const iconMap = {
@@ -16,183 +14,209 @@ const iconMap = {
 
 type IconKey = keyof typeof iconMap;
 
-interface PoleCardProps {
+interface PoleSectionProps {
   pole: typeof poles[0];
   index: number;
+  isReversed: boolean;
 }
 
-function PoleCard({ pole, index }: PoleCardProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
-  const [glowPosition, setGlowPosition] = useState({ x: 50, y: 50 });
-
+function PoleSection({ pole, index, isReversed }: PoleSectionProps) {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const Icon = iconMap[pole.icon as IconKey] || Server;
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setGlowPosition({ x, y });
+  // Couleurs par pôle
+  const colors = {
+    it: {
+      primary: 'blue',
+      gradient: 'from-blue-500 to-cyan-500',
+      bgGlow: 'bg-blue-500/10',
+      text: 'text-blue-400',
+      border: 'border-blue-500/30',
+      hover: 'hover:border-blue-500/50',
+    },
+    dev: {
+      primary: 'violet',
+      gradient: 'from-violet-500 to-purple-500',
+      bgGlow: 'bg-violet-500/10',
+      text: 'text-violet-400',
+      border: 'border-violet-500/30',
+      hover: 'hover:border-violet-500/50',
+    },
+    formation: {
+      primary: 'emerald',
+      gradient: 'from-emerald-500 to-teal-500',
+      bgGlow: 'bg-emerald-500/10',
+      text: 'text-emerald-400',
+      border: 'border-emerald-500/30',
+      hover: 'hover:border-emerald-500/50',
+    },
   };
 
+  const poleColors = colors[pole.id as keyof typeof colors] || colors.it;
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.15, ease: [0.25, 0.1, 0.25, 1] }}
-      viewport={{ once: true, margin: '-50px' }}
+    <div
+      ref={sectionRef}
+      className={`relative py-20 lg:py-28 ${index % 2 === 0 ? 'bg-dark-900' : 'bg-dark-800'}`}
     >
-      <Link href={pole.href}>
+      {/* Background glow */}
+      <div className="absolute inset-0 overflow-hidden">
         <div
-          ref={cardRef}
-          onMouseMove={handleMouseMove}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          className="group relative h-full p-8 rounded-3xl bg-dark-800/50 border border-dark-600 hover:border-transparent transition-all duration-500 overflow-hidden cursor-pointer"
-        >
-          {/* Animated border gradient */}
-          <AnimatePresence>
-            {isHovered && (
-              <motion.div
-                className="absolute inset-0 rounded-3xl pointer-events-none"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-              >
-                <motion.div
-                  className="absolute inset-[-2px] rounded-3xl"
-                  style={{
-                    background: `conic-gradient(from 0deg, ${pole.gradient.includes('blue') ? 'rgba(59, 130, 246, 0.6)' : pole.gradient.includes('violet') ? 'rgba(139, 92, 246, 0.6)' : 'rgba(16, 185, 129, 0.6)'}, transparent, ${pole.gradient.includes('cyan') ? 'rgba(6, 182, 212, 0.6)' : pole.gradient.includes('purple') ? 'rgba(168, 85, 247, 0.6)' : 'rgba(20, 184, 166, 0.6)'}, transparent, ${pole.gradient.includes('blue') ? 'rgba(59, 130, 246, 0.6)' : pole.gradient.includes('violet') ? 'rgba(139, 92, 246, 0.6)' : 'rgba(16, 185, 129, 0.6)'})`,
-                  }}
-                  animate={{ rotate: 360 }}
-                  transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
-                />
-                <div className="absolute inset-[1px] rounded-3xl bg-dark-800/95" />
-              </motion.div>
-            )}
-          </AnimatePresence>
+          className={`absolute ${isReversed ? 'right-0' : 'left-0'} top-1/2 -translate-y-1/2 w-[600px] h-[600px] ${poleColors.bgGlow} rounded-full blur-3xl opacity-30`}
+        />
+      </div>
 
-          {/* Dynamic glow following cursor */}
-          <div
-            className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-            style={{
-              background: `radial-gradient(circle at ${glowPosition.x}% ${glowPosition.y}%, ${pole.gradient.includes('blue') ? 'rgba(59, 130, 246, 0.15)' : pole.gradient.includes('violet') ? 'rgba(139, 92, 246, 0.15)' : 'rgba(16, 185, 129, 0.15)'} 0%, transparent 50%)`,
-            }}
-          />
-
-          {/* Content */}
-          <div className="relative z-10">
-            {/* Icon with gradient background */}
-            <motion.div
-              className={`inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br ${pole.gradient} mb-6`}
-              animate={isHovered ? { scale: 1.1, rotate: 5 } : { scale: 1, rotate: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <Icon className="w-8 h-8 text-white" />
-            </motion.div>
-
-            {/* Title & Subtitle */}
-            <h3 className="text-2xl font-bold text-light-100 mb-1 group-hover:text-white transition-colors">
-              {pole.title}
-            </h3>
-            <p className={`text-sm font-medium mb-4 bg-gradient-to-r ${pole.gradient} bg-clip-text text-transparent`}>
-              {pole.subtitle}
-            </p>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center ${isReversed ? 'lg:flex-row-reverse' : ''}`}>
+          {/* Contenu texte */}
+          <motion.div
+            initial={{ opacity: 0, x: isReversed ? 50 : -50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+            className={isReversed ? 'lg:order-2' : ''}
+          >
+            {/* Icône et titre */}
+            <div className="flex items-center gap-4 mb-6">
+              <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${poleColors.gradient} flex items-center justify-center`}>
+                <Icon className="w-7 h-7 text-white" />
+              </div>
+              <div>
+                <h3 className="text-2xl sm:text-3xl font-bold text-light-100">
+                  {pole.title}
+                </h3>
+                <p className={`text-sm font-medium ${poleColors.text}`}>
+                  {pole.subtitle}
+                </p>
+              </div>
+            </div>
 
             {/* Description */}
-            <p className="text-light-200 mb-6 leading-relaxed">
+            <p className="text-lg text-light-200 mb-8 leading-relaxed">
               {pole.description}
             </p>
 
             {/* Features */}
-            <div className="flex flex-wrap gap-2 mb-6">
+            <div className="flex flex-wrap gap-3 mb-8">
               {pole.features.map((feature, i) => (
-                <span
+                <motion.span
                   key={i}
-                  className="px-3 py-1 text-xs font-medium rounded-full bg-dark-700/50 text-light-300 border border-dark-600"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                  transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
+                  className={`px-4 py-2 text-sm font-medium rounded-xl bg-dark-700/50 text-light-200 border ${poleColors.border}`}
                 >
                   {feature}
-                </span>
+                </motion.span>
               ))}
             </div>
 
             {/* CTA */}
-            <div className="flex items-center gap-2 text-sm font-medium group-hover:gap-4 transition-all duration-300">
-              <span className={`bg-gradient-to-r ${pole.gradient} bg-clip-text text-transparent`}>
-                En savoir plus
-              </span>
-              <motion.div
-                animate={isHovered ? { x: 4 } : { x: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <ChevronRight className={`w-4 h-4 ${pole.gradient.includes('blue') ? 'text-blue-400' : pole.gradient.includes('violet') ? 'text-violet-400' : 'text-emerald-400'}`} />
-              </motion.div>
-            </div>
-          </div>
+            <Link
+              href={pole.href}
+              className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r ${poleColors.gradient} text-white font-medium hover:opacity-90 transition-opacity group`}
+            >
+              Découvrir
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </motion.div>
 
-          {/* Decorative corner lines */}
-          <div className="absolute top-4 right-4 w-12 h-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            <div className={`absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 rounded-tr-lg ${pole.gradient.includes('blue') ? 'border-blue-500/40' : pole.gradient.includes('violet') ? 'border-violet-500/40' : 'border-emerald-500/40'}`} />
-          </div>
-          <div className="absolute bottom-4 left-4 w-12 h-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-            <div className={`absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 rounded-bl-lg ${pole.gradient.includes('blue') ? 'border-blue-500/40' : pole.gradient.includes('violet') ? 'border-violet-500/40' : 'border-emerald-500/40'}`} />
-          </div>
+          {/* Visual / Déco */}
+          <motion.div
+            initial={{ opacity: 0, x: isReversed ? -50 : 50 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+            className={`relative ${isReversed ? 'lg:order-1' : ''}`}
+          >
+            <div className="relative aspect-square max-w-md mx-auto">
+              {/* Cercles décoratifs animés */}
+              <motion.div
+                className={`absolute inset-0 rounded-full border-2 ${poleColors.border} opacity-20`}
+                animate={{ scale: [1, 1.1, 1], rotate: [0, 180, 360] }}
+                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+              />
+              <motion.div
+                className={`absolute inset-8 rounded-full border-2 ${poleColors.border} opacity-30`}
+                animate={{ scale: [1.1, 1, 1.1], rotate: [360, 180, 0] }}
+                transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
+              />
+              <motion.div
+                className={`absolute inset-16 rounded-full border-2 ${poleColors.border} opacity-40`}
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+              />
+
+              {/* Icône centrale */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <motion.div
+                  className={`w-32 h-32 rounded-3xl bg-gradient-to-br ${poleColors.gradient} flex items-center justify-center shadow-2xl`}
+                  animate={{ y: [0, -10, 0] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                >
+                  <Icon className="w-16 h-16 text-white" />
+                </motion.div>
+              </div>
+
+              {/* Points décoratifs */}
+              {[...Array(6)].map((_, i) => {
+                const angle = (i * 60) * (Math.PI / 180);
+                const radius = 45;
+                const x = 50 + radius * Math.cos(angle);
+                const y = 50 + radius * Math.sin(angle);
+                return (
+                  <motion.div
+                    key={i}
+                    className={`absolute w-3 h-3 rounded-full bg-gradient-to-br ${poleColors.gradient}`}
+                    style={{ left: `${x}%`, top: `${y}%`, transform: 'translate(-50%, -50%)' }}
+                    animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+                    transition={{ duration: 2, delay: i * 0.3, repeat: Infinity }}
+                  />
+                );
+              })}
+            </div>
+          </motion.div>
         </div>
-      </Link>
-    </motion.div>
+      </div>
+    </div>
   );
 }
 
 export default function Poles() {
   return (
-    <section id="poles" className="relative py-24 lg:py-32 bg-dark-900 overflow-hidden">
-      {/* Background effects */}
-      <GlowEffect className="top-0 left-1/4 -translate-y-1/2" size="lg" />
-      <GlowEffect className="bottom-0 right-1/4 translate-y-1/2" color="cyan" size="md" />
-
-      {/* Background pattern */}
-      <div className="absolute inset-0 opacity-[0.02]">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-            backgroundSize: '48px 48px',
-          }}
-        />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <motion.div
+    <section id="poles" className="relative overflow-hidden">
+      {/* Header */}
+      <div className="relative py-16 lg:py-20 bg-dark-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-dark-800 border border-dark-600 text-sm text-light-300 mb-6"
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-light-100 mb-4"
           >
-            <span className="w-2 h-2 rounded-full bg-accent-blue animate-pulse" />
-            3 pôles d&apos;expertise
-          </motion.div>
-
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-light-100 mb-4">
-            <SplitText animation="slide" type="words">
-              Nos domaines d&apos;intervention
-            </SplitText>
-          </h2>
-          <p className="text-lg text-light-200 max-w-2xl mx-auto">
+            Nos domaines d&apos;intervention
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            viewport={{ once: true }}
+            className="text-lg text-light-200 max-w-2xl mx-auto"
+          >
             Une expertise complète pour accompagner votre entreprise dans tous ses projets IT
-          </p>
-        </div>
-
-        {/* Poles Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          {poles.map((pole, index) => (
-            <PoleCard key={pole.id} pole={pole} index={index} />
-          ))}
+          </motion.p>
         </div>
       </div>
+
+      {/* Sections des pôles */}
+      {poles.map((pole, index) => (
+        <PoleSection
+          key={pole.id}
+          pole={pole}
+          index={index}
+          isReversed={index % 2 !== 0}
+        />
+      ))}
     </section>
   );
 }

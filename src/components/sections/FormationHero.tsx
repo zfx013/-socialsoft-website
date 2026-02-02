@@ -7,6 +7,7 @@ import { Canvas } from '@react-three/fiber';
 import dynamic from 'next/dynamic';
 import { GraduationCap, Users, ArrowDown, CheckCircle, Phone, Award } from 'lucide-react';
 import GlowEffect from '@/components/effects/GlowEffect';
+import MagneticButton from '@/components/effects/MagneticButton';
 import { siteStats, siteContact } from '@/lib/config';
 
 const Hummingbirds = dynamic(() => import('@/components/three/Hummingbirds'), {
@@ -190,20 +191,24 @@ export default function FormationHero() {
               transition={{ duration: 0.6, delay: 0.7 }}
               className="flex flex-wrap justify-center lg:justify-start gap-4"
             >
-              <a
-                href="#formations"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium hover:opacity-90 transition-opacity"
-              >
-                Découvrir nos formations
-                <ArrowDown className="w-4 h-4" />
-              </a>
-              <a
-                href={siteContact.phoneLink}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-dark-700 border border-dark-600 text-light-100 font-medium hover:border-emerald-500/50 transition-colors"
-              >
-                <Phone className="w-4 h-4 text-emerald-400" />
-                {siteContact.phoneFormatted}
-              </a>
+              <MagneticButton strength={0.2} radius={100}>
+                <a
+                  href="#formations"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium hover:opacity-90 transition-opacity"
+                >
+                  Découvrir nos formations
+                  <ArrowDown className="w-4 h-4" />
+                </a>
+              </MagneticButton>
+              <MagneticButton strength={0.2} radius={100}>
+                <a
+                  href={siteContact.phoneLink}
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-dark-700 border border-dark-600 text-light-100 font-medium hover:border-emerald-500/50 transition-colors"
+                >
+                  <Phone className="w-4 h-4 text-emerald-400" />
+                  {siteContact.phoneFormatted}
+                </a>
+              </MagneticButton>
             </motion.div>
           </div>
 

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Code, Globe, Layers, Smartphone, Plug, Wrench, Lightbulb, CheckCircle, ArrowRight } from 'lucide-react';
+import { Code, Globe, Layers, Smartphone, Plug, Wrench, Lightbulb, CheckCircle, ArrowRight, Phone } from 'lucide-react';
 import Link from 'next/link';
 import Contact from '@/components/sections/Contact';
 import FloatingContact from '@/components/ui/FloatingContact';
@@ -83,8 +83,8 @@ export default function DeveloppementPage() {
                   <CheckCircle className="w-5 h-5 text-violet-400" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-light-100">{siteStats.projets.value}+</p>
-                  <p className="text-sm text-light-400">projets réalisés</p>
+                  <p className="text-2xl font-bold text-light-100">{siteStats.experience.value}+</p>
+                  <p className="text-sm text-light-400">ans d&apos;expertise</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -92,8 +92,8 @@ export default function DeveloppementPage() {
                   <Code className="w-5 h-5 text-purple-400" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-light-100">100%</p>
-                  <p className="text-sm text-light-400">code sur mesure</p>
+                  <p className="text-2xl font-bold text-light-100">Sur mesure</p>
+                  <p className="text-sm text-light-400">solutions adaptées</p>
                 </div>
               </div>
             </div>
@@ -111,6 +111,7 @@ export default function DeveloppementPage() {
                 href={siteContact.phoneLink}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-dark-700 border border-dark-600 text-light-100 font-medium hover:border-violet-500/50 transition-colors"
               >
+                <Phone className="w-4 h-4 text-violet-400" />
                 {siteContact.phoneFormatted}
               </a>
             </div>

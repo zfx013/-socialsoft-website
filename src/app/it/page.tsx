@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Server, Shield, Network, Cloud, HardDrive, Headphones, CheckCircle, ArrowRight, Zap } from 'lucide-react';
+import { Server, Shield, Network, Cloud, HardDrive, Headphones, CheckCircle, ArrowRight, Zap, Phone } from 'lucide-react';
 import Link from 'next/link';
 import Coverage from '@/components/sections/Coverage';
 import Contact from '@/components/sections/Contact';
@@ -85,8 +85,8 @@ export default function ITPage() {
                   <Zap className="w-5 h-5 text-cyan-400" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-light-100">SLA</p>
-                  <p className="text-sm text-light-400">{urgenceWording.description}</p>
+                  <p className="text-2xl font-bold text-light-100">Réactivité</p>
+                  <p className="text-sm text-light-400">Intervention rapide</p>
                 </div>
               </div>
             </div>
@@ -104,6 +104,7 @@ export default function ITPage() {
                 href={siteContact.phoneLink}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-dark-700 border border-dark-600 text-light-100 font-medium hover:border-blue-500/50 transition-colors"
               >
+                <Phone className="w-4 h-4 text-blue-400" />
                 {siteContact.phoneFormatted}
               </a>
             </div>
@@ -171,7 +172,7 @@ export default function ITPage() {
               </div>
               <div className="flex items-start gap-3 p-4 rounded-xl bg-dark-800/50 border border-dark-600">
                 <CheckCircle className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
-                <span className="text-light-200">Intervention sur site en Île-de-France selon SLA convenu</span>
+                <span className="text-light-200">Intervention sur site rapide en Île-de-France</span>
               </div>
               <div className="flex items-start gap-3 p-4 rounded-xl bg-dark-800/50 border border-dark-600">
                 <CheckCircle className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
