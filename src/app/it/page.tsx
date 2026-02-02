@@ -147,67 +147,39 @@ export default function ITPage() {
         </div>
       </section>
 
-      {/* Urgence & Contrats */}
+      {/* Réactivité garantie */}
       <section className="relative py-24 lg:py-32 bg-dark-900 overflow-hidden">
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-sm text-cyan-400 mb-6">
-                <Zap className="w-4 h-4" />
-                Réactivité garantie
-              </div>
-              <h2 className="text-3xl sm:text-4xl font-bold text-light-100 mb-6">
-                {urgenceWording.full}
-              </h2>
-              <p className="text-lg text-light-200 mb-6 leading-relaxed">
-                {urgenceWording.description}. Nous adaptons nos contrats selon le niveau
-                de criticité de votre infrastructure et vos besoins spécifiques.
-              </p>
-              <ul className="space-y-4">
-                <li className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
-                  <span className="text-light-200">Support téléphonique et prise en main à distance immédiats</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
-                  <span className="text-light-200">Intervention sur site en Île-de-France selon SLA convenu</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
-                  <span className="text-light-200">Contrats spéciaux pour matériel/service critique</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <CheckCircle className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
-                  <span className="text-light-200">Astreinte 24/7 disponible sur contrat Premium</span>
-                </li>
-              </ul>
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-sm text-cyan-400 mb-6">
+              <Zap className="w-4 h-4" />
+              Réactivité garantie
             </div>
-            <div className="relative">
-              <div className="p-8 rounded-3xl bg-gradient-to-br from-dark-700 to-dark-800 border border-dark-600">
-                <h3 className="text-xl font-semibold text-light-100 mb-6">Nos formules d&apos;engagement</h3>
-                <div className="space-y-4">
-                  <div className="p-4 rounded-xl bg-dark-900/50 border border-dark-600">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-medium text-light-100">Contrat Standard</span>
-                      <span className="text-sm text-light-400">Sans engagement</span>
-                    </div>
-                    <p className="text-sm text-light-300">Support du lundi au vendredi, intervention sous 8h ouvrées</p>
-                  </div>
-                  <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/30">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-medium text-light-100">Contrat Premium</span>
-                      <span className="text-sm text-blue-400">Recommandé</span>
-                    </div>
-                    <p className="text-sm text-light-300">Astreinte 24/7, intervention prioritaire, SLA garanti par contrat</p>
-                  </div>
-                  <div className="p-4 rounded-xl bg-dark-900/50 border border-dark-600">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-medium text-light-100">Contrat Sur-Mesure</span>
-                      <span className="text-sm text-light-400">Personnalisé</span>
-                    </div>
-                    <p className="text-sm text-light-300">Adapté aux besoins critiques de votre infrastructure</p>
-                  </div>
-                </div>
+            <h2 className="text-3xl sm:text-4xl font-bold text-light-100 mb-6">
+              {urgenceWording.full}
+            </h2>
+            <p className="text-lg text-light-200 mb-8 leading-relaxed">
+              {urgenceWording.description}. Nous adaptons notre accompagnement selon le niveau
+              de criticité de votre infrastructure et vos besoins spécifiques.
+            </p>
+          </div>
+          <div className="max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="flex items-start gap-3 p-4 rounded-xl bg-dark-800/50 border border-dark-600">
+                <CheckCircle className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
+                <span className="text-light-200">Support téléphonique et prise en main à distance immédiats</span>
+              </div>
+              <div className="flex items-start gap-3 p-4 rounded-xl bg-dark-800/50 border border-dark-600">
+                <CheckCircle className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
+                <span className="text-light-200">Intervention sur site en Île-de-France selon SLA convenu</span>
+              </div>
+              <div className="flex items-start gap-3 p-4 rounded-xl bg-dark-800/50 border border-dark-600">
+                <CheckCircle className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
+                <span className="text-light-200">Accompagnement adapté aux besoins critiques</span>
+              </div>
+              <div className="flex items-start gap-3 p-4 rounded-xl bg-dark-800/50 border border-dark-600">
+                <CheckCircle className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
+                <span className="text-light-200">Astreinte disponible selon votre contrat</span>
               </div>
             </div>
           </div>

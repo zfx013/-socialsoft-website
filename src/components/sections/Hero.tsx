@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, Suspense } from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, ArrowDown } from 'lucide-react';
+import { ArrowDown } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import dynamic from 'next/dynamic';
@@ -208,30 +208,16 @@ export default function Hero() {
         className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 text-center"
       >
         {/* Logo SOCIALSOFT - tout en haut */}
-        <div className="mb-16 relative z-20">
+        <div className="mb-20 relative z-20">
           <LogoReveal />
         </div>
-
-        {/* Badge Île-de-France */}
-        <motion.a
-          href="#coverage"
-          initial={false}
-          animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 10 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-dark-700/50 border border-dark-600 text-light-200 text-sm backdrop-blur-sm hover:border-accent-blue/50 hover:bg-dark-600/50 transition-all cursor-pointer"
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-        >
-          <MapPin className="w-4 h-4 text-accent-blue" />
-          <span>Interventions dans toute l&apos;Île-de-France</span>
-        </motion.a>
 
         {/* Heading */}
         <motion.h1
           initial={false}
           animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 30 }}
           transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-light-100 mb-6 leading-tight"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-light-100 mb-8 leading-tight"
         >
           Votre IT, de la{' '}
           <span className="text-gradient">conception</span>
@@ -244,7 +230,7 @@ export default function Hero() {
           initial={false}
           animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 20 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="text-lg sm:text-xl text-light-100 max-w-2xl mx-auto mb-10"
+          className="text-lg sm:text-xl text-light-100 max-w-2xl mx-auto mb-12"
         >
           Accompagnement complet pour TPE et PME : conseil, développement, infrastructure, support.
         </motion.p>

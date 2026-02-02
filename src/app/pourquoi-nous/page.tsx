@@ -5,7 +5,8 @@ import Clients from '@/components/sections/Clients';
 import FAQ from '@/components/sections/FAQ';
 import Contact from '@/components/sections/Contact';
 import FloatingContact from '@/components/ui/FloatingContact';
-import { whyUsReasons, methodology, siteStats, siteContact } from '@/lib/config';
+import MethodologyTimeline from '@/components/sections/MethodologyTimeline';
+import { whyUsReasons, siteStats, siteContact } from '@/lib/config';
 
 export const metadata: Metadata = {
   title: "Pourquoi nous choisir | SOCIAL SOFT",
@@ -142,42 +143,7 @@ export default function PourquoiNousPage() {
       </section>
 
       {/* Notre méthodologie */}
-      <section className="relative py-24 lg:py-32 bg-dark-900 overflow-hidden">
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl font-bold text-light-100 mb-4">
-              Notre méthodologie
-            </h2>
-            <p className="text-lg text-light-200 max-w-2xl mx-auto">
-              Une approche structurée pour des projets réussis
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {methodology.map((item) => (
-              <div
-                key={item.step}
-                className="relative p-6 rounded-2xl bg-dark-800/50 border border-dark-600"
-              >
-                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-violet-500 flex items-center justify-center text-white font-bold mb-4">
-                  {item.step}
-                </div>
-                <h3 className="text-lg font-semibold text-light-100 mb-2">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-light-300">
-                  {item.description}
-                </p>
-                {item.step < 4 && (
-                  <div className="hidden lg:block absolute top-1/2 -right-3 transform -translate-y-1/2">
-                    <ArrowRight className="w-6 h-6 text-dark-600" />
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <MethodologyTimeline />
 
       {/* Témoignages clients */}
       <Clients />

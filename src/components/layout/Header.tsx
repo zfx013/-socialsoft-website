@@ -77,6 +77,7 @@ interface NavDropdownProps {
 function NavDropdown({ label, items }: NavDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -85,15 +86,34 @@ function NavDropdown({ label, items }: NavDropdownProps) {
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      if (closeTimeoutRef.current) {
+        clearTimeout(closeTimeoutRef.current);
+      }
+    };
   }, []);
+
+  const handleMouseEnter = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    setIsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    closeTimeoutRef.current = setTimeout(() => {
+      setIsOpen(false);
+    }, 150);
+  };
 
   return (
     <div
       ref={dropdownRef}
       className="relative"
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <button
         className="flex items-center gap-1 text-light-200 hover:text-light-100 transition-colors duration-200 font-medium py-2"
@@ -102,6 +122,11 @@ function NavDropdown({ label, items }: NavDropdownProps) {
         {label}
         <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
+
+      {/* Zone invisible pour maintenir le survol entre le bouton et le dropdown */}
+      {isOpen && (
+        <div className="absolute top-full left-0 w-full h-3" />
+      )}
 
       {/* Dropdown sans AnimatePresence - toujours dans le DOM */}
       <motion.div
@@ -112,22 +137,24 @@ function NavDropdown({ label, items }: NavDropdownProps) {
           pointerEvents: isOpen ? 'auto' : 'none'
         }}
         transition={{ duration: 0.2 }}
-        className="absolute top-full left-0 mt-2 w-64 py-2 bg-dark-800 border border-dark-600 rounded-xl shadow-xl"
+        className="absolute top-full left-0 pt-3 w-64"
         style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
       >
-        {items.map((item) => (
-          <Link
-            key={item.href}
-            href={item.href}
-            className="block px-4 py-3 hover:bg-dark-700 transition-colors"
-            onClick={() => setIsOpen(false)}
-          >
-            <span className="block text-light-100 font-medium">{item.name}</span>
-            {item.description && (
-              <span className="block text-sm text-light-400 mt-0.5">{item.description}</span>
-            )}
-          </Link>
-        ))}
+        <div className="py-2 bg-dark-800 border border-dark-600 rounded-xl shadow-xl">
+          {items.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="block px-4 py-3 hover:bg-dark-700 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              <span className="block text-light-100 font-medium">{item.name}</span>
+              {item.description && (
+                <span className="block text-sm text-light-400 mt-0.5">{item.description}</span>
+              )}
+            </Link>
+          ))}
+        </div>
       </motion.div>
     </div>
   );

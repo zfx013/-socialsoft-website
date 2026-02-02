@@ -12,17 +12,17 @@ export default function LogoReveal() {
   useEffect(() => {
     setMounted(true);
 
-    // Délai court avant de commencer l'animation
+    // Délai après le SplashScreen (qui dure ~1200ms) avant de commencer l'animation
     const visibleTimer = setTimeout(() => {
       setIsVisible(true);
       setShowScanLine(true);
-    }, 500);
+    }, 1400);
 
     // Marquer comme révélé après l'animation
     const revealTimer = setTimeout(() => {
       setIsRevealed(true);
       setShowScanLine(false);
-    }, 1700);
+    }, 2600);
 
     return () => {
       clearTimeout(visibleTimer);

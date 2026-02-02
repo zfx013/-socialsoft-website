@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
-import { GraduationCap, Award, Clock, Users, BookOpen, CheckCircle, ArrowRight, ExternalLink } from 'lucide-react';
-import Link from 'next/link';
+import { Award, Clock, BookOpen, CheckCircle, ArrowRight, ExternalLink } from 'lucide-react';
 import Contact from '@/components/sections/Contact';
 import FloatingContact from '@/components/ui/FloatingContact';
-import { programmesFormation, siteStats, siteContact } from '@/lib/config';
+import FormationHero from '@/components/sections/FormationHero';
+import { programmesFormation, siteContact } from '@/lib/config';
 
 export const metadata: Metadata = {
   title: "Formation Colibri | Formations Certifiées Qualiopi",
@@ -40,91 +40,11 @@ const avantages = [
 export default function FormationPage() {
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 bg-dark-900 overflow-hidden">
-        {/* Background gradient */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl" />
-        </div>
-
-        {/* Background pattern */}
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-              backgroundSize: '48px 48px',
-            }}
-          />
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl">
-            {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-sm text-emerald-400 mb-6">
-              <GraduationCap className="w-4 h-4" />
-              Formation Colibri
-            </div>
-
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-light-100 mb-6">
-              Formations<br />
-              <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
-                Certifiées Qualiopi
-              </span>
-            </h1>
-
-            <p className="text-xl text-light-200 mb-8 leading-relaxed">
-              Montez en compétences sur les outils numériques avec nos formations professionnelles.
-              Programmes adaptés à tous les niveaux, éligibles aux financements OPCO et CPF.
-            </p>
-
-            {/* Key stats */}
-            <div className="flex flex-wrap gap-6 mb-8">
-              <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center">
-                  <Award className="w-5 h-5 text-emerald-400" />
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-light-100">Qualiopi</p>
-                  <p className="text-sm text-light-400">certifié qualité</p>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-10 h-10 rounded-lg bg-teal-500/20 flex items-center justify-center">
-                  <Users className="w-5 h-5 text-teal-400" />
-                </div>
-                <div>
-                  <p className="text-2xl font-bold text-light-100">{siteStats.experience.value}+</p>
-                  <p className="text-sm text-light-400">ans d&apos;expérience</p>
-                </div>
-              </div>
-            </div>
-
-            {/* CTA */}
-            <div className="flex flex-wrap gap-4">
-              <a
-                href={siteContact.colibriUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium hover:opacity-90 transition-opacity"
-              >
-                Découvrir nos formations
-                <ExternalLink className="w-4 h-4" />
-              </a>
-              <a
-                href={siteContact.phoneLink}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-dark-700 border border-dark-600 text-light-100 font-medium hover:border-emerald-500/50 transition-colors"
-              >
-                {siteContact.phoneFormatted}
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Hero Section avec colibris 3D */}
+      <FormationHero />
 
       {/* Avantages */}
-      <section className="relative py-24 lg:py-32 bg-dark-800 overflow-hidden">
+      <section id="avantages" className="relative py-24 lg:py-32 bg-dark-800 overflow-hidden">
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-light-100 mb-4">
