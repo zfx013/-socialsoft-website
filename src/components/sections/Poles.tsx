@@ -15,47 +15,60 @@ const iconMap = {
 
 type IconKey = keyof typeof iconMap;
 
+// Lignes de code pour le terminal (défini en dehors du composant pour éviter les re-créations)
+const CODE_LINES = [
+  '$ npm create next-app@latest',
+  '✓ Creating new project...',
+  '',
+  'import { useState } from "react"',
+  '',
+  'export default function App() {',
+  '  const [data, setData] = useState([])',
+  '',
+  '  return (',
+  '    <main className="container">',
+  '      <h1>Bienvenue</h1>',
+  '      {data.map(item => (',
+  '        <Card key={item.id} />',
+  '      ))}',
+  '    </main>',
+  '  )',
+  '}',
+];
+
 // Composant Terminal animé pour le pôle Développement
 function AnimatedTerminal() {
   const [displayedLines, setDisplayedLines] = useState<string[]>([]);
+  const [mounted, setMounted] = useState(false);
   const terminalRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(terminalRef, { once: true, margin: '-50px' });
 
-  const codeLines = [
-    '$ npm create next-app@latest',
-    '✓ Creating new project...',
-    '',
-    'import { useState } from "react"',
-    '',
-    'export default function App() {',
-    '  const [data, setData] = useState([])',
-    '',
-    '  return (',
-    '    <main className="container">',
-    '      <h1>Bienvenue</h1>',
-    '      {data.map(item => (',
-    '        <Card key={item.id} />',
-    '      ))}',
-    '    </main>',
-    '  )',
-    '}',
-  ];
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
-    if (!isInView) return;
+    if (!isInView || !mounted) return;
 
     let lineIndex = 0;
+    let isCancelled = false;
+
     const interval = setInterval(() => {
-      if (lineIndex < codeLines.length) {
-        setDisplayedLines(prev => [...prev, codeLines[lineIndex]]);
+      if (isCancelled) return;
+
+      if (lineIndex < CODE_LINES.length) {
+        setDisplayedLines(prev => [...prev, CODE_LINES[lineIndex]]);
         lineIndex++;
       } else {
         clearInterval(interval);
       }
     }, 200);
 
-    return () => clearInterval(interval);
-  }, [isInView]);
+    return () => {
+      isCancelled = true;
+      clearInterval(interval);
+    };
+  }, [isInView, mounted]);
 
   return (
     <div ref={terminalRef} className="relative w-full max-w-lg mx-auto">
@@ -96,7 +109,12 @@ function AnimatedTerminal() {
 // Composant visualisation Infrastructure IT
 function InfrastructureVisual() {
   const ref = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const nodes = [
     { id: 'server', icon: Server, x: 50, y: 20, label: 'Serveur' },
@@ -132,7 +150,7 @@ function InfrastructureVisual() {
               stroke="url(#blueGradient)"
               strokeWidth="0.5"
               initial={{ pathLength: 0, opacity: 0 }}
-              animate={isInView ? { pathLength: 1, opacity: 0.4 } : {}}
+              animate={isInView && mounted ? { pathLength: 1, opacity: 0.4 } : {}}
               transition={{ duration: 1, delay: i * 0.15 }}
             />
           );
@@ -147,7 +165,7 @@ function InfrastructureVisual() {
               r="1"
               fill="#3B82F6"
               initial={{ opacity: 0 }}
-              animate={isInView ? {
+              animate={isInView && mounted ? {
                 opacity: [0, 1, 0],
                 cx: [fromNode.x, toNode.x],
                 cy: [fromNode.y, toNode.y],
@@ -178,7 +196,7 @@ function InfrastructureVisual() {
             className="absolute flex flex-col items-center"
             style={{ left: `${node.x}%`, top: `${node.y}%`, transform: 'translate(-50%, -50%)' }}
             initial={{ scale: 0, opacity: 0 }}
-            animate={isInView ? { scale: 1, opacity: 1 } : {}}
+            animate={isInView && mounted ? { scale: 1, opacity: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.5 + i * 0.1, type: 'spring' }}
           >
             <motion.div
@@ -202,14 +220,19 @@ function InfrastructureVisual() {
 // Composant Logo Colibri pour Formation
 function ColibriVisual() {
   const ref = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <div ref={ref} className="relative w-full max-w-sm mx-auto">
       <motion.div
         className="relative"
         initial={{ opacity: 0, scale: 0.8 }}
-        animate={isInView ? { opacity: 1, scale: 1 } : {}}
+        animate={isInView && mounted ? { opacity: 1, scale: 1 } : {}}
         transition={{ duration: 0.6 }}
       >
         {/* Glow effect derrière le logo */}
@@ -266,7 +289,7 @@ function ColibriVisual() {
       <motion.div
         className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-dark-700 border border-emerald-500/30 text-sm text-emerald-400 font-medium"
         initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        animate={isInView && mounted ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.5, delay: 0.3 }}
       >
         Certifié Qualiopi
