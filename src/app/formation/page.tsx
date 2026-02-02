@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Award, Clock, BookOpen, CheckCircle, ArrowRight, ExternalLink } from 'lucide-react';
+import { Award, Clock, Users, BookOpen, CheckCircle, ArrowRight, ExternalLink } from 'lucide-react';
 import Contact from '@/components/sections/Contact';
 import FloatingContact from '@/components/ui/FloatingContact';
 import FormationHero from '@/components/sections/FormationHero';
