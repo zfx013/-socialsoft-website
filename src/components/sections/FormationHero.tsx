@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
 import dynamic from 'next/dynamic';
-import { GraduationCap, Award, Users, ArrowDown, CheckCircle } from 'lucide-react';
+import { GraduationCap, Users, ArrowDown, CheckCircle, Phone, Award } from 'lucide-react';
 import GlowEffect from '@/components/effects/GlowEffect';
 import { siteStats, siteContact } from '@/lib/config';
 
@@ -201,6 +201,7 @@ export default function FormationHero() {
                 href={siteContact.phoneLink}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-dark-700 border border-dark-600 text-light-100 font-medium hover:border-emerald-500/50 transition-colors"
               >
+                <Phone className="w-4 h-4 text-emerald-400" />
                 {siteContact.phoneFormatted}
               </a>
             </motion.div>
@@ -214,13 +215,26 @@ export default function FormationHero() {
             className="hidden lg:block"
           >
             <div className="p-6 rounded-2xl bg-dark-800/70 backdrop-blur-sm border border-dark-600">
+              {/* Logo Qualiopi avec fond blanc pour contraste */}
+              <div className="flex justify-center mb-5">
+                <div className="relative bg-white rounded-xl p-3 shadow-lg">
+                  <Image
+                    src="/images/logo-qualiopi.png"
+                    alt="Certification Qualiopi"
+                    width={180}
+                    height={80}
+                    className="object-contain"
+                  />
+                </div>
+              </div>
+
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center">
-                  <Award className="w-6 h-6 text-white" />
+                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center">
+                  <Award className="w-5 h-5 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-bold text-light-100">Qualiopi</h3>
-                  <p className="text-sm text-light-400">Certification qualité</p>
+                  <h3 className="text-lg font-bold text-light-100">Certification qualité</h3>
+                  <p className="text-sm text-light-400">Organisme de formation</p>
                 </div>
               </div>
 
