@@ -21,46 +21,49 @@ const Scene = dynamic(() => import('@/components/three/Scene'), { ssr: false });
 const Hummingbirds = dynamic(() => import('@/components/three/Hummingbirds'), { ssr: false });
 
 // ============================================
-// TERMINAL ANIMÉ - Code qui défile en continu
+// TERMINAL ANIMÉ - Effet de frappe réaliste
 // ============================================
-const CODE_SNIPPETS = [
-  '$ git clone projet-client',
-  '$ npm install',
-  '$ npm run dev',
-  '',
-  'import { useState } from "react"',
-  'import { motion } from "framer-motion"',
-  '',
-  'export default function App() {',
-  '  const [loading, setLoading] = useState(true)',
-  '',
-  '  useEffect(() => {',
-  '    fetchData().then(setData)',
-  '  }, [])',
-  '',
-  '  return (',
-  '    <main className="app">',
-  '      <Header />',
-  '      <Dashboard data={data} />',
-  '      <Footer />',
-  '    </main>',
-  '  )',
-  '}',
-  '',
-  '// API Integration',
-  'async function fetchData() {',
-  '  const res = await fetch("/api")',
-  '  return res.json()',
-  '}',
-  '',
-  '✓ Build successful',
-  '✓ Deployed to production',
-  '',
+const TYPING_LINES = [
+  { text: '$ npm create next-app client', type: 'command' },
+  { text: '✓ Projet créé avec succès', type: 'success' },
+  { text: '$ cd client && npm install', type: 'command' },
+  { text: '$ npm run dev', type: 'command' },
+  { text: '', type: 'empty' },
+  { text: 'import React from "react"', type: 'code' },
+  { text: 'import { Database } from "./db"', type: 'code' },
+  { text: '', type: 'empty' },
+  { text: 'export default function App() {', type: 'keyword' },
+  { text: '  const data = useQuery()', type: 'code' },
+  { text: '  return <Dashboard />', type: 'jsx' },
+  { text: '}', type: 'keyword' },
+  { text: '', type: 'empty' },
+  { text: '✓ Build successful', type: 'success' },
+  { text: '✓ Deployed to production', type: 'success' },
 ];
 
 function AnimatedTerminal() {
   const terminalRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(terminalRef, { once: true, margin: '-50px' });
+
+  // Calculer le délai total pour chaque ligne (basé sur les lignes précédentes)
+  const getLineDelay = (index: number) => {
+    let delay = 0;
+    for (let i = 0; i < index; i++) {
+      delay += TYPING_LINES[i].text.length * 0.05 + 0.8; // temps de frappe + pause
+    }
+    return delay;
+  };
+
+  const getLineColor = (type: string) => {
+    switch (type) {
+      case 'command': return 'text-green-400';
+      case 'success': return 'text-emerald-400';
+      case 'keyword': return 'text-violet-400';
+      case 'jsx': return 'text-cyan-400';
+      case 'code': return 'text-light-300';
+      default: return 'text-light-300';
+    }
+  };
 
   return (
     <div ref={terminalRef} className="relative w-full max-w-lg mx-auto">
@@ -75,54 +78,58 @@ function AnimatedTerminal() {
           <span className="text-xs text-light-400 ml-2 font-mono">terminal — projet-client</span>
         </div>
 
-        {/* Terminal content avec défilement CSS */}
-        <div className="bg-dark-900 p-4 h-80 overflow-hidden font-mono text-sm relative">
-          {/* Conteneur qui défile */}
-          <div
-            className={`terminal-scroll ${isInView ? 'animate-terminal-scroll' : ''}`}
-            style={{ opacity: isInView ? 1 : 0 }}
-          >
-            {/* Dupliquer les lignes pour un défilement infini */}
-            {[...CODE_SNIPPETS, ...CODE_SNIPPETS].map((line, i) => (
-              <div
-                key={i}
-                className={`leading-relaxed ${
-                  line.startsWith('$') ? 'text-green-400' :
-                  line.startsWith('✓') ? 'text-emerald-400' :
-                  line.startsWith('//') ? 'text-light-500' :
-                  line.includes('import') || line.includes('export') || line.includes('const') || line.includes('return') || line.includes('async') || line.includes('function') ? 'text-violet-400' :
-                  line.includes('className') || line.includes('<') ? 'text-cyan-400' :
-                  'text-light-300'
-                }`}
+        {/* Terminal content avec effet de frappe */}
+        <div className="bg-dark-900 p-4 h-80 overflow-hidden font-mono text-sm">
+          {TYPING_LINES.map((line, i) => (
+            <div
+              key={i}
+              className={`typing-line ${getLineColor(line.type)} h-6 overflow-hidden`}
+              style={{
+                opacity: isInView ? 1 : 0,
+                animationDelay: isInView ? `${getLineDelay(i)}s` : '0s',
+              }}
+            >
+              <span
+                className="typing-text inline-block whitespace-pre"
+                style={{
+                  animationDelay: isInView ? `${getLineDelay(i)}s` : '0s',
+                  animationDuration: `${line.text.length * 0.05}s`,
+                }}
               >
-                {line || '\u00A0'}
-              </div>
-            ))}
-          </div>
+                {line.text || '\u00A0'}
+              </span>
+            </div>
+          ))}
 
-          {/* Curseur clignotant */}
-          <div className="absolute bottom-4 left-4">
-            <span className="inline-block w-2 h-4 bg-violet-400 animate-pulse" />
-          </div>
-
-          {/* Dégradé en haut et en bas pour effet de fondu */}
-          <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-dark-900 to-transparent pointer-events-none" />
-          <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-dark-900 to-transparent pointer-events-none" />
+          {/* Curseur qui suit la frappe */}
+          <span className="inline-block w-2 h-4 bg-green-400 animate-blink ml-1" />
         </div>
       </div>
 
-      {/* Style pour l'animation */}
+      {/* Styles pour l'animation de frappe */}
       <style jsx>{`
-        @keyframes terminal-scroll {
-          0% {
-            transform: translateY(0);
-          }
-          100% {
-            transform: translateY(-50%);
-          }
+        .typing-line {
+          animation: fadeIn 0.1s ease forwards;
+          opacity: 0;
         }
-        .animate-terminal-scroll {
-          animation: terminal-scroll 20s linear infinite;
+        .typing-text {
+          overflow: hidden;
+          animation: typing 0.5s steps(40, end) forwards;
+          width: 0;
+        }
+        @keyframes typing {
+          from { width: 0; }
+          to { width: 100%; }
+        }
+        @keyframes fadeIn {
+          to { opacity: 1; }
+        }
+        @keyframes blink {
+          0%, 50% { opacity: 1; }
+          51%, 100% { opacity: 0; }
+        }
+        .animate-blink {
+          animation: blink 1s infinite;
         }
       `}</style>
     </div>
@@ -130,7 +137,7 @@ function AnimatedTerminal() {
 }
 
 // ============================================
-// IT VISUAL - Services IT pour toutes tailles
+// IT VISUAL - Services IT avec animations
 // ============================================
 function ITServicesVisual() {
   const ref = useRef<HTMLDivElement>(null);
@@ -149,15 +156,15 @@ function ITServicesVisual() {
   ];
 
   return (
-    <div ref={ref} className="relative w-full max-w-md mx-auto">
-      {/* Grille de services */}
-      <div className="grid grid-cols-4 gap-4">
+    <div ref={ref} className="relative w-full max-w-lg mx-auto py-8">
+      {/* Grille de services - icônes plus grosses */}
+      <div className="grid grid-cols-4 gap-6">
         {services.map((service, i) => {
           const Icon = service.icon;
           return (
             <div
               key={i}
-              className="flex flex-col items-center gap-2 transition-all duration-500"
+              className="it-service-item flex flex-col items-center gap-3 transition-all duration-500"
               style={{
                 opacity: isInView ? 1 : 0,
                 transform: isInView ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.8)',
@@ -165,49 +172,56 @@ function ITServicesVisual() {
               }}
             >
               <div
-                className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center shadow-lg hover:scale-110 transition-transform cursor-default`}
+                className={`w-16 h-16 lg:w-20 lg:h-20 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl cursor-default`}
+                style={{
+                  animation: isInView ? `float-subtle 3s ease-in-out infinite` : 'none',
+                  animationDelay: `${service.delay * 2}s`,
+                }}
               >
-                <Icon className="w-6 h-6 text-white" />
+                <Icon className="w-8 h-8 lg:w-10 lg:h-10 text-white" />
               </div>
-              <span className="text-xs text-light-400 font-medium">{service.label}</span>
+              <span className="text-sm text-light-300 font-medium">{service.label}</span>
             </div>
           );
         })}
       </div>
 
-      {/* Lignes de connexion animées */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: -1 }}>
-        <defs>
-          <linearGradient id="itGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="#06B6D4" stopOpacity="0.3" />
-          </linearGradient>
-        </defs>
-        {/* Lignes de connexion entre les icônes */}
+      {/* Particules flottantes animées */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {isInView && (
           <>
-            <line x1="25%" y1="25%" x2="75%" y2="25%" stroke="url(#itGradient)" strokeWidth="1" className="animate-pulse" />
-            <line x1="25%" y1="75%" x2="75%" y2="75%" stroke="url(#itGradient)" strokeWidth="1" className="animate-pulse" style={{ animationDelay: '0.5s' }} />
-            <line x1="25%" y1="25%" x2="25%" y2="75%" stroke="url(#itGradient)" strokeWidth="1" className="animate-pulse" style={{ animationDelay: '1s' }} />
-            <line x1="75%" y1="25%" x2="75%" y2="75%" stroke="url(#itGradient)" strokeWidth="1" className="animate-pulse" style={{ animationDelay: '1.5s' }} />
+            <div className="it-particle absolute w-2 h-2 bg-blue-400/40 rounded-full" style={{ top: '20%', left: '10%', animationDelay: '0s' }} />
+            <div className="it-particle absolute w-1.5 h-1.5 bg-cyan-400/40 rounded-full" style={{ top: '60%', left: '85%', animationDelay: '1s' }} />
+            <div className="it-particle absolute w-2 h-2 bg-violet-400/40 rounded-full" style={{ top: '80%', left: '20%', animationDelay: '2s' }} />
+            <div className="it-particle absolute w-1.5 h-1.5 bg-emerald-400/40 rounded-full" style={{ top: '30%', left: '90%', animationDelay: '0.5s' }} />
+            <div className="it-particle absolute w-2 h-2 bg-amber-400/40 rounded-full" style={{ top: '70%', left: '50%', animationDelay: '1.5s' }} />
           </>
         )}
-      </svg>
-
-      {/* Badge central */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-4 py-2 rounded-full bg-dark-800/90 border border-blue-500/30 backdrop-blur-sm transition-all duration-700"
-        style={{
-          opacity: isInView ? 1 : 0,
-          transform: isInView ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(0.5)',
-          transitionDelay: '0.8s',
-        }}
-      >
-        <span className="text-sm font-medium text-blue-400">De 1 à 250 postes</span>
       </div>
 
       {/* Glow effect */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+
+      {/* Styles pour animations */}
+      <style jsx>{`
+        @keyframes float-subtle {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-5px); }
+        }
+        .it-particle {
+          animation: particle-float 4s ease-in-out infinite;
+        }
+        @keyframes particle-float {
+          0%, 100% {
+            transform: translateY(0) translateX(0);
+            opacity: 0.4;
+          }
+          50% {
+            transform: translateY(-20px) translateX(10px);
+            opacity: 0.8;
+          }
+        }
+      `}</style>
     </div>
   );
 }
@@ -220,7 +234,7 @@ function ColibriVisual() {
   const isInView = useInView(ref, { once: true, margin: '-50px' });
 
   return (
-    <div ref={ref} className="relative w-full max-w-sm mx-auto h-80">
+    <div ref={ref} className="relative w-full max-w-md mx-auto h-96">
       {/* Oiseaux 3D en arrière-plan */}
       <div
         className="absolute inset-0 transition-opacity duration-1000"
@@ -233,7 +247,7 @@ function ColibriVisual() {
         </Suspense>
       </div>
 
-      {/* Logo Colibri au centre */}
+      {/* Logo Colibri au centre - PLUS GRAND */}
       <div
         className="absolute inset-0 flex items-center justify-center transition-all duration-700"
         style={{
@@ -245,14 +259,14 @@ function ColibriVisual() {
         <div className="relative">
           {/* Glow derrière le logo */}
           <div
-            className="absolute inset-0 -m-8 animate-pulse-slow"
+            className="absolute inset-0 -m-12 animate-pulse-slow"
             style={{
-              background: 'radial-gradient(circle, rgba(16, 185, 129, 0.25) 0%, transparent 70%)',
+              background: 'radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, transparent 70%)',
             }}
           />
 
-          {/* Logo */}
-          <div className="relative w-32 h-44">
+          {/* Logo - taille augmentée */}
+          <div className="relative w-48 h-64 lg:w-56 lg:h-72">
             <Image
               src="/images/logo-colibri.png"
               alt="Formation Colibri"
@@ -263,16 +277,16 @@ function ColibriVisual() {
         </div>
       </div>
 
-      {/* Badge Qualiopi */}
+      {/* Badge Qualiopi - plus visible */}
       <div
-        className="absolute bottom-4 left-1/2 -translate-x-1/2 px-5 py-2.5 rounded-full bg-dark-800/90 border border-emerald-500/40 backdrop-blur-sm transition-all duration-500"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 px-6 py-3 rounded-full bg-dark-800/95 border border-emerald-500/50 backdrop-blur-sm transition-all duration-500 shadow-lg"
         style={{
           opacity: isInView ? 1 : 0,
           transform: isInView ? 'translateX(-50%) translateY(0)' : 'translateX(-50%) translateY(20px)',
           transitionDelay: '0.6s',
         }}
       >
-        <span className="text-sm font-semibold text-emerald-400">✓ Certifié Qualiopi</span>
+        <span className="text-base font-semibold text-emerald-400">✓ Certifié Qualiopi</span>
       </div>
     </div>
   );
