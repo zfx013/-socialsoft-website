@@ -118,7 +118,7 @@ const hiddenFaqs = [
   },
   {
     question: "Comment savoir si mon entreprise a besoin d'un infogérant ?",
-    answer: "Votre entreprise a besoin d'un infogérant si : vous n'avez pas d'informaticien en interne, vos collaborateurs perdent du temps sur des problèmes IT, vous avez subi des pannes ou incidents de sécurité, votre SI est critique pour votre activité, vous souhaitez vous concentrer sur votre métier. Un audit gratuit permet d'évaluer vos besoins.",
+    answer: "Votre entreprise a besoin d'un infogérant si : vous n'avez pas d'informaticien en interne, vos collaborateurs perdent du temps sur des problèmes IT, vous avez subi des pannes ou incidents de sécurité, votre SI est critique pour votre activité, vous souhaitez vous concentrer sur votre métier. Contactez-nous pour évaluer vos besoins.",
   },
   {
     question: "Quelle est la différence entre un MSP et un infogérant ?",
@@ -146,7 +146,7 @@ const hiddenFaqs = [
   },
   {
     question: "Combien coûte un prestataire informatique pour une PME ?",
-    answer: "Les tarifs d'un prestataire informatique varient selon les besoins. Pour une infogérance complète, comptez entre 50€ et 150€ HT par poste et par mois. SOCIAL SOFT propose un audit gratuit pour établir un devis personnalisé adapté à votre structure et vos besoins.",
+    answer: "Les tarifs d'un prestataire informatique varient selon les besoins. Pour une infogérance complète, comptez entre 50€ et 150€ HT par poste et par mois. Contactez SOCIAL SOFT pour un devis personnalisé adapté à votre structure et vos besoins.",
   },
   {
     question: "Quel est le prix d'un contrat d'infogérance ?",

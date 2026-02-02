@@ -354,7 +354,7 @@ export const faqJsonLd = {
       name: 'Combien coûte un prestataire informatique pour une PME ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: "Les tarifs d'un prestataire informatique varient selon les besoins. Pour une infogérance complète, comptez entre 50€ et 150€ HT par poste et par mois. SOCIAL SOFT propose un audit gratuit pour établir un devis personnalisé adapté à votre structure et vos besoins.",
+        text: "Les tarifs d'un prestataire informatique varient selon les besoins. Pour une infogérance complète, comptez entre 50€ et 150€ HT par poste et par mois. Contactez SOCIAL SOFT pour un devis personnalisé adapté à votre structure et vos besoins.",
       },
     },
     {
@@ -379,7 +379,7 @@ export const faqJsonLd = {
       name: 'Comment choisir son infogérant informatique ?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: "Pour bien choisir votre infogérant : 1) Vérifiez sa proximité géographique pour les interventions sur site, 2) Examinez ses certifications et références clients, 3) Comparez les délais d'intervention garantis, 4) Assurez-vous qu'il couvre tous vos besoins (cybersécurité, cloud, etc.), 5) Demandez un audit gratuit pour évaluer la qualité du conseil.",
+        text: "Pour bien choisir votre infogérant : 1) Vérifiez sa proximité géographique pour les interventions sur site, 2) Examinez ses certifications et références clients, 3) Comparez les délais d'intervention garantis, 4) Assurez-vous qu'il couvre tous vos besoins (cybersécurité, cloud, etc.), 5) Demandez un devis pour évaluer la qualité du conseil.",
       },
     },
     // Questions sur les délais
@@ -430,7 +430,7 @@ export const faqJsonLd = {
       name: "Proposez-vous des contrats sans engagement ?",
       acceptedAnswer: {
         '@type': 'Answer',
-        text: "Oui, SOCIAL SOFT propose plusieurs formules flexibles : contrat mensuel sans engagement pour tester nos services, contrat annuel avec tarif préférentiel (-15%), interventions ponctuelles à la demande (tickets d'assistance). Nous recommandons de commencer par un audit gratuit pour définir la formule la plus adaptée.",
+        text: "Oui, SOCIAL SOFT propose plusieurs formules flexibles : contrat mensuel sans engagement pour tester nos services, contrat annuel avec tarif préférentiel (-15%), interventions ponctuelles à la demande (tickets d'assistance). Contactez-nous pour définir la formule la plus adaptée.",
       },
     },
     // Questions IA-friendly
@@ -496,8 +496,8 @@ export const howToJsonLd = {
     {
       '@type': 'HowToStep',
       position: 5,
-      name: 'Demander un audit gratuit',
-      text: "Un bon prestataire propose un audit gratuit de votre infrastructure. C'est l'occasion d'évaluer la qualité de son conseil et sa compréhension de vos enjeux.",
+      name: 'Demander un diagnostic',
+      text: "Un bon prestataire propose un diagnostic de votre infrastructure. C'est l'occasion d'évaluer la qualité de son conseil et sa compréhension de vos enjeux.",
       url: 'https://socialsoft.fr/#contact',
     },
     {
@@ -568,9 +568,8 @@ export const professionalServiceJsonLd = {
         },
         priceSpecification: {
           '@type': 'PriceSpecification',
-          price: '0',
           priceCurrency: 'EUR',
-          description: 'Premier audit gratuit',
+          description: 'Devis personnalisé sur demande',
         },
       },
       {

@@ -97,7 +97,7 @@ export default function ITPage() {
                 href="#contact"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-medium hover:opacity-90 transition-opacity"
               >
-                Demander un audit gratuit
+                Demander un devis
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <a

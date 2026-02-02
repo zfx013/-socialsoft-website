@@ -70,14 +70,14 @@ export const navigation = {
         { name: 'Formation', href: '/formation', description: 'Colibri - Formations certifiées' },
       ],
     },
-    { name: 'Pourquoi nous', href: '/pourquoi-nous' },
+    { name: 'À propos', href: '/pourquoi-nous' },
     { name: 'Contact', href: '/#contact' },
   ],
   footer: [
     { name: 'IT & Infrastructure', href: '/it' },
     { name: 'Développement', href: '/developpement' },
     { name: 'Formation Colibri', href: '/formation' },
-    { name: 'Pourquoi nous', href: '/pourquoi-nous' },
+    { name: 'À propos', href: '/pourquoi-nous' },
     { name: 'Contact', href: '/#contact' },
   ],
   legal: [
@@ -300,7 +300,7 @@ export const methodology = [
   {
     step: 1,
     title: 'Écoute & Audit',
-    description: 'Analyse approfondie de vos besoins, contraintes et objectifs. Premier audit gratuit.',
+    description: 'Analyse approfondie de vos besoins, contraintes et objectifs.',
   },
   {
     step: 2,
