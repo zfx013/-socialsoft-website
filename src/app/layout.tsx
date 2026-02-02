@@ -6,7 +6,6 @@ import StickyContact from '@/components/layout/StickyContact';
 import SplashScreen from '@/components/effects/SplashScreen';
 import SmoothScroll from '@/components/effects/SmoothScroll';
 import ScrollCleanup from '@/components/effects/ScrollCleanup';
-import NavigationWrapper from '@/components/effects/NavigationWrapper';
 import ScrollProgress from '@/components/effects/ScrollProgress';
 import CustomCursor from '@/components/effects/CustomCursor';
 import GrainOverlay from '@/components/effects/GrainOverlay';
@@ -43,11 +42,7 @@ export default function RootLayout({
           <CursorTrail />
           <GrainOverlay />
           <Header />
-          <main>
-            <NavigationWrapper>
-              {children}
-            </NavigationWrapper>
-          </main>
+          <main>{children}</main>
           <Footer />
           <StickyContact />
         </SmoothScroll>
