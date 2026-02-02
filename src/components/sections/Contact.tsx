@@ -357,9 +357,10 @@ export default function Contact() {
               href={contact.mapsLink}
               icon={MapPin}
               label="Adresse"
-              value={`${contact.address.street}, ${contact.address.postalCode} ${contact.address.city}`}
+              value={`${contact.address.street}\n${contact.address.postalCode} ${contact.address.city}`}
               external
               delay={0.2}
+              multiline
             />
 
             <ContactCard
@@ -385,9 +386,10 @@ interface ContactCardProps {
   value: string;
   external?: boolean;
   delay?: number;
+  multiline?: boolean;
 }
 
-function ContactCard({ href, icon: Icon, label, value, external, delay = 0 }: ContactCardProps) {
+function ContactCard({ href, icon: Icon, label, value, external, delay = 0, multiline }: ContactCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -437,7 +439,7 @@ function ContactCard({ href, icon: Icon, label, value, external, delay = 0 }: Co
       </div>
       <div className="flex-1 min-w-0 relative">
         <p className="text-light-200 text-sm mb-0.5">{label}</p>
-        <p className="text-light-100 font-semibold truncate text-sm">{value}</p>
+        <p className={`text-light-100 font-semibold text-sm leading-relaxed ${multiline ? 'whitespace-pre-line' : ''}`}>{value}</p>
       </div>
       <ArrowRight className="w-5 h-5 text-light-200 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 relative" />
     </motion.a>
