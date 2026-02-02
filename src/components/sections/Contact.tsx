@@ -199,7 +199,7 @@ export default function Contact() {
           </SectionTransition>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 max-w-6xl mx-auto items-stretch">
           {/* Contact Form */}
           <SectionTransition animation="slide-right" className="lg:col-span-3">
             <div className="relative p-8 rounded-2xl bg-dark-900/50 border border-dark-700 backdrop-blur-sm overflow-hidden group">
@@ -332,46 +332,49 @@ export default function Contact() {
           </SectionTransition>
 
           {/* Contact info */}
-          <SectionTransition animation="slide-left" delay={0.2} className="lg:col-span-2 space-y-4">
+          <SectionTransition animation="slide-left" delay={0.2} className="lg:col-span-2 flex flex-col">
             <h3 className="text-xl font-semibold text-light-100 mb-6">
               Ou contactez-nous directement
             </h3>
 
-            <ContactCard
-              href={contact.phoneLink}
-              icon={Phone}
-              label="Téléphone"
-              value={contact.phoneFormatted}
-              delay={0}
-            />
+            <div className="space-y-4 flex-1 flex flex-col">
+              <ContactCard
+                href={contact.phoneLink}
+                icon={Phone}
+                label="Téléphone"
+                value={contact.phoneFormatted}
+                delay={0}
+              />
 
-            <ContactCard
-              href={contact.emailLink}
-              icon={Mail}
-              label="Email"
-              value={contact.email}
-              delay={0.1}
-            />
+              <ContactCard
+                href={contact.emailLink}
+                icon={Mail}
+                label="Email"
+                value={contact.email}
+                delay={0.1}
+              />
 
-            <ContactCard
-              href={contact.mapsLink}
-              icon={MapPin}
-              label="Adresse"
-              value={`${contact.address.street}\n${contact.address.postalCode} ${contact.address.city}`}
-              external
-              delay={0.2}
-              multiline
-            />
+              <ContactCard
+                href={contact.mapsLink}
+                icon={MapPin}
+                label="Adresse"
+                value={`${contact.address.street}\n${contact.address.postalCode} ${contact.address.city}`}
+                external
+                delay={0.2}
+                multiline
+              />
 
-            <ContactCard
-              href={contact.linkedin}
-              icon={Linkedin}
-              label="LinkedIn"
-              value="Suivez-nous"
-              external
-              delay={0.3}
-            />
+              <div className="flex-1" />
 
+              <ContactCard
+                href={contact.linkedin}
+                icon={Linkedin}
+                label="LinkedIn"
+                value="Suivez-nous"
+                external
+                delay={0.3}
+              />
+            </div>
           </SectionTransition>
         </div>
       </div>
