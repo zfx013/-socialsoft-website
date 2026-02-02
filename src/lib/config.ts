@@ -97,7 +97,7 @@ export const poles = [
     description: 'Supervision, maintenance, cybersécurité, réseaux et serveurs. Une équipe réactive pour accompagner votre entreprise au quotidien.',
     href: '/it',
     icon: 'Server',
-    features: ['Infogérance 24/7', 'Cybersécurité', 'Cloud & Hybride', 'Support réactif'],
+    features: ['Infogérance 24/7', 'Cybersécurité', 'Cloud & Hybride', 'Support réactif', 'Réseau & VPN', 'Sauvegarde & PRA'],
     gradient: 'from-blue-500 to-cyan-500',
   },
   {
