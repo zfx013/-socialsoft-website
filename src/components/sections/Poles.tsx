@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Server, Code, GraduationCap, ArrowRight, Wifi, Shield, Database, Cloud } from 'lucide-react';
 import Link from 'next/link';
@@ -15,64 +15,34 @@ const iconMap = {
 
 type IconKey = keyof typeof iconMap;
 
-// Lignes de code pour le terminal (défini en dehors du composant pour éviter les re-créations)
+// Lignes de code pour le terminal - structure fixe, animation CSS
 const CODE_LINES = [
-  '$ npm create next-app@latest',
-  '✓ Creating new project...',
-  '',
-  'import { useState } from "react"',
-  '',
-  'export default function App() {',
-  '  const [data, setData] = useState([])',
-  '',
-  '  return (',
-  '    <main className="container">',
-  '      <h1>Bienvenue</h1>',
-  '      {data.map(item => (',
-  '        <Card key={item.id} />',
-  '      ))}',
-  '    </main>',
-  '  )',
-  '}',
+  { text: '$ npm create next-app@latest', color: 'text-green-400' },
+  { text: '✓ Creating new project...', color: 'text-emerald-400' },
+  { text: '', color: '' },
+  { text: 'import { useState } from "react"', color: 'text-violet-400' },
+  { text: '', color: '' },
+  { text: 'export default function App() {', color: 'text-violet-400' },
+  { text: '  const [data, setData] = useState([])', color: 'text-violet-400' },
+  { text: '', color: '' },
+  { text: '  return (', color: 'text-violet-400' },
+  { text: '    <main className="container">', color: 'text-cyan-400' },
+  { text: '      <h1>Bienvenue</h1>', color: 'text-light-300' },
+  { text: '      {data.map(item => (', color: 'text-light-300' },
+  { text: '        <Card key={item.id} />', color: 'text-light-300' },
+  { text: '      ))}', color: 'text-light-300' },
+  { text: '    </main>', color: 'text-light-300' },
+  { text: '  )', color: 'text-violet-400' },
+  { text: '}', color: 'text-violet-400' },
 ];
 
-// Composant Terminal animé pour le pôle Développement
+// Terminal avec animation CSS pure (pas de state dynamique)
 function AnimatedTerminal() {
-  const [displayedLines, setDisplayedLines] = useState<string[]>([]);
-  const [mounted, setMounted] = useState(false);
   const terminalRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(terminalRef, { once: true, margin: '-50px' });
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!isInView || !mounted) return;
-
-    let lineIndex = 0;
-    let isCancelled = false;
-
-    const interval = setInterval(() => {
-      if (isCancelled) return;
-
-      if (lineIndex < CODE_LINES.length) {
-        setDisplayedLines(prev => [...prev, CODE_LINES[lineIndex]]);
-        lineIndex++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 200);
-
-    return () => {
-      isCancelled = true;
-      clearInterval(interval);
-    };
-  }, [isInView, mounted]);
-
   return (
     <div ref={terminalRef} className="relative w-full max-w-lg mx-auto">
-      {/* Terminal window */}
       <div className="rounded-2xl overflow-hidden shadow-2xl border border-dark-600">
         {/* Title bar */}
         <div className="bg-dark-700 px-4 py-3 flex items-center gap-2">
@@ -83,22 +53,23 @@ function AnimatedTerminal() {
           </div>
           <span className="text-xs text-light-400 ml-2 font-mono">terminal — projet-client</span>
         </div>
-        {/* Terminal content */}
+        {/* Terminal content - lignes statiques avec animation CSS */}
         <div className="bg-dark-900 p-4 h-80 overflow-hidden font-mono text-sm">
-          {displayedLines.map((line, i) => (
-            <motion.div
+          {CODE_LINES.map((line, i) => (
+            <div
               key={i}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              className={`${line.startsWith('$') ? 'text-green-400' : line.startsWith('✓') ? 'text-emerald-400' : line.includes('import') || line.includes('export') || line.includes('const') || line.includes('return') ? 'text-violet-400' : line.includes('className') ? 'text-cyan-400' : line.includes('"') || line.includes("'") ? 'text-amber-400' : 'text-light-300'}`}
+              className={`${line.color} transition-all duration-300`}
+              style={{
+                opacity: isInView ? 1 : 0,
+                transform: isInView ? 'translateX(0)' : 'translateX(-10px)',
+                transitionDelay: isInView ? `${i * 100}ms` : '0ms',
+              }}
             >
-              {line || '\u00A0'}
-            </motion.div>
+              {line.text || '\u00A0'}
+            </div>
           ))}
-          <motion.span
-            className="inline-block w-2 h-4 bg-violet-400 ml-1"
-            animate={{ opacity: [1, 0] }}
-            transition={{ duration: 0.8, repeat: Infinity }}
+          <span
+            className="inline-block w-2 h-4 bg-violet-400 ml-1 animate-pulse"
           />
         </div>
       </div>
@@ -106,15 +77,10 @@ function AnimatedTerminal() {
   );
 }
 
-// Composant visualisation Infrastructure IT
+// Infrastructure IT avec CSS animations (pas de motion dynamique)
 function InfrastructureVisual() {
   const ref = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const nodes = [
     { id: 'server', icon: Server, x: 50, y: 20, label: 'Serveur' },
@@ -135,13 +101,13 @@ function InfrastructureVisual() {
 
   return (
     <div ref={ref} className="relative w-full max-w-md mx-auto aspect-square">
-      {/* Lignes de connexion animées */}
+      {/* Lignes de connexion */}
       <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
         {connections.map((conn, i) => {
           const fromNode = nodes.find(n => n.id === conn.from)!;
           const toNode = nodes.find(n => n.id === conn.to)!;
           return (
-            <motion.line
+            <line
               key={i}
               x1={fromNode.x}
               y1={fromNode.y}
@@ -149,32 +115,10 @@ function InfrastructureVisual() {
               y2={toNode.y}
               stroke="url(#blueGradient)"
               strokeWidth="0.5"
-              initial={{ pathLength: 0, opacity: 0 }}
-              animate={isInView && mounted ? { pathLength: 1, opacity: 0.4 } : {}}
-              transition={{ duration: 1, delay: i * 0.15 }}
-            />
-          );
-        })}
-        {/* Particules animées sur les connexions */}
-        {connections.map((conn, i) => {
-          const fromNode = nodes.find(n => n.id === conn.from)!;
-          const toNode = nodes.find(n => n.id === conn.to)!;
-          return (
-            <motion.circle
-              key={`particle-${i}`}
-              r="1"
-              fill="#3B82F6"
-              initial={{ opacity: 0 }}
-              animate={isInView && mounted ? {
-                opacity: [0, 1, 0],
-                cx: [fromNode.x, toNode.x],
-                cy: [fromNode.y, toNode.y],
-              } : {}}
-              transition={{
-                duration: 2,
-                delay: 1 + i * 0.3,
-                repeat: Infinity,
-                repeatDelay: 1,
+              className="transition-opacity duration-700"
+              style={{
+                opacity: isInView ? 0.4 : 0,
+                transitionDelay: `${i * 150}ms`,
               }}
             />
           );
@@ -191,23 +135,24 @@ function InfrastructureVisual() {
       {nodes.map((node, i) => {
         const Icon = node.icon;
         return (
-          <motion.div
+          <div
             key={node.id}
-            className="absolute flex flex-col items-center"
-            style={{ left: `${node.x}%`, top: `${node.y}%`, transform: 'translate(-50%, -50%)' }}
-            initial={{ scale: 0, opacity: 0 }}
-            animate={isInView && mounted ? { scale: 1, opacity: 1 } : {}}
-            transition={{ duration: 0.5, delay: 0.5 + i * 0.1, type: 'spring' }}
+            className="absolute flex flex-col items-center transition-all duration-500"
+            style={{
+              left: `${node.x}%`,
+              top: `${node.y}%`,
+              transform: `translate(-50%, -50%) scale(${isInView ? 1 : 0})`,
+              opacity: isInView ? 1 : 0,
+              transitionDelay: `${500 + i * 100}ms`,
+            }}
           >
-            <motion.div
-              className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg ${node.id === 'server' ? 'bg-gradient-to-br from-blue-500 to-cyan-500 w-16 h-16' : 'bg-dark-700 border border-blue-500/30'}`}
-              animate={node.id === 'server' ? { y: [0, -5, 0] } : {}}
-              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+            <div
+              className={`w-14 h-14 rounded-2xl flex items-center justify-center shadow-lg ${node.id === 'server' ? 'bg-gradient-to-br from-blue-500 to-cyan-500 w-16 h-16 animate-bounce-slow' : 'bg-dark-700 border border-blue-500/30'}`}
             >
               <Icon className={`${node.id === 'server' ? 'w-8 h-8 text-white' : 'w-6 h-6 text-blue-400'}`} />
-            </motion.div>
+            </div>
             <span className="text-xs text-light-400 mt-2 font-medium">{node.label}</span>
-          </motion.div>
+          </div>
         );
       })}
 
@@ -217,32 +162,37 @@ function InfrastructureVisual() {
   );
 }
 
-// Composant Logo Colibri pour Formation
+// Colibri avec CSS animations (pas de motion dynamique)
 function ColibriVisual() {
   const ref = useRef<HTMLDivElement>(null);
-  const [mounted, setMounted] = useState(false);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  // Positions fixes pour les particules
+  const particles = [0, 1, 2, 3, 4, 5, 6, 7].map(i => {
+    const angle = (i * 45) * (Math.PI / 180);
+    const radius = 120;
+    return {
+      x: Math.cos(angle) * radius,
+      y: Math.sin(angle) * radius,
+      delay: i * 0.2,
+    };
+  });
 
   return (
     <div ref={ref} className="relative w-full max-w-sm mx-auto">
-      <motion.div
-        className="relative"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={isInView && mounted ? { opacity: 1, scale: 1 } : {}}
-        transition={{ duration: 0.6 }}
+      <div
+        className="relative transition-all duration-600"
+        style={{
+          opacity: isInView ? 1 : 0,
+          transform: isInView ? 'scale(1)' : 'scale(0.8)',
+        }}
       >
         {/* Glow effect derrière le logo */}
-        <motion.div
-          className="absolute inset-0 -m-8"
+        <div
+          className="absolute inset-0 -m-8 animate-pulse-slow"
           style={{
             background: 'radial-gradient(circle, rgba(16, 185, 129, 0.3) 0%, rgba(6, 182, 212, 0.15) 40%, transparent 70%)',
           }}
-          animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
-          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
         />
 
         {/* Logo Colibri */}
@@ -255,45 +205,33 @@ function ColibriVisual() {
           />
         </div>
 
-        {/* Particules autour */}
-        {[...Array(8)].map((_, i) => {
-          const angle = (i * 45) * (Math.PI / 180);
-          const radius = 120;
-          const x = Math.cos(angle) * radius;
-          const y = Math.sin(angle) * radius;
-          return (
-            <motion.div
-              key={i}
-              className="absolute w-2 h-2 rounded-full bg-gradient-to-br from-emerald-400 to-teal-400"
-              style={{
-                left: '50%',
-                top: '50%',
-                marginLeft: x,
-                marginTop: y,
-              }}
-              animate={{
-                scale: [1, 1.5, 1],
-                opacity: [0.3, 0.8, 0.3],
-              }}
-              transition={{
-                duration: 2,
-                delay: i * 0.2,
-                repeat: Infinity,
-              }}
-            />
-          );
-        })}
-      </motion.div>
+        {/* Particules autour - structure fixe */}
+        {particles.map((particle, i) => (
+          <div
+            key={i}
+            className="absolute w-2 h-2 rounded-full bg-gradient-to-br from-emerald-400 to-teal-400 animate-pulse"
+            style={{
+              left: '50%',
+              top: '50%',
+              marginLeft: particle.x,
+              marginTop: particle.y,
+              animationDelay: `${particle.delay}s`,
+            }}
+          />
+        ))}
+      </div>
 
       {/* Badge Qualiopi */}
-      <motion.div
-        className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-dark-700 border border-emerald-500/30 text-sm text-emerald-400 font-medium"
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView && mounted ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.5, delay: 0.3 }}
+      <div
+        className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-dark-700 border border-emerald-500/30 text-sm text-emerald-400 font-medium transition-all duration-500"
+        style={{
+          opacity: isInView ? 1 : 0,
+          transform: isInView ? 'translateX(-50%) translateY(0)' : 'translateX(-50%) translateY(20px)',
+          transitionDelay: '300ms',
+        }}
       >
         Certifié Qualiopi
-      </motion.div>
+      </div>
     </div>
   );
 }
@@ -333,19 +271,17 @@ function PoleSection({ pole, index, isReversed }: PoleSectionProps) {
   const poleColors = colors[pole.id as keyof typeof colors] || colors.it;
 
   // Rendu du visuel spécifique à chaque pôle
-  // TEMPORAIREMENT DÉSACTIVÉ pour debug
   const renderVisual = () => {
-    return null;
-    // switch (pole.id) {
-    //   case 'it':
-    //     return <InfrastructureVisual />;
-    //   case 'dev':
-    //     return <AnimatedTerminal />;
-    //   case 'formation':
-    //     return <ColibriVisual />;
-    //   default:
-    //     return null;
-    // }
+    switch (pole.id) {
+      case 'it':
+        return <InfrastructureVisual />;
+      case 'dev':
+        return <AnimatedTerminal />;
+      case 'formation':
+        return <ColibriVisual />;
+      default:
+        return null;
+    }
   };
 
   return (
