@@ -57,7 +57,7 @@ export default function Footer() {
         {/* Main footer content */}
         <motion.div
           variants={containerVariants}
-          initial="hidden"
+          initial={false}
           animate={isInView ? 'visible' : 'hidden'}
           className="py-16 lg:py-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12"
         >
@@ -186,9 +186,9 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ delay: 0.5 }}
+          initial={false}
+          animate={{ opacity: isInView ? 1 : 0.3 }}
+          transition={{ duration: 0.5 }}
           className="py-6 border-t border-dark-800"
         >
           <div className="flex flex-col sm:flex-row justify-between items-center gap-4">

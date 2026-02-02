@@ -54,7 +54,7 @@ function NavLink({ href, children }: NavLinkProps) {
     >
       {children}
       <motion.span
-        initial={{ scaleX: 0 }}
+        initial={false}
         animate={{ scaleX: isHovered ? 1 : 0 }}
         transition={{ duration: 0.2 }}
         className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-gradient-to-r from-accent-blue to-accent-cyan origin-left"
@@ -103,31 +103,32 @@ function NavDropdown({ label, items }: NavDropdownProps) {
         <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
       </button>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 mt-2 w-64 py-2 bg-dark-800 border border-dark-600 rounded-xl shadow-xl"
+      {/* Dropdown sans AnimatePresence - toujours dans le DOM */}
+      <motion.div
+        initial={false}
+        animate={{
+          opacity: isOpen ? 1 : 0,
+          y: isOpen ? 0 : 10,
+          pointerEvents: isOpen ? 'auto' : 'none'
+        }}
+        transition={{ duration: 0.2 }}
+        className="absolute top-full left-0 mt-2 w-64 py-2 bg-dark-800 border border-dark-600 rounded-xl shadow-xl"
+        style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
+      >
+        {items.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            className="block px-4 py-3 hover:bg-dark-700 transition-colors"
+            onClick={() => setIsOpen(false)}
           >
-            {items.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="block px-4 py-3 hover:bg-dark-700 transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                <span className="block text-light-100 font-medium">{item.name}</span>
-                {item.description && (
-                  <span className="block text-sm text-light-400 mt-0.5">{item.description}</span>
-                )}
-              </Link>
-            ))}
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <span className="block text-light-100 font-medium">{item.name}</span>
+            {item.description && (
+              <span className="block text-sm text-light-400 mt-0.5">{item.description}</span>
+            )}
+          </Link>
+        ))}
+      </motion.div>
     </div>
   );
 }
@@ -142,7 +143,6 @@ export default function Header() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      // Show/hide based on scroll direction
       if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
         setIsVisible(false);
       } else {
@@ -171,7 +171,7 @@ export default function Header() {
   return (
     <>
       <motion.header
-        initial={{ y: -100 }}
+        initial={false}
         animate={{ y: isVisible ? 0 : -100 }}
         transition={{ duration: 0.3 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -201,19 +201,14 @@ export default function Header() {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-10">
-              {navigation.map((item, index) => (
-                <motion.div
-                  key={item.name}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                >
+              {navigation.map((item) => (
+                <div key={item.name}>
                   {item.dropdown && item.items ? (
                     <NavDropdown label={item.name} items={item.items} />
                   ) : (
                     <NavLink href={item.href}>{item.name}</NavLink>
                   )}
-                </motion.div>
+                </div>
               ))}
             </div>
 

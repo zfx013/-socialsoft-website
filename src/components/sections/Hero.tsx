@@ -41,14 +41,13 @@ function AnimatedFallback() {
 
       {/* Grille animée CSS */}
       <div
-        className="absolute inset-0 opacity-10 pointer-events-none"
+        className="absolute inset-0 opacity-10 pointer-events-none animate-grid-move"
         style={{
           backgroundImage: `
             linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
             linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
           `,
           backgroundSize: '50px 50px',
-          animation: 'gridMove 20s linear infinite',
         }}
       />
 
@@ -60,6 +59,7 @@ function AnimatedFallback() {
           top: '10%',
           left: '20%',
         }}
+        initial={false}
         animate={{
           x: [0, 30, 0],
           y: [0, -20, 0],
@@ -78,6 +78,7 @@ function AnimatedFallback() {
           bottom: '20%',
           right: '15%',
         }}
+        initial={false}
         animate={{
           x: [0, -25, 0],
           y: [0, 25, 0],
@@ -88,17 +89,6 @@ function AnimatedFallback() {
           ease: 'easeInOut',
         }}
       />
-
-      <style jsx>{`
-        @keyframes gridMove {
-          0% {
-            transform: translate(0, 0);
-          }
-          100% {
-            transform: translate(50px, 50px);
-          }
-        }
-      `}</style>
     </div>
   );
 }
@@ -107,24 +97,32 @@ export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [mounted, setMounted] = useState(false);
   const [show3D, setShow3D] = useState(false);
-  const [use3D, setUse3D] = useState(true);
+  const [use3D, setUse3D] = useState(false);
 
-  // Vérifier si on peut utiliser la 3D
+  // Montage et vérification 3D
   useEffect(() => {
+    setMounted(true);
+
     // Pas de 3D sur mobile ou si préférence reduced motion
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // Vérifier le support WebGL
-    const canvas = document.createElement('canvas');
-    const hasWebGL = !!(
-      window.WebGLRenderingContext &&
-      (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
-    );
+    let hasWebGL = false;
+    try {
+      const canvas = document.createElement('canvas');
+      hasWebGL = !!(
+        window.WebGLRenderingContext &&
+        (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
+      );
+    } catch {
+      hasWebGL = false;
+    }
 
-    if (isMobile || prefersReduced || !hasWebGL) {
-      setUse3D(false);
+    if (!isMobile && !prefersReduced && hasWebGL) {
+      setUse3D(true);
     }
 
     // Délai court avant d'afficher la 3D
@@ -176,10 +174,13 @@ export default function Hero() {
       ref={sectionRef}
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-dark-900"
     >
-      {/* Background 3D ou fallback */}
-      {show3D && use3D ? (
+      {/* Background - toujours le fallback pour SSR */}
+      <AnimatedFallback />
+
+      {/* 3D overlay uniquement après montage */}
+      {mounted && show3D && use3D && (
         <div className="absolute inset-0">
-          <Suspense fallback={<AnimatedFallback />}>
+          <Suspense fallback={null}>
             <Scene className="!absolute">
               <HeroBackground mousePosition={mousePosition} />
             </Scene>
@@ -195,8 +196,6 @@ export default function Hero() {
             lineColor="rgba(59, 130, 246, 0.1)"
           />
         </div>
-      ) : (
-        <AnimatedFallback />
       )}
 
       {/* Glow effects */}
@@ -213,12 +212,12 @@ export default function Hero() {
           <LogoReveal />
         </div>
 
-        {/* Badge Île-de-France - sous le logo */}
+        {/* Badge Île-de-France */}
         <motion.a
           href="#coverage"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 3.5 }}
+          initial={false}
+          animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 10 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
           className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-dark-700/50 border border-dark-600 text-light-200 text-sm backdrop-blur-sm hover:border-accent-blue/50 hover:bg-dark-600/50 transition-all cursor-pointer"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
@@ -229,9 +228,9 @@ export default function Hero() {
 
         {/* Heading */}
         <motion.h1
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 3.4 }}
+          initial={false}
+          animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 30 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
           className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-light-100 mb-6 leading-tight"
         >
           Votre IT, de la{' '}
@@ -242,9 +241,9 @@ export default function Hero() {
 
         {/* Subtitle */}
         <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 3.6 }}
+          initial={false}
+          animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 20 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
           className="text-lg sm:text-xl text-light-100 max-w-2xl mx-auto mb-10"
         >
           Accompagnement complet pour TPE et PME : conseil, développement, infrastructure, support.
@@ -252,9 +251,9 @@ export default function Hero() {
 
         {/* CTAs */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 3.8 }}
+          initial={false}
+          animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 20 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Button href="#contact" size="lg">
@@ -268,9 +267,9 @@ export default function Hero() {
         {/* Scroll indicator */}
         <motion.a
           href="#services"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 4 }}
+          initial={false}
+          animate={{ opacity: mounted ? 1 : 0 }}
+          transition={{ duration: 0.6, delay: 0.9 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-light-100 hover:text-accent-blue transition-colors"
         >
           <span className="text-sm font-medium">Découvrir</span>
