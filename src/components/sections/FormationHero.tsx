@@ -215,32 +215,18 @@ export default function FormationHero() {
             className="hidden lg:block"
           >
             <div className="p-6 rounded-2xl bg-dark-800/70 backdrop-blur-sm border border-dark-600">
-              {/* Logo Qualiopi avec fond blanc pour contraste */}
-              <div className="flex justify-center mb-5">
-                <div className="relative bg-white rounded-xl p-3 shadow-lg">
+              {/* Logo Qualiopi - image complète avec fond blanc intégré */}
+              <div className="flex justify-center mb-4">
+                <div className="relative w-full rounded-xl overflow-hidden">
                   <Image
-                    src="/images/logo-qualiopi.png"
-                    alt="Certification Qualiopi"
-                    width={180}
-                    height={80}
-                    className="object-contain"
+                    src="/images/logo-qualiopi.jpg"
+                    alt="Certification Qualiopi - La certification qualité a été délivrée au titre des catégories d'actions suivantes : Actions de formation"
+                    width={400}
+                    height={180}
+                    className="object-contain w-full h-auto rounded-xl"
                   />
                 </div>
               </div>
-
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center">
-                  <Award className="w-5 h-5 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-bold text-light-100">Certification qualité</h3>
-                  <p className="text-sm text-light-400">Organisme de formation</p>
-                </div>
-              </div>
-
-              <p className="text-sm text-light-300 mb-4">
-                Formations éligibles aux financements publics
-              </p>
 
               <ul className="space-y-2">
                 <li className="flex items-center gap-2 text-sm text-light-200">
