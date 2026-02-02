@@ -70,7 +70,7 @@ export default function ITPage() {
             </p>
 
             {/* Key stats */}
-            <div className="flex flex-wrap gap-6 mb-8">
+            <div className="flex flex-wrap gap-6 mb-6">
               <div className="flex items-center gap-2">
                 <div className="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
                   <CheckCircle className="w-5 h-5 text-blue-400" />
@@ -90,6 +90,11 @@ export default function ITPage() {
                 </div>
               </div>
             </div>
+
+            {/* Badge associations */}
+            <p className="text-sm text-emerald-400 mb-8">
+              ✓ Également pour les associations — tarifs adaptés
+            </p>
 
             {/* CTA */}
             <div className="flex flex-wrap gap-4">

@@ -162,7 +162,7 @@ export default function FormationHero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 20 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="flex flex-wrap justify-center lg:justify-start gap-6 mb-6"
+              className="flex flex-wrap justify-center lg:justify-start gap-6 mb-4"
             >
               <div className="flex items-center gap-2">
                 <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center">
@@ -183,6 +183,16 @@ export default function FormationHero() {
                 </div>
               </div>
             </motion.div>
+
+            {/* Badge associations */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 20 }}
+              transition={{ duration: 0.6, delay: 0.65 }}
+              className="text-sm text-emerald-400 mb-6 text-center lg:text-left"
+            >
+              ✓ Également pour les associations — tarifs adaptés
+            </motion.p>
 
             {/* CTA */}
             <motion.div

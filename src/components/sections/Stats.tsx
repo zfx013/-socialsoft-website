@@ -3,7 +3,7 @@
 import { useRef, useEffect, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { gsap } from 'gsap';
-import { Users, Briefcase, Award } from 'lucide-react';
+import { Users, Briefcase, Award, Heart } from 'lucide-react';
 import { siteStats } from '@/lib/config';
 
 const stats = [
@@ -126,6 +126,20 @@ export default function Stats() {
             );
           })}
         </div>
+
+        {/* Badge Partenaire des associations */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="mt-10 flex justify-center"
+        >
+          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-emerald-500/10 border border-emerald-500/30">
+            <Heart className="w-5 h-5 text-emerald-400" />
+            <span className="text-emerald-400 font-medium">Partenaire des associations</span>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
