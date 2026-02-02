@@ -143,25 +143,26 @@ function NetworkTopology() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
 
-  // Équipements réseau (infrastructure) - positions irrégulières
+  // Équipements réseau (infrastructure) - positions irrégulières, agrandi et étendu à droite
   const infraDevices = [
     { id: 'router', icon: Router, label: 'Routeur', x: 0, y: 0, size: 'lg', color: 'from-blue-600 to-blue-700', delay: 0 },
-    { id: 'firewall', icon: Shield, label: 'Firewall', x: -85, y: -50, size: 'md', color: 'from-red-500 to-orange-500', delay: 0.1 },
-    { id: 'switch', icon: Network, label: 'Switch', x: 75, y: 35, size: 'md', color: 'from-cyan-500 to-cyan-600', delay: 0.15 },
-    { id: 'server', icon: HardDrive, label: 'Serveur', x: -70, y: 55, size: 'md', color: 'from-slate-600 to-slate-700', delay: 0.2 },
-    { id: 'nas', icon: Database, label: 'NAS', x: 15, y: 80, size: 'sm', color: 'from-purple-500 to-purple-600', delay: 0.25 },
-    { id: 'cloud', icon: Cloud, label: 'Cloud', x: -130, y: -100, size: 'md', color: 'from-sky-400 to-sky-500', delay: 0.3 },
+    { id: 'firewall', icon: Shield, label: 'Firewall', x: -100, y: -65, size: 'md', color: 'from-red-500 to-orange-500', delay: 0.1 },
+    { id: 'switch', icon: Network, label: 'Switch', x: 100, y: 40, size: 'md', color: 'from-cyan-500 to-cyan-600', delay: 0.15 },
+    { id: 'server', icon: HardDrive, label: 'Serveur', x: -85, y: 70, size: 'md', color: 'from-slate-600 to-slate-700', delay: 0.2 },
+    { id: 'nas', icon: Database, label: 'NAS', x: 20, y: 100, size: 'sm', color: 'from-purple-500 to-purple-600', delay: 0.25 },
+    { id: 'cloud', icon: Cloud, label: 'Cloud', x: -160, y: -120, size: 'md', color: 'from-sky-400 to-sky-500', delay: 0.3 },
   ];
 
-  // Équipements utilisateurs - dispersés de façon organique
+  // Équipements utilisateurs - dispersés, plus étendus à droite
   const userDevices = [
-    { id: 'pc1', icon: Monitor, label: 'Poste 1', x: 145, y: -25, size: 'sm', color: 'from-blue-500 to-blue-600', delay: 0.35, connectTo: 'switch' },
-    { id: 'pc2', icon: Monitor, label: 'Poste 2', x: 160, y: 50, size: 'sm', color: 'from-blue-500 to-blue-600', delay: 0.4, connectTo: 'switch' },
-    { id: 'laptop1', icon: Laptop, label: 'Portable', x: 120, y: 110, size: 'sm', color: 'from-indigo-500 to-indigo-600', delay: 0.45, connectTo: 'switch' },
-    { id: 'printer', icon: Printer, label: 'Imprimante', x: 85, y: -70, size: 'sm', color: 'from-amber-500 to-amber-600', delay: 0.5, connectTo: 'switch' },
-    { id: 'wifi1', icon: Radio, label: 'Borne WiFi', x: -145, y: 20, size: 'sm', color: 'from-emerald-500 to-emerald-600', delay: 0.55, connectTo: 'router' },
-    { id: 'phone', icon: Smartphone, label: 'Mobile', x: -175, y: 75, size: 'xs', color: 'from-violet-500 to-violet-600', delay: 0.6, connectTo: 'wifi1' },
-    { id: 'laptop2', icon: Laptop, label: 'Laptop WiFi', x: -180, y: -30, size: 'xs', color: 'from-indigo-400 to-indigo-500', delay: 0.65, connectTo: 'wifi1' },
+    { id: 'pc1', icon: Monitor, label: 'Poste 1', x: 190, y: -30, size: 'sm', color: 'from-blue-500 to-blue-600', delay: 0.35, connectTo: 'switch' },
+    { id: 'pc2', icon: Monitor, label: 'Poste 2', x: 210, y: 55, size: 'sm', color: 'from-blue-500 to-blue-600', delay: 0.4, connectTo: 'switch' },
+    { id: 'pc3', icon: Monitor, label: 'Poste 3', x: 175, y: 120, size: 'sm', color: 'from-blue-500 to-blue-600', delay: 0.42, connectTo: 'switch' },
+    { id: 'laptop1', icon: Laptop, label: 'Portable', x: 140, y: -85, size: 'sm', color: 'from-indigo-500 to-indigo-600', delay: 0.45, connectTo: 'switch' },
+    { id: 'printer', icon: Printer, label: 'Imprimante', x: 55, y: -90, size: 'sm', color: 'from-amber-500 to-amber-600', delay: 0.5, connectTo: 'router' },
+    { id: 'wifi1', icon: Radio, label: 'Borne WiFi', x: -170, y: 25, size: 'sm', color: 'from-emerald-500 to-emerald-600', delay: 0.55, connectTo: 'router' },
+    { id: 'phone', icon: Smartphone, label: 'Mobile', x: -210, y: 90, size: 'xs', color: 'from-violet-500 to-violet-600', delay: 0.6, connectTo: 'wifi1' },
+    { id: 'laptop2', icon: Laptop, label: 'Laptop WiFi', x: -220, y: -35, size: 'xs', color: 'from-indigo-400 to-indigo-500', delay: 0.65, connectTo: 'wifi1' },
   ];
 
   // Connexions entre équipements
@@ -170,12 +171,13 @@ function NetworkTopology() {
     { from: 'router', to: 'switch' },
     { from: 'router', to: 'server' },
     { from: 'router', to: 'wifi1' },
+    { from: 'router', to: 'printer' },
     { from: 'firewall', to: 'cloud' },
     { from: 'server', to: 'nas' },
     { from: 'switch', to: 'pc1' },
     { from: 'switch', to: 'pc2' },
+    { from: 'switch', to: 'pc3' },
     { from: 'switch', to: 'laptop1' },
-    { from: 'switch', to: 'printer' },
     { from: 'wifi1', to: 'phone' },
     { from: 'wifi1', to: 'laptop2' },
   ];
@@ -184,23 +186,23 @@ function NetworkTopology() {
   const getDevice = (id: string) => allDevices.find(d => d.id === id);
 
   const sizeClasses = {
-    lg: 'w-16 h-16',
-    md: 'w-12 h-12',
-    sm: 'w-10 h-10',
-    xs: 'w-8 h-8',
+    lg: 'w-20 h-20',
+    md: 'w-14 h-14',
+    sm: 'w-12 h-12',
+    xs: 'w-10 h-10',
   };
   const iconSizes = {
-    lg: 'w-8 h-8',
-    md: 'w-6 h-6',
-    sm: 'w-5 h-5',
-    xs: 'w-4 h-4',
+    lg: 'w-10 h-10',
+    md: 'w-7 h-7',
+    sm: 'w-6 h-6',
+    xs: 'w-5 h-5',
   };
 
-  const centerX = 220;
-  const centerY = 180;
+  const centerX = 200;
+  const centerY = 200;
 
   return (
-    <div ref={ref} className="relative w-full max-w-xl mx-auto h-[420px]">
+    <div ref={ref} className="relative w-full max-w-2xl mx-auto h-[480px]">
       {/* Lignes de connexion SVG */}
       <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ overflow: 'visible' }}>
         <defs>
@@ -287,22 +289,8 @@ function NetworkTopology() {
       >
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-400 status-dot" />
-          <span className="text-[11px] text-light-300">12 appareils connectés</span>
+          <span className="text-[11px] text-light-300">14 appareils connectés</span>
         </div>
-      </div>
-
-      {/* Zone labels */}
-      <div
-        className="absolute bottom-8 left-4 text-[10px] text-light-500 uppercase tracking-wider transition-opacity duration-500"
-        style={{ opacity: isInView ? 0.6 : 0, transitionDelay: '1s' }}
-      >
-        WiFi
-      </div>
-      <div
-        className="absolute top-16 right-8 text-[10px] text-light-500 uppercase tracking-wider transition-opacity duration-500"
-        style={{ opacity: isInView ? 0.6 : 0, transitionDelay: '1s' }}
-      >
-        LAN
       </div>
 
       {/* Styles */}
