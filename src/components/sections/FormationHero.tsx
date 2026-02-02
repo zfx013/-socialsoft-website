@@ -215,8 +215,13 @@ export default function FormationHero() {
             className="hidden lg:block"
           >
             <div className="p-6 rounded-2xl bg-dark-800/70 backdrop-blur-sm border border-dark-600">
-              {/* Logo Qualiopi - image complète avec fond blanc intégré */}
-              <div className="flex justify-center mb-4">
+              {/* Logo Qualiopi cliquable */}
+              <a
+                href="https://travail-emploi.gouv.fr/qualiopi-marque-de-certification-qualite-des-prestataires-de-formation"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block mb-5 hover:opacity-90 transition-opacity"
+              >
                 <div className="relative w-full rounded-xl overflow-hidden">
                   <Image
                     src="/images/logo-qualiopi.png"
@@ -226,8 +231,17 @@ export default function FormationHero() {
                     className="object-contain w-full h-auto rounded-xl"
                   />
                 </div>
-              </div>
+              </a>
 
+              {/* Titre et description */}
+              <h3 className="text-lg font-semibold text-light-100 mb-2">
+                Formations certifiées
+              </h3>
+              <p className="text-sm text-light-300 mb-4 leading-relaxed">
+                Notre organisme est certifié Qualiopi, garantissant la qualité de nos formations et leur éligibilité aux financements publics.
+              </p>
+
+              {/* Liste des avantages */}
               <ul className="space-y-2">
                 <li className="flex items-center gap-2 text-sm text-light-200">
                   <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
@@ -239,7 +253,11 @@ export default function FormationHero() {
                 </li>
                 <li className="flex items-center gap-2 text-sm text-light-200">
                   <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
-                  Plan de formation
+                  Plan de formation entreprise
+                </li>
+                <li className="flex items-center gap-2 text-sm text-light-200">
+                  <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                  Aide individuelle à la formation
                 </li>
               </ul>
             </div>
