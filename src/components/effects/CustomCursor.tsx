@@ -84,22 +84,12 @@ export default function CustomCursor() {
     };
   }, [animate, isVisible]);
 
-  // SSR et client initial: retourner un conteneur vide mais identique
-  if (!isMounted) {
-    return (
-      <div className="fixed top-0 left-0 pointer-events-none z-[9998]" style={{ opacity: 0 }} />
-    );
-  }
-
-  // Appareil tactile: conteneur vide
-  if (!isActive) {
-    return (
-      <div className="fixed top-0 left-0 pointer-events-none z-[9998]" style={{ opacity: 0 }} />
-    );
-  }
+  // ALWAYS return the same structure to prevent React reconciliation errors
+  // Visibility is controlled via CSS opacity
+  const shouldShow = isMounted && isActive;
 
   return (
-    <>
+    <div className="custom-cursor-container">
       {/* Glow qui suit avec délai */}
       <div
         ref={glowRef}
@@ -109,7 +99,7 @@ export default function CustomCursor() {
           height: isHovering ? '50px' : '40px',
           marginLeft: isHovering ? '-25px' : '-20px',
           marginTop: isHovering ? '-25px' : '-20px',
-          opacity: isVisible ? 1 : 0,
+          opacity: shouldShow && isVisible ? 1 : 0,
           transition: 'width 0.2s ease, height 0.2s ease, margin 0.2s ease, opacity 0.3s ease',
           willChange: 'transform',
         }}
@@ -135,7 +125,7 @@ export default function CustomCursor() {
           height: isHovering ? '8px' : '6px',
           marginLeft: isHovering ? '-4px' : '-3px',
           marginTop: isHovering ? '-4px' : '-3px',
-          opacity: isVisible ? 1 : 0,
+          opacity: shouldShow && isVisible ? 1 : 0,
           transition: 'width 0.15s ease, height 0.15s ease, margin 0.15s ease, opacity 0.15s ease',
           willChange: 'transform',
         }}
@@ -152,14 +142,16 @@ export default function CustomCursor() {
         />
       </div>
 
-      {/* Cacher le curseur natif */}
-      <style jsx global>{`
-        @media (pointer: fine) {
-          *, *::before, *::after {
-            cursor: none !important;
+      {/* Cacher le curseur natif - only when active */}
+      {shouldShow && (
+        <style jsx global>{`
+          @media (pointer: fine) {
+            *, *::before, *::after {
+              cursor: none !important;
+            }
           }
-        }
-      `}</style>
-    </>
+        `}</style>
+      )}
+    </div>
   );
 }

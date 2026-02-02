@@ -10,6 +10,7 @@ import ScrollProgress from '@/components/effects/ScrollProgress';
 import CustomCursor from '@/components/effects/CustomCursor';
 import GrainOverlay from '@/components/effects/GrainOverlay';
 import CursorTrail from '@/components/effects/CursorTrail';
+import PageWrapper from '@/components/effects/PageWrapper';
 import './globals.css';
 
 export const metadata: Metadata = seoMetadata;
@@ -42,7 +43,9 @@ export default function RootLayout({
           <CursorTrail />
           <GrainOverlay />
           <Header />
-          <main>{children}</main>
+          <main>
+            <PageWrapper>{children}</PageWrapper>
+          </main>
           <Footer />
           <StickyContact />
         </SmoothScroll>

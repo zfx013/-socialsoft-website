@@ -65,19 +65,15 @@ export default function CursorTrail() {
     };
   }, []);
 
-  // SSR et client initial: retourner le même conteneur vide
-  if (!mounted) {
-    return <div className="fixed inset-0 pointer-events-none z-[9999]" />;
-  }
-
-  // Pas actif (mobile ou prefers-reduced-motion)
-  if (!isActive) {
-    return <div className="fixed inset-0 pointer-events-none z-[9999]" />;
-  }
+  // ALWAYS return the same structure to prevent React reconciliation errors
+  const shouldShow = mounted && isActive;
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[9999]">
-      {/* Particules sans AnimatePresence - utilisation de l'opacité CSS pour le fade out */}
+    <div
+      className="fixed inset-0 pointer-events-none z-[9999]"
+      style={{ opacity: shouldShow ? 1 : 0 }}
+    >
+      {/* Particules */}
       {particles.map((particle) => {
         const age = Date.now() - particle.createdAt;
         const progress = Math.min(age / 800, 1);
