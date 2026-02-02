@@ -498,7 +498,7 @@ export default function Poles() {
   return (
     <section id="poles" className="relative overflow-hidden">
       {/* Header */}
-      <div className="relative pt-8 pb-12 lg:pt-12 lg:pb-16 bg-dark-900">
+      <div className="relative pt-4 pb-6 lg:pt-6 lg:pb-8 bg-dark-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
