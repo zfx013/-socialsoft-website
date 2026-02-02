@@ -19,7 +19,7 @@ export default function ServiceCard({ service, index }: ServiceCardProps) {
   const [glowPosition, setGlowPosition] = useState({ x: 50, y: 50 });
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLAnchorElement>) => {
     if (!cardRef.current) return;
 
     // Throttle with requestAnimationFrame
