@@ -125,17 +125,17 @@ export default function PourquoiNousPage() {
               return (
                 <div
                   key={index}
-                  className="group relative p-6 rounded-2xl bg-gradient-to-br from-dark-700/80 to-dark-800/80 border border-dark-600 hover:border-blue-500/50 transition-all duration-300 overflow-hidden"
+                  className="group relative p-6 rounded-2xl bg-gradient-to-br from-dark-700 to-dark-800 border border-blue-500/30 hover:border-blue-500/60 transition-all duration-300 overflow-hidden shadow-lg shadow-blue-500/5"
                 >
-                  {/* Glow effect on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  {/* Glow effect - visible by default, stronger on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-violet-500/5 group-hover:from-blue-500/15 group-hover:to-violet-500/10 transition-all duration-300" />
 
-                  {/* Corner accent */}
-                  <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-blue-500/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  {/* Corner accent - visible by default */}
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-bl from-blue-500/20 to-transparent rounded-bl-full group-hover:from-blue-500/30 transition-all duration-300" />
 
                   <div className="relative">
-                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500/30 to-violet-500/20 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-blue-500/20 transition-all duration-300">
-                      <Icon className="w-7 h-7 text-blue-400 group-hover:text-blue-300 transition-colors" />
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500/40 to-violet-500/30 flex items-center justify-center mb-4 shadow-md shadow-blue-500/20 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-blue-500/30 transition-all duration-300">
+                      <Icon className="w-7 h-7 text-blue-300 group-hover:text-blue-200 transition-colors" />
                     </div>
                     <h3 className="text-xl font-semibold text-light-100 mb-3 group-hover:text-white transition-colors">
                       {reason.title}
@@ -145,8 +145,8 @@ export default function PourquoiNousPage() {
                     </p>
                   </div>
 
-                  {/* Bottom line accent */}
-                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-blue-500/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                  {/* Bottom line accent - visible by default */}
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-blue-500/40 to-transparent group-hover:via-blue-500/70 transition-all duration-300" />
                 </div>
               );
             })}

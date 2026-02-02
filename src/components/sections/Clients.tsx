@@ -33,8 +33,8 @@ const testimonials = [
 
 const clientTypes = [
   { icon: Building2, label: 'TPE', count: '30+' },
-  { icon: Building2, label: 'PME', count: '15+' },
-  { icon: Building2, label: 'Associations', count: '5+' },
+  { icon: Building2, label: 'PME', count: '20+' },
+  { icon: Building2, label: 'Associations', count: '10+' },
 ];
 
 export default function Clients() {
