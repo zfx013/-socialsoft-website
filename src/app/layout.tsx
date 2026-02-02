@@ -12,7 +12,6 @@ import GrainOverlay from '@/components/effects/GrainOverlay';
 import CursorTrail from '@/components/effects/CursorTrail';
 import PageWrapper from '@/components/effects/PageWrapper';
 import ScrollToTop from '@/components/ScrollToTop';
-import AssociationsBadge from '@/components/ui/AssociationsBadge';
 import './globals.css';
 
 export const metadata: Metadata = seoMetadata;
@@ -51,7 +50,6 @@ export default function RootLayout({
           </main>
           <Footer />
           <StickyContact />
-          <AssociationsBadge />
         </SmoothScroll>
       </body>
     </html>

@@ -233,24 +233,10 @@ export default function Hero() {
           initial={false}
           animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 20 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="text-lg sm:text-xl text-light-100 max-w-2xl mx-auto mb-6"
+          className="text-lg sm:text-xl text-light-100 max-w-2xl mx-auto mb-12"
         >
-          Accompagnement complet : conseil, développement, infrastructure, support.
+          Accompagnement complet pour TPE, PME et associations : conseil, développement, infrastructure, support.
         </motion.p>
-
-        {/* Client types badge */}
-        <motion.div
-          initial={false}
-          animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 20 }}
-          transition={{ duration: 0.6, delay: 0.6 }}
-          className="flex items-center justify-center gap-3 mb-12"
-        >
-          <span className="px-4 py-2 rounded-full bg-dark-700/50 border border-dark-600 text-light-200 text-sm font-medium">TPE</span>
-          <span className="text-light-400">•</span>
-          <span className="px-4 py-2 rounded-full bg-dark-700/50 border border-dark-600 text-light-200 text-sm font-medium">PME</span>
-          <span className="text-light-400">•</span>
-          <span className="px-4 py-2 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-sm font-medium">Associations</span>
-        </motion.div>
 
         {/* CTAs */}
         <motion.div
