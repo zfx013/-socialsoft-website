@@ -111,7 +111,7 @@ export default function Stats() {
           viewport={{ once: true }}
           className="text-3xl sm:text-4xl font-bold text-light-100 mb-12 text-center"
         >
-          Pourquoi choisir SOCIAL SOFT ?
+          Pourquoi choisir <span className="bg-gradient-to-r from-accent-blue to-accent-cyan bg-clip-text text-transparent">SOCIAL SOFT</span> ?
         </motion.h2>
 
         {/* Stats grid */}
@@ -169,10 +169,10 @@ export default function Stats() {
         >
           <Link
             href="/pourquoi-nous"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-dark-700 border border-dark-600 text-light-100 font-medium hover:border-accent-blue/50 hover:bg-dark-600 transition-all group"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-accent-blue to-accent-cyan text-white font-semibold hover:opacity-90 transition-all group shadow-lg shadow-accent-blue/25 hover:shadow-accent-blue/40"
           >
             En savoir plus sur nous
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </motion.div>
       </div>

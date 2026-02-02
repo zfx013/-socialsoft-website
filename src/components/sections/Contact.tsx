@@ -199,7 +199,7 @@ export default function Contact() {
           </SectionTransition>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 max-w-6xl mx-auto items-stretch">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16 max-w-6xl mx-auto">
           {/* Contact Form */}
           <SectionTransition animation="slide-right" className="lg:col-span-3">
             <div className="relative p-8 rounded-2xl bg-dark-900/50 border border-dark-700 backdrop-blur-sm overflow-hidden group">
@@ -332,12 +332,12 @@ export default function Contact() {
           </SectionTransition>
 
           {/* Contact info */}
-          <SectionTransition animation="slide-left" delay={0.2} className="lg:col-span-2 flex flex-col">
+          <SectionTransition animation="slide-left" delay={0.2} className="lg:col-span-2">
             <h3 className="text-xl font-semibold text-light-100 mb-6">
               Ou contactez-nous directement
             </h3>
 
-            <div className="space-y-4 flex-1 flex flex-col">
+            <div className="space-y-4">
               <ContactCard
                 href={contact.phoneLink}
                 icon={Phone}
@@ -363,8 +363,6 @@ export default function Contact() {
                 delay={0.2}
                 multiline
               />
-
-              <div className="flex-1" />
 
               <ContactCard
                 href={contact.linkedin}
