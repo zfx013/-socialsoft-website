@@ -41,7 +41,7 @@ export default function FormationHero() {
     <section
       ref={sectionRef}
       onMouseMove={handleMouseMove}
-      className="relative min-h-screen flex items-center justify-center bg-dark-900 overflow-hidden"
+      className="relative h-screen flex items-center justify-center bg-dark-900 overflow-hidden"
     >
       {/* Background gradient */}
       <div className="absolute inset-0">
@@ -86,8 +86,8 @@ export default function FormationHero() {
       <GlowEffect className="bottom-1/3 left-1/4" color="blue" size="md" />
 
       {/* Content */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
           {/* Logo et texte */}
           <div className="text-center lg:text-left">
             {/* Logo Colibri */}
@@ -95,9 +95,9 @@ export default function FormationHero() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: mounted ? 1 : 0, scale: mounted ? 1 : 0.9 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="mb-8 flex justify-center lg:justify-start"
+              className="mb-6 flex justify-center lg:justify-start"
             >
-              <div className="relative w-32 h-40 sm:w-40 sm:h-48">
+              <div className="relative w-24 h-32 sm:w-32 sm:h-40">
                 <motion.div
                   className="absolute -inset-16 -z-10"
                   style={{
@@ -128,7 +128,7 @@ export default function FormationHero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 20 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-sm text-emerald-400 mb-6"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-sm text-emerald-400 mb-4"
             >
               <GraduationCap className="w-4 h-4" />
               Formation Colibri
@@ -138,7 +138,7 @@ export default function FormationHero() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 30 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-light-100 mb-6"
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-light-100 mb-4"
             >
               Formations<br />
               <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
@@ -150,7 +150,7 @@ export default function FormationHero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 20 }}
               transition={{ duration: 0.6, delay: 0.5 }}
-              className="text-xl text-light-200 mb-8 leading-relaxed"
+              className="text-lg text-light-200 mb-6 leading-relaxed"
             >
               Montez en compétences sur les outils numériques avec nos formations professionnelles.
               Programmes adaptés à tous les niveaux, éligibles aux financements OPCO et CPF.
@@ -161,7 +161,7 @@ export default function FormationHero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: mounted ? 1 : 0, y: mounted ? 0 : 20 }}
               transition={{ duration: 0.6, delay: 0.6 }}
-              className="flex flex-wrap justify-center lg:justify-start gap-6 mb-8"
+              className="flex flex-wrap justify-center lg:justify-start gap-6 mb-6"
             >
               <div className="flex items-center gap-2">
                 <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center">
@@ -211,24 +211,24 @@ export default function FormationHero() {
           {/* Espace pour les colibris sur desktop */}
           <div className="hidden lg:block" />
         </div>
-
-        {/* Scroll indicator */}
-        <motion.a
-          href="#avantages"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: mounted ? 1 : 0 }}
-          transition={{ duration: 0.6, delay: 0.9 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-light-100 hover:text-emerald-400 transition-colors"
-        >
-          <span className="text-sm font-medium">Découvrir</span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-          >
-            <ArrowDown className="w-5 h-5" />
-          </motion.div>
-        </motion.a>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.a
+        href="#avantages"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: mounted ? 1 : 0 }}
+        transition={{ duration: 0.6, delay: 0.9 }}
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1 text-light-100 hover:text-emerald-400 transition-colors"
+      >
+        <span className="text-sm font-medium">Découvrir</span>
+        <motion.div
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+        >
+          <ArrowDown className="w-5 h-5" />
+        </motion.div>
+      </motion.a>
     </section>
   );
 }

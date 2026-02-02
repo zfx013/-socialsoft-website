@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
-import { Award, Clock, Users, BookOpen, CheckCircle, ArrowRight, ExternalLink, Euro } from 'lucide-react';
+import { Award, Clock, Users, BookOpen, CheckCircle, ExternalLink } from 'lucide-react';
 import Contact from '@/components/sections/Contact';
 import FloatingContact from '@/components/ui/FloatingContact';
 import FormationHero from '@/components/sections/FormationHero';
+import FormationCard from '@/components/sections/FormationCard';
 import { programmesFormation, siteContact } from '@/lib/config';
 
 export const metadata: Metadata = {
@@ -84,157 +85,18 @@ export default function FormationPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold text-light-100 mb-4">
-              Notre formation
+              Nos formations
             </h2>
             <p className="text-lg text-light-200 max-w-2xl mx-auto">
-              Formation certifiée, conçue pour répondre aux besoins des professionnels
+              Formations certifiées, conçues pour répondre aux besoins des professionnels
             </p>
           </div>
 
-          {programmesFormation.map((programme) => (
-            <div key={programme.id} className="space-y-8">
-              {/* Carte principale */}
-              <div className="p-8 rounded-3xl bg-dark-800/50 border border-dark-600">
-                <h3 className="text-2xl font-bold text-light-100 mb-4">
-                  {programme.title}
-                </h3>
-
-                <p className="text-light-300 mb-8 leading-relaxed text-lg">
-                  {programme.description}
-                </p>
-
-                {/* Infos pratiques */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
-                  <div className="p-4 rounded-xl bg-dark-700/50 border border-dark-600">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Clock className="w-4 h-4 text-emerald-400" />
-                      <span className="text-sm font-medium text-light-100">Durée</span>
-                    </div>
-                    <p className="text-light-300">{programme.duration}</p>
-                    <p className="text-sm text-light-400">{programme.modalite}</p>
-                  </div>
-                  <div className="p-4 rounded-xl bg-dark-700/50 border border-dark-600">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Euro className="w-4 h-4 text-emerald-400" />
-                      <span className="text-sm font-medium text-light-100">Tarif</span>
-                    </div>
-                    <p className="text-light-300">{programme.tarif}</p>
-                  </div>
-                  <div className="p-4 rounded-xl bg-dark-700/50 border border-dark-600">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Users className="w-4 h-4 text-emerald-400" />
-                      <span className="text-sm font-medium text-light-100">Capacité</span>
-                    </div>
-                    <p className="text-light-300">{programme.capacite}</p>
-                  </div>
-                </div>
-
-                {/* Objectifs */}
-                <div className="mb-8">
-                  <h4 className="text-lg font-semibold text-light-100 mb-4">Objectifs pédagogiques</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
-                    {programme.objectives.map((objective, i) => (
-                      <div key={i} className="flex items-start gap-2 p-3 rounded-lg bg-emerald-500/5 border border-emerald-500/20">
-                        <CheckCircle className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                        <span className="text-sm text-light-200">{objective}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Éligibilité et CTA */}
-                <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-dark-600">
-                  <div className="flex flex-wrap gap-2">
-                    <span className="text-sm text-light-400 mr-2">Éligible :</span>
-                    {programme.eligible.map((item, i) => (
-                      <span
-                        key={i}
-                        className="px-3 py-1 text-xs font-medium rounded-full bg-emerald-500/10 text-emerald-400"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                  <a
-                    href={programme.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-medium hover:opacity-90 transition-opacity"
-                  >
-                    S&apos;inscrire
-                    <ArrowRight className="w-4 h-4" />
-                  </a>
-                </div>
-              </div>
-
-              {/* Programme détaillé */}
-              <div className="p-8 rounded-3xl bg-dark-800/50 border border-dark-600">
-                <h4 className="text-xl font-bold text-light-100 mb-6">Programme détaillé</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {/* Windows */}
-                  <div className="p-5 rounded-2xl bg-dark-700/30 border border-dark-600">
-                    <h5 className="text-lg font-semibold text-emerald-400 mb-4">Windows</h5>
-                    <ul className="space-y-2">
-                      {programme.programme.windows.map((item, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-light-300">
-                          <span className="text-emerald-400 mt-1">•</span>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  {/* Word */}
-                  <div className="p-5 rounded-2xl bg-dark-700/30 border border-dark-600">
-                    <h5 className="text-lg font-semibold text-blue-400 mb-4">Word</h5>
-                    <ul className="space-y-2">
-                      {programme.programme.word.map((item, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-light-300">
-                          <span className="text-blue-400 mt-1">•</span>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  {/* Excel */}
-                  <div className="p-5 rounded-2xl bg-dark-700/30 border border-dark-600">
-                    <h5 className="text-lg font-semibold text-green-400 mb-4">Excel</h5>
-                    <ul className="space-y-2">
-                      {programme.programme.excel.map((item, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-light-300">
-                          <span className="text-green-400 mt-1">•</span>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  {/* Internet */}
-                  <div className="p-5 rounded-2xl bg-dark-700/30 border border-dark-600">
-                    <h5 className="text-lg font-semibold text-cyan-400 mb-4">Internet</h5>
-                    <ul className="space-y-2">
-                      {programme.programme.internet.map((item, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-light-300">
-                          <span className="text-cyan-400 mt-1">•</span>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  {/* Outlook */}
-                  <div className="p-5 rounded-2xl bg-dark-700/30 border border-dark-600 md:col-span-2 lg:col-span-2">
-                    <h5 className="text-lg font-semibold text-orange-400 mb-4">Outlook</h5>
-                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                      {programme.programme.outlook.map((item, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-light-300">
-                          <span className="text-orange-400 mt-1">•</span>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
+          <div className="space-y-8">
+            {programmesFormation.map((programme) => (
+              <FormationCard key={programme.id} formation={programme} />
+            ))}
+          </div>
 
           {/* CTA vers Colibri */}
           <div className="mt-12 text-center">
