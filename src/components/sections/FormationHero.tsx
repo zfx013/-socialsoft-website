@@ -219,7 +219,7 @@ export default function FormationHero() {
               <div className="flex justify-center mb-4">
                 <div className="relative w-full rounded-xl overflow-hidden">
                   <Image
-                    src="/images/logo-qualiopi.jpg"
+                    src="/images/logo-qualiopi.png"
                     alt="Certification Qualiopi - La certification qualité a été délivrée au titre des catégories d'actions suivantes : Actions de formation"
                     width={400}
                     height={180}
