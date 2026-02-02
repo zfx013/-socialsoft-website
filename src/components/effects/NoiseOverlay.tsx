@@ -17,12 +17,11 @@ export default function NoiseOverlay({ opacity = 0.03, className = '' }: NoiseOv
     }
   }, []);
 
-  if (!mounted) return null;
-
+  // ALWAYS return the same structure to prevent React reconciliation errors
   return (
     <div
       className={`fixed inset-0 pointer-events-none z-[9998] ${className}`}
-      style={{ opacity }}
+      style={{ opacity: mounted ? opacity : 0 }}
     >
       {/* SVG Noise Filter */}
       <svg className="absolute w-0 h-0">
@@ -60,7 +59,7 @@ export default function NoiseOverlay({ opacity = 0.03, className = '' }: NoiseOv
             rgba(0, 0, 0, 0.1) 4px
           )`,
           backgroundSize: '100% 4px',
-          animation: 'scanlines 8s linear infinite',
+          animation: mounted ? 'scanlines 8s linear infinite' : 'none',
         }}
       />
 

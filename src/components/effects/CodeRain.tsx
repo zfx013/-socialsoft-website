@@ -179,10 +179,12 @@ export function CodeStream({ className = '' }: { className?: string }) {
     };
   }, []);
 
-  if (!mounted) return null;
-
+  // ALWAYS return the same structure to prevent React reconciliation errors
   return (
-    <>
+    <div
+      className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}
+      style={{ opacity: mounted ? 1 : 0 }}
+    >
       <style jsx global>{`
         @keyframes slideCode {
           from {
@@ -201,26 +203,24 @@ export function CodeStream({ className = '' }: { className?: string }) {
           }
         }
       `}</style>
-      <div className={`absolute inset-0 overflow-hidden pointer-events-none ${className}`}>
-        {lines.map(line => (
-          <div
-            key={line.id}
-            className="code-line"
-            style={{
-              position: 'absolute',
-              fontFamily: 'monospace',
-              fontSize: '12px',
-              color: 'rgba(6, 182, 212, 0.2)',
-              whiteSpace: 'nowrap',
-              animation: `slideCode ${line.duration}s linear forwards`,
-              top: `${line.top}%`,
-              left: '-300px',
-            }}
-          >
-            {line.text}
-          </div>
-        ))}
-      </div>
-    </>
+      {lines.map(line => (
+        <div
+          key={line.id}
+          className="code-line"
+          style={{
+            position: 'absolute',
+            fontFamily: 'monospace',
+            fontSize: '12px',
+            color: 'rgba(6, 182, 212, 0.2)',
+            whiteSpace: 'nowrap',
+            animation: `slideCode ${line.duration}s linear forwards`,
+            top: `${line.top}%`,
+            left: '-300px',
+          }}
+        >
+          {line.text}
+        </div>
+      ))}
+    </div>
   );
 }

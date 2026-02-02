@@ -21,20 +21,19 @@ export default function StickyContact() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  if (!mounted) {
-    return null;
-  }
+  // ALWAYS return the same structure to prevent React reconciliation errors
+  const shouldShow = mounted && isVisible;
 
   return (
     <motion.div
       initial={false}
       animate={{
-        opacity: isVisible ? 1 : 0,
-        scale: isVisible ? 1 : 0.8,
+        opacity: shouldShow ? 1 : 0,
+        scale: shouldShow ? 1 : 0.8,
       }}
       transition={{ duration: 0.3 }}
       className="fixed bottom-6 right-6 z-40"
-      style={{ pointerEvents: isVisible ? 'auto' : 'none' }}
+      style={{ pointerEvents: shouldShow ? 'auto' : 'none' }}
     >
       {/* Contact options */}
       <motion.div
@@ -81,11 +80,15 @@ export default function StickyContact() {
         }`}
         aria-label={isOpen ? 'Fermer les options de contact' : 'Options de contact'}
       >
-        {isOpen ? (
-          <X className="w-6 h-6 text-light-100" />
-        ) : (
-          <MessageCircle className="w-6 h-6 text-white" />
-        )}
+        {/* Always render both icons, control visibility with opacity */}
+        <X
+          className="w-6 h-6 text-light-100 absolute transition-opacity"
+          style={{ opacity: isOpen ? 1 : 0 }}
+        />
+        <MessageCircle
+          className="w-6 h-6 text-white absolute transition-opacity"
+          style={{ opacity: isOpen ? 0 : 1 }}
+        />
       </motion.button>
     </motion.div>
   );
