@@ -333,17 +333,19 @@ function PoleSection({ pole, index, isReversed }: PoleSectionProps) {
   const poleColors = colors[pole.id as keyof typeof colors] || colors.it;
 
   // Rendu du visuel spécifique à chaque pôle
+  // TEMPORAIREMENT DÉSACTIVÉ pour debug
   const renderVisual = () => {
-    switch (pole.id) {
-      case 'it':
-        return <InfrastructureVisual />;
-      case 'dev':
-        return <AnimatedTerminal />;
-      case 'formation':
-        return <ColibriVisual />;
-      default:
-        return null;
-    }
+    return null;
+    // switch (pole.id) {
+    //   case 'it':
+    //     return <InfrastructureVisual />;
+    //   case 'dev':
+    //     return <AnimatedTerminal />;
+    //   case 'formation':
+    //     return <ColibriVisual />;
+    //   default:
+    //     return null;
+    // }
   };
 
   return (

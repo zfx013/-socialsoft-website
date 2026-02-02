@@ -51,24 +51,24 @@ export default function Services() {
       );
 
       if (isDesktop) {
-        // Desktop: animation simple des cartes sans pin
-        // Le pin GSAP causait des conflits avec React DOM
-        const cards = scrollerRef.current!.querySelectorAll('.service-card-wrapper');
-        cards.forEach((card, i) => {
-          gsap.fromTo(
-            card,
-            { opacity: 0, y: 40 },
-            {
-              opacity: 1,
-              y: 0,
-              scrollTrigger: {
-                trigger: card,
-                start: 'top 90%',
-                end: 'top 60%',
-                scrub: 1,
-              },
-            }
-          );
+        // Desktop: scroll horizontal avec pin
+        const scrollWidth = scrollerRef.current!.scrollWidth;
+        const viewportWidth = sectionRef.current!.offsetWidth;
+        // Augmenter la distance pour voir la dernière carte complètement
+        const distance = scrollWidth - viewportWidth + 500;
+
+        gsap.to(scrollerRef.current, {
+          x: -distance,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 20%',
+            end: () => `+=${distance}`,
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
         });
       } else {
         // Mobile: animation staggered des cartes
@@ -140,15 +140,19 @@ export default function Services() {
           </p>
         </div>
 
-        {/* Cartes en grille */}
+        {/* Cartes: CSS media queries pour le layout (pas de JS state) */}
         <div
           ref={scrollerRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-8"
+          className="
+            grid grid-cols-1 sm:grid-cols-2 gap-6
+            lg:flex lg:gap-8 lg:will-change-transform lg:pr-[400px]
+            pb-8
+          "
         >
           {services.map((service, index) => (
             <div
               key={service.id}
-              className="service-card-wrapper"
+              className="service-card-wrapper lg:flex-shrink-0 lg:w-96"
             >
               <ServiceCard service={service} index={index} />
             </div>
