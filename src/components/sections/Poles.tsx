@@ -2,7 +2,7 @@
 
 import { useRef, Suspense } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Server, Code, GraduationCap, ArrowRight, Monitor, Laptop, Smartphone, Printer, Wifi, Cloud, HardDrive, Shield } from 'lucide-react';
+import { Server, Code, GraduationCap, ArrowRight, Monitor, Laptop, Smartphone, Printer, Wifi, Cloud, HardDrive, Shield, Router, Database, Radio, Lock, Network, Cpu } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
@@ -137,91 +137,110 @@ function AnimatedTerminal() {
 }
 
 // ============================================
-// IT VISUAL - Topologie Réseau avec Devices
+// IT VISUAL - Topologie Réseau Organique
 // ============================================
 function NetworkTopology() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
 
-  // Devices autour du serveur central
-  const devices = [
-    { icon: Monitor, label: 'Postes fixes', x: 0, y: -110, color: 'from-blue-500 to-blue-600', delay: 0.1 },
-    { icon: Laptop, label: 'Portables', x: 95, y: -55, color: 'from-cyan-500 to-cyan-600', delay: 0.2 },
-    { icon: Smartphone, label: 'Mobiles', x: 95, y: 55, color: 'from-violet-500 to-violet-600', delay: 0.3 },
-    { icon: Printer, label: 'Imprimantes', x: 0, y: 110, color: 'from-amber-500 to-amber-600', delay: 0.4 },
-    { icon: Wifi, label: 'WiFi', x: -95, y: 55, color: 'from-emerald-500 to-emerald-600', delay: 0.5 },
-    { icon: Cloud, label: 'Cloud', x: -95, y: -55, color: 'from-sky-500 to-sky-600', delay: 0.6 },
+  // Équipements réseau (infrastructure) - positions irrégulières
+  const infraDevices = [
+    { id: 'router', icon: Router, label: 'Routeur', x: 0, y: 0, size: 'lg', color: 'from-blue-600 to-blue-700', delay: 0 },
+    { id: 'firewall', icon: Shield, label: 'Firewall', x: -85, y: -50, size: 'md', color: 'from-red-500 to-orange-500', delay: 0.1 },
+    { id: 'switch', icon: Network, label: 'Switch', x: 75, y: 35, size: 'md', color: 'from-cyan-500 to-cyan-600', delay: 0.15 },
+    { id: 'server', icon: HardDrive, label: 'Serveur', x: -70, y: 55, size: 'md', color: 'from-slate-600 to-slate-700', delay: 0.2 },
+    { id: 'nas', icon: Database, label: 'NAS', x: 15, y: 80, size: 'sm', color: 'from-purple-500 to-purple-600', delay: 0.25 },
+    { id: 'cloud', icon: Cloud, label: 'Cloud', x: -130, y: -100, size: 'md', color: 'from-sky-400 to-sky-500', delay: 0.3 },
   ];
 
-  return (
-    <div ref={ref} className="relative w-full max-w-lg mx-auto h-[420px]">
-      {/* Cercles de fond */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <div
-          className="absolute w-64 h-64 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dark-600/50 transition-all duration-1000"
-          style={{ opacity: isInView ? 1 : 0, transform: `translate(-50%, -50%) scale(${isInView ? 1 : 0.5})` }}
-        />
-        <div
-          className="absolute w-80 h-80 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dark-700/30 transition-all duration-1000"
-          style={{ opacity: isInView ? 1 : 0, transform: `translate(-50%, -50%) scale(${isInView ? 1 : 0.5})`, transitionDelay: '0.1s' }}
-        />
-      </div>
+  // Équipements utilisateurs - dispersés de façon organique
+  const userDevices = [
+    { id: 'pc1', icon: Monitor, label: 'Poste 1', x: 145, y: -25, size: 'sm', color: 'from-blue-500 to-blue-600', delay: 0.35, connectTo: 'switch' },
+    { id: 'pc2', icon: Monitor, label: 'Poste 2', x: 160, y: 50, size: 'sm', color: 'from-blue-500 to-blue-600', delay: 0.4, connectTo: 'switch' },
+    { id: 'laptop1', icon: Laptop, label: 'Portable', x: 120, y: 110, size: 'sm', color: 'from-indigo-500 to-indigo-600', delay: 0.45, connectTo: 'switch' },
+    { id: 'printer', icon: Printer, label: 'Imprimante', x: 85, y: -70, size: 'sm', color: 'from-amber-500 to-amber-600', delay: 0.5, connectTo: 'switch' },
+    { id: 'wifi1', icon: Radio, label: 'Borne WiFi', x: -145, y: 20, size: 'sm', color: 'from-emerald-500 to-emerald-600', delay: 0.55, connectTo: 'router' },
+    { id: 'phone', icon: Smartphone, label: 'Mobile', x: -175, y: 75, size: 'xs', color: 'from-violet-500 to-violet-600', delay: 0.6, connectTo: 'wifi1' },
+    { id: 'laptop2', icon: Laptop, label: 'Laptop WiFi', x: -180, y: -30, size: 'xs', color: 'from-indigo-400 to-indigo-500', delay: 0.65, connectTo: 'wifi1' },
+  ];
 
+  // Connexions entre équipements
+  const connections = [
+    { from: 'router', to: 'firewall' },
+    { from: 'router', to: 'switch' },
+    { from: 'router', to: 'server' },
+    { from: 'router', to: 'wifi1' },
+    { from: 'firewall', to: 'cloud' },
+    { from: 'server', to: 'nas' },
+    { from: 'switch', to: 'pc1' },
+    { from: 'switch', to: 'pc2' },
+    { from: 'switch', to: 'laptop1' },
+    { from: 'switch', to: 'printer' },
+    { from: 'wifi1', to: 'phone' },
+    { from: 'wifi1', to: 'laptop2' },
+  ];
+
+  const allDevices = [...infraDevices, ...userDevices];
+  const getDevice = (id: string) => allDevices.find(d => d.id === id);
+
+  const sizeClasses = {
+    lg: 'w-16 h-16',
+    md: 'w-12 h-12',
+    sm: 'w-10 h-10',
+    xs: 'w-8 h-8',
+  };
+  const iconSizes = {
+    lg: 'w-8 h-8',
+    md: 'w-6 h-6',
+    sm: 'w-5 h-5',
+    xs: 'w-4 h-4',
+  };
+
+  const centerX = 220;
+  const centerY = 180;
+
+  return (
+    <div ref={ref} className="relative w-full max-w-xl mx-auto h-[420px]">
       {/* Lignes de connexion SVG */}
-      <svg className="absolute inset-0 w-full h-full" style={{ overflow: 'visible' }}>
+      <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ overflow: 'visible' }}>
         <defs>
-          <linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.8" />
+          <linearGradient id="line-grad-blue" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.6" />
+          </linearGradient>
+          <linearGradient id="line-grad-green" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#10b981" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.5" />
           </linearGradient>
         </defs>
-        {devices.map((device, i) => {
-          const centerX = 256;
-          const centerY = 210;
-          const endX = centerX + device.x;
-          const endY = centerY + device.y;
+        {connections.map((conn, i) => {
+          const fromDev = getDevice(conn.from);
+          const toDev = getDevice(conn.to);
+          if (!fromDev || !toDev) return null;
+          const x1 = centerX + fromDev.x;
+          const y1 = centerY + fromDev.y;
+          const x2 = centerX + toDev.x;
+          const y2 = centerY + toDev.y;
+          const isInfra = infraDevices.some(d => d.id === conn.to);
           return (
             <g key={i}>
-              {/* Ligne de connexion */}
               <line
-                x1={centerX}
-                y1={centerY}
-                x2={endX}
-                y2={endY}
-                stroke="url(#line-gradient)"
-                strokeWidth="2"
+                x1={x1} y1={y1} x2={x2} y2={y2}
+                stroke={isInfra ? "url(#line-grad-blue)" : "url(#line-grad-green)"}
+                strokeWidth={isInfra ? "2" : "1.5"}
                 strokeLinecap="round"
                 style={{
-                  strokeDasharray: 150,
-                  strokeDashoffset: isInView ? 0 : 150,
-                  transition: `stroke-dashoffset 0.8s ease-out`,
-                  transitionDelay: `${device.delay}s`,
+                  strokeDasharray: 200,
+                  strokeDashoffset: isInView ? 0 : 200,
+                  transition: 'stroke-dashoffset 1s ease-out',
+                  transitionDelay: `${Math.max(fromDev.delay, toDev.delay)}s`,
                 }}
               />
-              {/* Particule de données animée */}
-              {isInView && (
-                <circle r="4" fill="#06b6d4" className="data-particle">
-                  <animate
-                    attributeName="cx"
-                    values={`${centerX};${endX};${centerX}`}
-                    dur={`${2 + i * 0.3}s`}
-                    repeatCount="indefinite"
-                    begin={`${device.delay + 0.5}s`}
-                  />
-                  <animate
-                    attributeName="cy"
-                    values={`${centerY};${endY};${centerY}`}
-                    dur={`${2 + i * 0.3}s`}
-                    repeatCount="indefinite"
-                    begin={`${device.delay + 0.5}s`}
-                  />
-                  <animate
-                    attributeName="opacity"
-                    values="0;1;1;0"
-                    dur={`${2 + i * 0.3}s`}
-                    repeatCount="indefinite"
-                    begin={`${device.delay + 0.5}s`}
-                  />
+              {/* Particule animée sur certaines connexions */}
+              {isInView && i % 3 === 0 && (
+                <circle r="3" fill="#06b6d4" opacity="0.8">
+                  <animate attributeName="cx" values={`${x1};${x2};${x1}`} dur={`${2.5 + i * 0.2}s`} repeatCount="indefinite" begin={`${0.5 + i * 0.1}s`} />
+                  <animate attributeName="cy" values={`${y1};${y2};${y1}`} dur={`${2.5 + i * 0.2}s`} repeatCount="indefinite" begin={`${0.5 + i * 0.1}s`} />
                 </circle>
               )}
             </g>
@@ -229,75 +248,62 @@ function NetworkTopology() {
         })}
       </svg>
 
-      {/* Serveur central */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-700"
-        style={{
-          opacity: isInView ? 1 : 0,
-          transform: isInView ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(0.5)',
-        }}
-      >
-        <div className="relative">
-          {/* Glow */}
-          <div className="absolute -inset-4 bg-blue-500/20 rounded-full blur-xl animate-pulse" />
-          {/* Icône serveur */}
-          <div className="relative w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shadow-2xl shadow-blue-500/30">
-            <HardDrive className="w-10 h-10 text-white" />
-          </div>
-          {/* Badge sécurité */}
-          <div className="absolute -top-1 -right-1 w-7 h-7 rounded-full bg-emerald-500 flex items-center justify-center shadow-lg">
-            <Shield className="w-4 h-4 text-white" />
-          </div>
-        </div>
-        <p className="text-center text-sm font-medium text-light-300 mt-3">Serveur</p>
-      </div>
-
-      {/* Devices périphériques */}
-      {devices.map((device, i) => {
+      {/* Tous les devices */}
+      {allDevices.map((device) => {
         const Icon = device.icon;
+        const isRouter = device.id === 'router';
         return (
           <div
-            key={i}
+            key={device.id}
             className="absolute transition-all duration-700"
             style={{
-              top: '50%',
-              left: '50%',
-              transform: `translate(calc(-50% + ${device.x}px), calc(-50% + ${device.y}px))`,
+              left: centerX + device.x,
+              top: centerY + device.y,
+              transform: 'translate(-50%, -50%)',
               opacity: isInView ? 1 : 0,
               transitionDelay: `${device.delay}s`,
             }}
           >
             <div className="flex flex-col items-center">
-              <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${device.color} flex items-center justify-center shadow-lg transition-transform hover:scale-110`}>
-                <Icon className="w-7 h-7 text-white" />
+              {/* Glow pour le routeur */}
+              {isRouter && (
+                <div className="absolute -inset-3 bg-blue-500/20 rounded-full blur-lg animate-pulse" />
+              )}
+              <div className={`relative ${sizeClasses[device.size as keyof typeof sizeClasses]} rounded-xl bg-gradient-to-br ${device.color} flex items-center justify-center shadow-lg`}>
+                <Icon className={`${iconSizes[device.size as keyof typeof iconSizes]} text-white`} />
+                {/* Status LED */}
+                <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-400 status-dot border border-dark-900" />
               </div>
-              <p className="text-xs text-light-400 mt-2 font-medium whitespace-nowrap">{device.label}</p>
-              {/* Status indicator */}
-              <span className="status-dot w-2 h-2 rounded-full bg-emerald-400 mt-1" />
+              <p className="text-[10px] text-light-400 mt-1 font-medium whitespace-nowrap">{device.label}</p>
             </div>
           </div>
         );
       })}
 
-      {/* Légende */}
+      {/* Indicateurs de zone */}
       <div
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 flex items-center gap-4 px-4 py-2 rounded-full bg-dark-800/90 border border-dark-600 transition-all duration-500"
-        style={{
-          opacity: isInView ? 1 : 0,
-          transform: isInView ? 'translateX(-50%) translateY(0)' : 'translateX(-50%) translateY(20px)',
-          transitionDelay: '0.8s',
-        }}
+        className="absolute top-3 right-3 px-3 py-1.5 rounded-lg bg-dark-800/80 border border-dark-600 transition-all duration-500"
+        style={{ opacity: isInView ? 1 : 0, transitionDelay: '0.8s' }}
       >
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-emerald-400 status-dot" />
-          <span className="text-xs text-light-300">Tous connectés</span>
+          <span className="text-[11px] text-light-300">12 appareils connectés</span>
         </div>
-        <div className="w-px h-4 bg-dark-600" />
-        <span className="text-xs text-blue-400 font-medium">Infrastructure gérée</span>
       </div>
 
-      {/* Glow de fond */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Zone labels */}
+      <div
+        className="absolute bottom-8 left-4 text-[10px] text-light-500 uppercase tracking-wider transition-opacity duration-500"
+        style={{ opacity: isInView ? 0.6 : 0, transitionDelay: '1s' }}
+      >
+        WiFi
+      </div>
+      <div
+        className="absolute top-16 right-8 text-[10px] text-light-500 uppercase tracking-wider transition-opacity duration-500"
+        style={{ opacity: isInView ? 0.6 : 0, transitionDelay: '1s' }}
+      >
+        LAN
+      </div>
 
       {/* Styles */}
       <style jsx>{`
@@ -305,11 +311,8 @@ function NetworkTopology() {
           animation: pulse-status 2s ease-in-out infinite;
         }
         @keyframes pulse-status {
-          0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.4); }
-          50% { opacity: 0.8; box-shadow: 0 0 8px 3px rgba(52, 211, 153, 0.4); }
-        }
-        .data-particle {
-          filter: drop-shadow(0 0 6px #06b6d4);
+          0%, 100% { box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.4); }
+          50% { box-shadow: 0 0 6px 2px rgba(52, 211, 153, 0.3); }
         }
       `}</style>
     </div>
