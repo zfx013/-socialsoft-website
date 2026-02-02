@@ -100,7 +100,7 @@ export default function DeveloppementPage() {
 
             {/* Badge associations */}
             <p className="text-sm text-emerald-400 mb-8">
-              ✓ Également pour les associations — tarifs adaptés
+              ✓ Également pour les Associations — tarifs adaptés
             </p>
 
             {/* CTA */}

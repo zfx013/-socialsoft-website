@@ -147,7 +147,7 @@ export default function Colibri() {
               </h2>
 
               <p className="text-lg text-light-200 mb-8">
-                Notre organisme de formation aide les entreprises et associations à renforcer
+                Notre organisme de formation aide les entreprises et Associations à renforcer
                 les compétences de leurs équipes. Des formations sur mesure, dispensées par
                 des experts, dans une atmosphère propice à l'apprentissage.
               </p>

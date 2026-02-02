@@ -191,7 +191,7 @@ export default function FormationHero() {
               transition={{ duration: 0.6, delay: 0.65 }}
               className="text-sm text-emerald-400 mb-6 text-center lg:text-left"
             >
-              ✓ Également pour les associations — tarifs adaptés
+              ✓ Également pour les Associations — tarifs adaptés
             </motion.p>
 
             {/* CTA */}
