@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 export default function LogoReveal() {
@@ -31,32 +30,23 @@ export default function LogoReveal() {
     };
   }, []);
 
-  // Avant le montage, afficher le logo caché
-  if (!mounted) {
-    return (
-      <div className="relative flex items-center justify-center h-[80px]">
-        <div className="relative">
-          <Image
-            src="/images/logo-white.svg"
-            alt="SOCIALSOFT"
-            width={450}
-            height={120}
-            className="w-[450px] h-auto opacity-0"
-            priority
-          />
-        </div>
-      </div>
-    );
-  }
+  // Calculer les styles
+  const glowBehindOpacity = mounted && isRevealed ? 1 : 0;
+  const silhouetteOpacity = mounted && isVisible ? 0.15 : 0;
+  const clipPath = mounted && isVisible ? 'inset(0 0% 0 0)' : 'inset(0 100% 0 0)';
+  const scanLineLeft = mounted && showScanLine ? '100%' : '0%';
+  const scanLineOpacity = mounted && showScanLine ? 1 : 0;
+  const pulsingGlowOpacity = mounted && isRevealed ? 0.15 : 0;
 
   return (
     <div className="relative flex items-center justify-center h-[80px]">
       {/* Glow derrière le logo */}
-      <motion.div
+      <div
         className="absolute inset-0 flex items-center justify-center pointer-events-none"
-        initial={false}
-        animate={{ opacity: isRevealed ? 1 : 0 }}
-        transition={{ duration: 0.5 }}
+        style={{
+          opacity: glowBehindOpacity,
+          transition: mounted ? 'opacity 0.5s ease' : 'none',
+        }}
       >
         <div
           className="w-[500px] h-[150px] blur-2xl opacity-30"
@@ -64,15 +54,16 @@ export default function LogoReveal() {
             background: 'radial-gradient(ellipse, rgba(0, 212, 255, 0.5) 0%, transparent 70%)'
           }}
         />
-      </motion.div>
+      </div>
 
       {/* Container pour l'effet de révélation */}
       <div className="relative">
         {/* Logo caché (silhouette grise) */}
-        <motion.div
-          initial={false}
-          animate={{ opacity: isVisible ? 0.15 : 0 }}
-          transition={{ duration: 0.3 }}
+        <div
+          style={{
+            opacity: silhouetteOpacity,
+            transition: mounted ? 'opacity 0.3s ease' : 'none',
+          }}
         >
           <Image
             src="/images/logo-white.svg"
@@ -82,14 +73,15 @@ export default function LogoReveal() {
             className="w-[450px] h-auto"
             style={{ filter: 'brightness(0.3)' }}
           />
-        </motion.div>
+        </div>
 
         {/* Logo révélé avec clip-path animé */}
-        <motion.div
+        <div
           className="absolute inset-0"
-          initial={false}
-          animate={{ clipPath: isVisible ? 'inset(0 0% 0 0)' : 'inset(0 100% 0 0)' }}
-          transition={{ duration: 1, ease: [0.65, 0, 0.35, 1], delay: 0.2 }}
+          style={{
+            clipPath: clipPath,
+            transition: mounted ? 'clip-path 1s cubic-bezier(0.65, 0, 0.35, 1) 0.2s' : 'none',
+          }}
         >
           <Image
             src="/images/logo-white.svg"
@@ -99,37 +91,30 @@ export default function LogoReveal() {
             className="w-[450px] h-auto"
             priority
           />
-        </motion.div>
+        </div>
 
-        {/* Ligne de scan - toujours dans le DOM */}
-        <motion.div
+        {/* Ligne de scan */}
+        <div
           className="absolute top-0 bottom-0 w-[2px] pointer-events-none"
-          initial={false}
-          animate={{
-            left: showScanLine ? '100%' : '0%',
-            opacity: showScanLine ? 1 : 0
-          }}
-          transition={{
-            left: { duration: 1, ease: [0.65, 0, 0.35, 1], delay: 0.2 },
-            opacity: { duration: 0.2 }
+          style={{
+            left: scanLineLeft,
+            opacity: scanLineOpacity,
+            transition: mounted
+              ? 'left 1s cubic-bezier(0.65, 0, 0.35, 1) 0.2s, opacity 0.2s ease'
+              : 'none',
           }}
         >
           <div className="absolute inset-y-0 w-[2px] bg-accent-cyan" />
           <div className="absolute inset-y-0 -left-2 w-6 bg-gradient-to-r from-transparent via-accent-cyan/50 to-transparent blur-sm" />
-        </motion.div>
+        </div>
       </div>
 
       {/* Glow pulsant subtil après révélation */}
-      <motion.div
+      <div
         className="absolute inset-0 flex items-center justify-center pointer-events-none"
-        initial={false}
-        animate={{
-          opacity: isRevealed ? [0.1, 0.25, 0.1] : 0
-        }}
-        transition={{
-          duration: 3,
-          repeat: isRevealed ? Infinity : 0,
-          ease: 'easeInOut'
+        style={{
+          opacity: pulsingGlowOpacity,
+          animation: mounted && isRevealed ? 'pulse-glow 3s ease-in-out infinite' : 'none',
         }}
       >
         <div
@@ -138,7 +123,15 @@ export default function LogoReveal() {
             background: 'radial-gradient(ellipse, rgba(59, 130, 246, 0.4) 0%, transparent 60%)'
           }}
         />
-      </motion.div>
+      </div>
+
+      {/* Keyframes pour le glow pulsant */}
+      <style jsx>{`
+        @keyframes pulse-glow {
+          0%, 100% { opacity: 0.1; }
+          50% { opacity: 0.25; }
+        }
+      `}</style>
     </div>
   );
 }

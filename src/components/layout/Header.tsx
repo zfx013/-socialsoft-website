@@ -226,10 +226,8 @@ export default function Header() {
         </div>
       </motion.header>
 
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isMenuOpen && <MenuOverlay onClose={() => setIsMenuOpen(false)} />}
-      </AnimatePresence>
+      {/* Mobile Menu Overlay - sans AnimatePresence */}
+      {isMenuOpen && <MenuOverlay onClose={() => setIsMenuOpen(false)} />}
     </>
   );
 }

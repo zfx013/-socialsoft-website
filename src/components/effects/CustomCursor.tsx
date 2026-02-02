@@ -12,7 +12,7 @@ export default function CustomCursor() {
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const [isTouch, setIsTouch] = useState(false);
+  const [isActive, setIsActive] = useState(false);
 
   // Animation loop pour le suivi fluide
   const animate = useCallback(() => {
@@ -39,9 +39,13 @@ export default function CustomCursor() {
     // Détecter si c'est un appareil tactile
     const checkTouch = window.matchMedia('(pointer: coarse)').matches ||
                        'ontouchstart' in window;
-    setIsTouch(checkTouch);
 
-    if (checkTouch) return;
+    if (checkTouch) {
+      setIsActive(false);
+      return;
+    }
+
+    setIsActive(true);
 
     const handleMouseMove = (e: MouseEvent) => {
       mousePos.current = { x: e.clientX, y: e.clientY };
@@ -80,8 +84,19 @@ export default function CustomCursor() {
     };
   }, [animate, isVisible]);
 
-  // Ne rien rendre sur tactile ou avant montage
-  if (!isMounted || isTouch) return null;
+  // SSR et client initial: retourner un conteneur vide mais identique
+  if (!isMounted) {
+    return (
+      <div className="fixed top-0 left-0 pointer-events-none z-[9998]" style={{ opacity: 0 }} />
+    );
+  }
+
+  // Appareil tactile: conteneur vide
+  if (!isActive) {
+    return (
+      <div className="fixed top-0 left-0 pointer-events-none z-[9998]" style={{ opacity: 0 }} />
+    );
+  }
 
   return (
     <>
