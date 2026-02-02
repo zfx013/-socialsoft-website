@@ -38,7 +38,7 @@ export const siteStats = {
     value: 60,
     suffix: '',
     label: 'Clients accompagnés',
-    description: 'TPE, PME et associations',
+    description: 'TPE, PME et Associations',
   },
   experience: {
     value: 25,

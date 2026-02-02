@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { CheckCircle, Users, Target, Shield, Clock, Lightbulb, MapPin, ArrowRight } from 'lucide-react';
+import { CheckCircle, Users, Target, Shield, Clock, Lightbulb, MapPin, ArrowRight, Phone } from 'lucide-react';
 import Link from 'next/link';
 import Clients from '@/components/sections/Clients';
 import FAQ from '@/components/sections/FAQ';
@@ -99,6 +99,7 @@ export default function PourquoiNousPage() {
                 href={siteContact.phoneLink}
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-dark-700 border border-dark-600 text-light-100 font-medium hover:border-blue-500/50 transition-colors"
               >
+                <Phone className="w-4 h-4 text-blue-400" />
                 {siteContact.phoneFormatted}
               </a>
             </div>
@@ -124,17 +125,28 @@ export default function PourquoiNousPage() {
               return (
                 <div
                   key={index}
-                  className="group p-6 rounded-2xl bg-dark-700/50 border border-dark-600 hover:border-blue-500/30 transition-all duration-300"
+                  className="group relative p-6 rounded-2xl bg-gradient-to-br from-dark-700/80 to-dark-800/80 border border-dark-600 hover:border-blue-500/50 transition-all duration-300 overflow-hidden"
                 >
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-violet-500/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <Icon className="w-6 h-6 text-blue-400" />
+                  {/* Glow effect on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-violet-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                  {/* Corner accent */}
+                  <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-blue-500/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                  <div className="relative">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500/30 to-violet-500/20 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-blue-500/20 transition-all duration-300">
+                      <Icon className="w-7 h-7 text-blue-400 group-hover:text-blue-300 transition-colors" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-light-100 mb-3 group-hover:text-white transition-colors">
+                      {reason.title}
+                    </h3>
+                    <p className="text-light-300 text-sm leading-relaxed">
+                      {reason.description}
+                    </p>
                   </div>
-                  <h3 className="text-lg font-semibold text-light-100 mb-2">
-                    {reason.title}
-                  </h3>
-                  <p className="text-light-300 text-sm leading-relaxed">
-                    {reason.description}
-                  </p>
+
+                  {/* Bottom line accent */}
+                  <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-blue-500/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
                 </div>
               );
             })}
