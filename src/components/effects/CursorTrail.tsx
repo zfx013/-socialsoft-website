@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 
 interface Particle {
   id: number;
@@ -9,23 +8,26 @@ interface Particle {
   y: number;
   size: number;
   opacity: number;
+  createdAt: number;
 }
 
 export default function CursorTrail() {
+  const [mounted, setMounted] = useState(false);
   const [particles, setParticles] = useState<Particle[]>([]);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const particleId = useRef(0);
   const lastPosition = useRef({ x: 0, y: 0 });
-  const rafRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
+    setMounted(true);
+
     // Ne pas afficher sur mobile
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (isMobile || prefersReduced) return;
 
-    setIsVisible(true);
+    setIsActive(true);
 
     const handleMouseMove = (e: MouseEvent) => {
       const dx = e.clientX - lastPosition.current.x;
@@ -42,6 +44,7 @@ export default function CursorTrail() {
           y: e.clientY,
           size: Math.random() * 4 + 2,
           opacity: Math.random() * 0.5 + 0.5,
+          createdAt: Date.now(),
         };
 
         setParticles(prev => [...prev.slice(-20), newParticle]);
@@ -50,7 +53,8 @@ export default function CursorTrail() {
 
     // Nettoyer les vieilles particules
     const cleanup = setInterval(() => {
-      setParticles(prev => prev.slice(-15));
+      const now = Date.now();
+      setParticles(prev => prev.filter(p => now - p.createdAt < 800));
     }, 100);
 
     window.addEventListener('mousemove', handleMouseMove);
@@ -58,38 +62,40 @@ export default function CursorTrail() {
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       clearInterval(cleanup);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
-  if (!isVisible) return null;
+  // SSR et client initial: retourner le même conteneur vide
+  if (!mounted) {
+    return <div className="fixed inset-0 pointer-events-none z-[9999]" />;
+  }
+
+  // Pas actif (mobile ou prefers-reduced-motion)
+  if (!isActive) {
+    return <div className="fixed inset-0 pointer-events-none z-[9999]" />;
+  }
 
   return (
     <div className="fixed inset-0 pointer-events-none z-[9999]">
-      <AnimatePresence>
-        {particles.map((particle) => (
-          <motion.div
+      {/* Particules sans AnimatePresence - utilisation de l'opacité CSS pour le fade out */}
+      {particles.map((particle) => {
+        const age = Date.now() - particle.createdAt;
+        const progress = Math.min(age / 800, 1);
+        const currentOpacity = particle.opacity * (1 - progress);
+        const currentScale = 1 - progress * 0.5;
+
+        return (
+          <div
             key={particle.id}
-            initial={{
-              opacity: particle.opacity,
-              scale: 1,
-              x: particle.x,
-              y: particle.y,
-            }}
-            animate={{
-              opacity: 0,
-              scale: 0,
-            }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
             className="absolute -translate-x-1/2 -translate-y-1/2"
             style={{
               width: particle.size,
               height: particle.size,
-              left: 0,
-              top: 0,
-              x: particle.x,
-              y: particle.y,
+              left: particle.x,
+              top: particle.y,
+              opacity: currentOpacity,
+              transform: `translate(-50%, -50%) scale(${currentScale})`,
+              transition: 'opacity 0.1s ease-out',
             }}
           >
             <div
@@ -99,9 +105,9 @@ export default function CursorTrail() {
                 boxShadow: `0 0 ${particle.size * 2}px rgba(6, 182, 212, 0.5)`,
               }}
             />
-          </motion.div>
-        ))}
-      </AnimatePresence>
+          </div>
+        );
+      })}
 
       {/* Ligne de connexion entre les particules */}
       <svg className="absolute inset-0 w-full h-full">
@@ -115,8 +121,11 @@ export default function CursorTrail() {
         {particles.length > 1 && particles.map((particle, i) => {
           if (i === 0) return null;
           const prev = particles[i - 1];
+          const age = Date.now() - particle.createdAt;
+          const opacity = Math.max(0, 0.5 - (age / 800) * 0.5);
+
           return (
-            <motion.line
+            <line
               key={`line-${particle.id}`}
               x1={prev.x}
               y1={prev.y}
@@ -124,9 +133,7 @@ export default function CursorTrail() {
               y2={particle.y}
               stroke="url(#trailGradient)"
               strokeWidth="1"
-              initial={{ opacity: 0.5 }}
-              animate={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
+              opacity={opacity}
             />
           );
         })}
