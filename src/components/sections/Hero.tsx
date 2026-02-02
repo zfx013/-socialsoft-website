@@ -11,7 +11,10 @@ import GlowEffect from '@/components/effects/GlowEffect';
 import LogoReveal from '@/components/effects/LogoReveal';
 import NeuralNetwork from '@/components/effects/NeuralNetwork';
 
-gsap.registerPlugin(ScrollTrigger);
+// Register plugin once with SSR check
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 // Import dynamique du composant 3D avec fallback
 const Scene = dynamic(() => import('@/components/three/Scene'), {

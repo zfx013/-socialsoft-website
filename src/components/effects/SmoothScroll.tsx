@@ -1,11 +1,14 @@
 'use client';
 
-import { useEffect, useRef, createContext, useContext, ReactNode } from 'react';
+import { useEffect, useRef, createContext, useContext, useCallback, ReactNode } from 'react';
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-gsap.registerPlugin(ScrollTrigger);
+// Register plugin once with SSR check
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 // Context pour accéder à Lenis depuis n'importe où
 const LenisContext = createContext<Lenis | null>(null);
@@ -18,8 +21,12 @@ interface SmoothScrollProps {
 
 export default function SmoothScroll({ children }: SmoothScrollProps) {
   const lenisRef = useRef<Lenis | null>(null);
+  const rafCallbackRef = useRef<((time: number) => void) | null>(null);
 
   useEffect(() => {
+    // Check if we're on the client
+    if (typeof window === 'undefined') return;
+
     // Vérifier prefers-reduced-motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -40,20 +47,27 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     lenisRef.current = lenis;
 
     // Connecter Lenis à GSAP ScrollTrigger
-    lenis.on('scroll', ScrollTrigger.update);
+    const scrollHandler = () => ScrollTrigger.update();
+    lenis.on('scroll', scrollHandler);
 
-    gsap.ticker.add((time) => {
+    // Create a stable reference for the RAF callback
+    const rafCallback = (time: number) => {
       lenis.raf(time * 1000);
-    });
+    };
+    rafCallbackRef.current = rafCallback;
 
+    gsap.ticker.add(rafCallback);
     gsap.ticker.lagSmoothing(0);
 
     // Cleanup
     return () => {
+      // Remove the RAF callback using the same reference
+      if (rafCallbackRef.current) {
+        gsap.ticker.remove(rafCallbackRef.current);
+      }
+      lenis.off('scroll', scrollHandler);
       lenis.destroy();
-      gsap.ticker.remove((time) => {
-        lenis.raf(time * 1000);
-      });
+      lenisRef.current = null;
     };
   }, []);
 

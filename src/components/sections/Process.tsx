@@ -8,7 +8,10 @@ import { MessageSquare, Search, Code, Rocket, HeartHandshake } from 'lucide-reac
 import GlowEffect from '@/components/effects/GlowEffect';
 import SplitText from '@/components/effects/SplitText';
 
-gsap.registerPlugin(ScrollTrigger);
+// Register plugin once with SSR check
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const steps = [
   {

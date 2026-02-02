@@ -5,6 +5,7 @@ import Footer from '@/components/layout/Footer';
 import StickyContact from '@/components/layout/StickyContact';
 import SplashScreen from '@/components/effects/SplashScreen';
 import SmoothScroll from '@/components/effects/SmoothScroll';
+import ScrollCleanup from '@/components/effects/ScrollCleanup';
 import ScrollProgress from '@/components/effects/ScrollProgress';
 import CustomCursor from '@/components/effects/CustomCursor';
 import GrainOverlay from '@/components/effects/GrainOverlay';
@@ -34,6 +35,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-dark-900" suppressHydrationWarning>
         <SmoothScroll>
+          <ScrollCleanup />
           <SplashScreen />
           <ScrollProgress />
           <CustomCursor />

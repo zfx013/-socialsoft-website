@@ -8,7 +8,10 @@ import IdfMap from '@/components/ui/IdfMap';
 import DataStream from '@/components/effects/DataStream';
 import SectionTransition from '@/components/effects/SectionTransition';
 
-gsap.registerPlugin(ScrollTrigger);
+// Register plugin once with SSR check
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function Coverage() {
   const sectionRef = useRef<HTMLElement>(null);

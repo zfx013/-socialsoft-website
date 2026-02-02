@@ -8,7 +8,10 @@ import ServiceCard from '@/components/ui/ServiceCard';
 import GlowEffect from '@/components/effects/GlowEffect';
 import { CodeStream } from '@/components/effects/CodeRain';
 
-gsap.registerPlugin(ScrollTrigger);
+// Register plugin once with SSR check
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function Services() {
   const sectionRef = useRef<HTMLElement>(null);
