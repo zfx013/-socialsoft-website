@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Award, Clock, Users, BookOpen, CheckCircle, ArrowRight, ExternalLink, MapPin, Calendar, Euro } from 'lucide-react';
+import { Award, Clock, Users, BookOpen, CheckCircle, ArrowRight, ExternalLink, Euro } from 'lucide-react';
 import Contact from '@/components/sections/Contact';
 import FloatingContact from '@/components/ui/FloatingContact';
 import FormationHero from '@/components/sections/FormationHero';
@@ -104,15 +104,7 @@ export default function FormationPage() {
                 </p>
 
                 {/* Infos pratiques */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                  <div className="p-4 rounded-xl bg-dark-700/50 border border-dark-600">
-                    <div className="flex items-center gap-2 mb-2">
-                      <Calendar className="w-4 h-4 text-emerald-400" />
-                      <span className="text-sm font-medium text-light-100">Prochaine session</span>
-                    </div>
-                    <p className="text-light-300">{programme.date}</p>
-                    <p className="text-sm text-light-400">{programme.horaires}</p>
-                  </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
                   <div className="p-4 rounded-xl bg-dark-700/50 border border-dark-600">
                     <div className="flex items-center gap-2 mb-2">
                       <Clock className="w-4 h-4 text-emerald-400" />
@@ -123,18 +115,17 @@ export default function FormationPage() {
                   </div>
                   <div className="p-4 rounded-xl bg-dark-700/50 border border-dark-600">
                     <div className="flex items-center gap-2 mb-2">
-                      <MapPin className="w-4 h-4 text-emerald-400" />
-                      <span className="text-sm font-medium text-light-100">Lieu</span>
-                    </div>
-                    <p className="text-light-300 text-sm">{programme.lieu}</p>
-                  </div>
-                  <div className="p-4 rounded-xl bg-dark-700/50 border border-dark-600">
-                    <div className="flex items-center gap-2 mb-2">
                       <Euro className="w-4 h-4 text-emerald-400" />
                       <span className="text-sm font-medium text-light-100">Tarif</span>
                     </div>
                     <p className="text-light-300">{programme.tarif}</p>
-                    <p className="text-sm text-light-400">{programme.capacite}</p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-dark-700/50 border border-dark-600">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Users className="w-4 h-4 text-emerald-400" />
+                      <span className="text-sm font-medium text-light-100">Capacité</span>
+                    </div>
+                    <p className="text-light-300">{programme.capacite}</p>
                   </div>
                 </div>
 
