@@ -2,7 +2,7 @@
 
 import { useRef, Suspense } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Server, Code, GraduationCap, ArrowRight } from 'lucide-react';
+import { Server, Code, GraduationCap, ArrowRight, Monitor, Laptop, Smartphone, Printer, Wifi, Cloud, HardDrive, Shield } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
@@ -137,200 +137,179 @@ function AnimatedTerminal() {
 }
 
 // ============================================
-// IT VISUAL - Dashboard Monitoring NOC
+// IT VISUAL - Topologie Réseau avec Devices
 // ============================================
-function MonitoringDashboard() {
+function NetworkTopology() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
 
+  // Devices autour du serveur central
+  const devices = [
+    { icon: Monitor, label: 'Postes fixes', x: 0, y: -110, color: 'from-blue-500 to-blue-600', delay: 0.1 },
+    { icon: Laptop, label: 'Portables', x: 95, y: -55, color: 'from-cyan-500 to-cyan-600', delay: 0.2 },
+    { icon: Smartphone, label: 'Mobiles', x: 95, y: 55, color: 'from-violet-500 to-violet-600', delay: 0.3 },
+    { icon: Printer, label: 'Imprimantes', x: 0, y: 110, color: 'from-amber-500 to-amber-600', delay: 0.4 },
+    { icon: Wifi, label: 'WiFi', x: -95, y: 55, color: 'from-emerald-500 to-emerald-600', delay: 0.5 },
+    { icon: Cloud, label: 'Cloud', x: -95, y: -55, color: 'from-sky-500 to-sky-600', delay: 0.6 },
+  ];
+
   return (
-    <div ref={ref} className="relative w-full max-w-lg mx-auto">
-      {/* Fenêtre du dashboard */}
-      <div
-        className="rounded-2xl overflow-hidden shadow-2xl border border-dark-600 transition-all duration-700"
-        style={{
-          opacity: isInView ? 1 : 0,
-          transform: isInView ? 'translateY(0) scale(1)' : 'translateY(30px) scale(0.95)',
-        }}
-      >
-        {/* Barre de titre */}
-        <div className="bg-dark-700 px-4 py-3 flex items-center justify-between border-b border-dark-600">
-          <div className="flex items-center gap-2">
-            <div className="flex gap-2">
-              <div className="w-3 h-3 rounded-full bg-red-500" />
-              <div className="w-3 h-3 rounded-full bg-yellow-500" />
-              <div className="w-3 h-3 rounded-full bg-green-500" />
-            </div>
-            <span className="text-xs text-light-400 ml-2 font-medium">Supervision — SOCIAL SOFT NOC</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <span className="status-dot w-2 h-2 rounded-full bg-emerald-400" />
-            <span className="text-xs text-emerald-400">Live</span>
-          </div>
-        </div>
-
-        {/* Contenu du dashboard */}
-        <div className="bg-dark-900 p-4">
-          {/* Métriques principales */}
-          <div className="grid grid-cols-3 gap-3 mb-4">
-            {/* Uptime */}
-            <div
-              className="metric-card bg-dark-800 rounded-xl p-3 border border-dark-600 transition-all duration-500"
-              style={{
-                opacity: isInView ? 1 : 0,
-                transform: isInView ? 'translateY(0)' : 'translateY(20px)',
-                transitionDelay: '0.2s',
-              }}
-            >
-              <p className="text-xs text-light-400 mb-1">Uptime</p>
-              <p className="text-2xl font-bold text-emerald-400">99.9%</p>
-              <div className="mt-2 h-1 bg-dark-700 rounded-full overflow-hidden">
-                <div className="uptime-bar h-full bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-full" style={{ width: isInView ? '99.9%' : '0%', transition: 'width 1.5s ease-out 0.5s' }} />
-              </div>
-            </div>
-
-            {/* Réponse */}
-            <div
-              className="metric-card bg-dark-800 rounded-xl p-3 border border-dark-600 transition-all duration-500"
-              style={{
-                opacity: isInView ? 1 : 0,
-                transform: isInView ? 'translateY(0)' : 'translateY(20px)',
-                transitionDelay: '0.3s',
-              }}
-            >
-              <p className="text-xs text-light-400 mb-1">Temps réponse</p>
-              <p className="text-2xl font-bold text-blue-400">12ms</p>
-              <div className="mt-2 h-1 bg-dark-700 rounded-full overflow-hidden">
-                <div className="h-full bg-gradient-to-r from-blue-500 to-cyan-400 rounded-full" style={{ width: isInView ? '15%' : '0%', transition: 'width 1.5s ease-out 0.6s' }} />
-              </div>
-            </div>
-
-            {/* Sécurité */}
-            <div
-              className="metric-card bg-dark-800 rounded-xl p-3 border border-dark-600 transition-all duration-500"
-              style={{
-                opacity: isInView ? 1 : 0,
-                transform: isInView ? 'translateY(0)' : 'translateY(20px)',
-                transitionDelay: '0.4s',
-              }}
-            >
-              <p className="text-xs text-light-400 mb-1">Menaces</p>
-              <p className="text-2xl font-bold text-cyan-400">0</p>
-              <div className="mt-2 flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                <span className="text-xs text-emerald-400">Protégé</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Graphique de performance */}
-          <div
-            className="bg-dark-800 rounded-xl p-4 border border-dark-600 mb-4 transition-all duration-500"
-            style={{
-              opacity: isInView ? 1 : 0,
-              transitionDelay: '0.5s',
-            }}
-          >
-            <div className="flex items-center justify-between mb-3">
-              <p className="text-sm text-light-300 font-medium">Performance réseau</p>
-              <div className="flex items-center gap-3 text-xs">
-                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-blue-400" />CPU</span>
-                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-emerald-400" />RAM</span>
-              </div>
-            </div>
-            {/* Graphique SVG animé */}
-            <svg viewBox="0 0 300 60" className="w-full h-16">
-              {/* Grille */}
-              <line x1="0" y1="20" x2="300" y2="20" stroke="#374151" strokeWidth="0.5" strokeDasharray="4" />
-              <line x1="0" y1="40" x2="300" y2="40" stroke="#374151" strokeWidth="0.5" strokeDasharray="4" />
-              {/* Ligne CPU */}
-              <path
-                d="M 0 45 Q 30 35, 60 40 T 120 30 T 180 35 T 240 25 T 300 30"
-                fill="none"
-                stroke="#3b82f6"
-                strokeWidth="2"
-                className="graph-line-1"
-                style={{
-                  strokeDasharray: 400,
-                  strokeDashoffset: isInView ? 0 : 400,
-                  transition: 'stroke-dashoffset 2s ease-out 0.6s',
-                }}
-              />
-              {/* Ligne RAM */}
-              <path
-                d="M 0 50 Q 30 45, 60 48 T 120 42 T 180 45 T 240 38 T 300 40"
-                fill="none"
-                stroke="#22c55e"
-                strokeWidth="2"
-                className="graph-line-2"
-                style={{
-                  strokeDasharray: 400,
-                  strokeDashoffset: isInView ? 0 : 400,
-                  transition: 'stroke-dashoffset 2s ease-out 0.8s',
-                }}
-              />
-              {/* Points animés */}
-              {isInView && (
-                <>
-                  <circle r="3" fill="#3b82f6" className="graph-dot">
-                    <animate attributeName="cx" values="0;300" dur="3s" repeatCount="indefinite" />
-                    <animate attributeName="cy" values="45;40;30;35;25;30" dur="3s" repeatCount="indefinite" />
-                  </circle>
-                  <circle r="3" fill="#22c55e" className="graph-dot">
-                    <animate attributeName="cx" values="0;300" dur="3s" repeatCount="indefinite" begin="0.5s" />
-                    <animate attributeName="cy" values="50;48;42;45;38;40" dur="3s" repeatCount="indefinite" begin="0.5s" />
-                  </circle>
-                </>
-              )}
-            </svg>
-          </div>
-
-          {/* Services monitorés */}
-          <div
-            className="grid grid-cols-2 gap-2 transition-all duration-500"
-            style={{
-              opacity: isInView ? 1 : 0,
-              transitionDelay: '0.7s',
-            }}
-          >
-            {[
-              { name: 'Serveurs', status: 'ok', count: '12/12' },
-              { name: 'Réseau', status: 'ok', count: '100%' },
-              { name: 'Sauvegardes', status: 'ok', count: 'À jour' },
-              { name: 'Firewall', status: 'ok', count: 'Actif' },
-            ].map((service, i) => (
-              <div
-                key={i}
-                className="flex items-center justify-between bg-dark-800/50 rounded-lg px-3 py-2 border border-dark-700"
-              >
-                <div className="flex items-center gap-2">
-                  <span className={`w-2 h-2 rounded-full ${service.status === 'ok' ? 'bg-emerald-400 status-pulse' : 'bg-amber-400'}`} />
-                  <span className="text-xs text-light-300">{service.name}</span>
-                </div>
-                <span className="text-xs font-medium text-light-400">{service.count}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+    <div ref={ref} className="relative w-full max-w-lg mx-auto h-[420px]">
+      {/* Cercles de fond */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <div
+          className="absolute w-64 h-64 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dark-600/50 transition-all duration-1000"
+          style={{ opacity: isInView ? 1 : 0, transform: `translate(-50%, -50%) scale(${isInView ? 1 : 0.5})` }}
+        />
+        <div
+          className="absolute w-80 h-80 -translate-x-1/2 -translate-y-1/2 rounded-full border border-dark-700/30 transition-all duration-1000"
+          style={{ opacity: isInView ? 1 : 0, transform: `translate(-50%, -50%) scale(${isInView ? 1 : 0.5})`, transitionDelay: '0.1s' }}
+        />
       </div>
 
-      {/* Glow effect derrière */}
-      <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/10 via-cyan-500/10 to-blue-500/10 rounded-3xl blur-2xl -z-10" />
+      {/* Lignes de connexion SVG */}
+      <svg className="absolute inset-0 w-full h-full" style={{ overflow: 'visible' }}>
+        <defs>
+          <linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#06b6d4" stopOpacity="0.8" />
+          </linearGradient>
+        </defs>
+        {devices.map((device, i) => {
+          const centerX = 256;
+          const centerY = 210;
+          const endX = centerX + device.x;
+          const endY = centerY + device.y;
+          return (
+            <g key={i}>
+              {/* Ligne de connexion */}
+              <line
+                x1={centerX}
+                y1={centerY}
+                x2={endX}
+                y2={endY}
+                stroke="url(#line-gradient)"
+                strokeWidth="2"
+                strokeLinecap="round"
+                style={{
+                  strokeDasharray: 150,
+                  strokeDashoffset: isInView ? 0 : 150,
+                  transition: `stroke-dashoffset 0.8s ease-out`,
+                  transitionDelay: `${device.delay}s`,
+                }}
+              />
+              {/* Particule de données animée */}
+              {isInView && (
+                <circle r="4" fill="#06b6d4" className="data-particle">
+                  <animate
+                    attributeName="cx"
+                    values={`${centerX};${endX};${centerX}`}
+                    dur={`${2 + i * 0.3}s`}
+                    repeatCount="indefinite"
+                    begin={`${device.delay + 0.5}s`}
+                  />
+                  <animate
+                    attributeName="cy"
+                    values={`${centerY};${endY};${centerY}`}
+                    dur={`${2 + i * 0.3}s`}
+                    repeatCount="indefinite"
+                    begin={`${device.delay + 0.5}s`}
+                  />
+                  <animate
+                    attributeName="opacity"
+                    values="0;1;1;0"
+                    dur={`${2 + i * 0.3}s`}
+                    repeatCount="indefinite"
+                    begin={`${device.delay + 0.5}s`}
+                  />
+                </circle>
+              )}
+            </g>
+          );
+        })}
+      </svg>
 
-      {/* Styles pour animations */}
+      {/* Serveur central */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-all duration-700"
+        style={{
+          opacity: isInView ? 1 : 0,
+          transform: isInView ? 'translate(-50%, -50%) scale(1)' : 'translate(-50%, -50%) scale(0.5)',
+        }}
+      >
+        <div className="relative">
+          {/* Glow */}
+          <div className="absolute -inset-4 bg-blue-500/20 rounded-full blur-xl animate-pulse" />
+          {/* Icône serveur */}
+          <div className="relative w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shadow-2xl shadow-blue-500/30">
+            <HardDrive className="w-10 h-10 text-white" />
+          </div>
+          {/* Badge sécurité */}
+          <div className="absolute -top-1 -right-1 w-7 h-7 rounded-full bg-emerald-500 flex items-center justify-center shadow-lg">
+            <Shield className="w-4 h-4 text-white" />
+          </div>
+        </div>
+        <p className="text-center text-sm font-medium text-light-300 mt-3">Serveur</p>
+      </div>
+
+      {/* Devices périphériques */}
+      {devices.map((device, i) => {
+        const Icon = device.icon;
+        return (
+          <div
+            key={i}
+            className="absolute transition-all duration-700"
+            style={{
+              top: '50%',
+              left: '50%',
+              transform: `translate(calc(-50% + ${device.x}px), calc(-50% + ${device.y}px))`,
+              opacity: isInView ? 1 : 0,
+              transitionDelay: `${device.delay}s`,
+            }}
+          >
+            <div className="flex flex-col items-center">
+              <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${device.color} flex items-center justify-center shadow-lg transition-transform hover:scale-110`}>
+                <Icon className="w-7 h-7 text-white" />
+              </div>
+              <p className="text-xs text-light-400 mt-2 font-medium whitespace-nowrap">{device.label}</p>
+              {/* Status indicator */}
+              <span className="status-dot w-2 h-2 rounded-full bg-emerald-400 mt-1" />
+            </div>
+          </div>
+        );
+      })}
+
+      {/* Légende */}
+      <div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 flex items-center gap-4 px-4 py-2 rounded-full bg-dark-800/90 border border-dark-600 transition-all duration-500"
+        style={{
+          opacity: isInView ? 1 : 0,
+          transform: isInView ? 'translateX(-50%) translateY(0)' : 'translateX(-50%) translateY(20px)',
+          transitionDelay: '0.8s',
+        }}
+      >
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 status-dot" />
+          <span className="text-xs text-light-300">Tous connectés</span>
+        </div>
+        <div className="w-px h-4 bg-dark-600" />
+        <span className="text-xs text-blue-400 font-medium">Infrastructure gérée</span>
+      </div>
+
+      {/* Glow de fond */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl pointer-events-none" />
+
+      {/* Styles */}
       <style jsx>{`
         .status-dot {
-          animation: pulse-dot 2s ease-in-out infinite;
+          animation: pulse-status 2s ease-in-out infinite;
         }
-        .status-pulse {
-          animation: pulse-dot 2s ease-in-out infinite;
+        @keyframes pulse-status {
+          0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.4); }
+          50% { opacity: 0.8; box-shadow: 0 0 8px 3px rgba(52, 211, 153, 0.4); }
         }
-        @keyframes pulse-dot {
-          0%, 100% { opacity: 1; box-shadow: 0 0 0 0 currentColor; }
-          50% { opacity: 0.7; box-shadow: 0 0 8px 2px currentColor; }
-        }
-        .graph-dot {
-          filter: drop-shadow(0 0 4px currentColor);
+        .data-particle {
+          filter: drop-shadow(0 0 6px #06b6d4);
         }
       `}</style>
     </div>
@@ -444,7 +423,7 @@ function PoleSection({ pole, index, isReversed }: PoleSectionProps) {
   const renderVisual = () => {
     switch (pole.id) {
       case 'it':
-        return <MonitoringDashboard />;
+        return <NetworkTopology />;
       case 'dev':
         return <AnimatedTerminal />;
       case 'formation':
