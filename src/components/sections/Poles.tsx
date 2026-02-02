@@ -2,7 +2,7 @@
 
 import { useRef, Suspense } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Server, Code, GraduationCap, ArrowRight, Wifi, Shield, Monitor, Smartphone, Cloud, Laptop, HardDrive, Lock } from 'lucide-react';
+import { Server, Code, GraduationCap, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
@@ -137,89 +137,213 @@ function AnimatedTerminal() {
 }
 
 // ============================================
-// IT VISUAL - Services IT avec animations
+// IT VISUAL - Salle serveur 3D isométrique
 // ============================================
-function ITServicesVisual() {
+function ServerRoomVisual() {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: '-50px' });
 
-  // Services IT représentant tous types de clients
-  const services = [
-    { icon: Laptop, label: 'Postes', color: 'from-blue-500 to-blue-600', delay: 0 },
-    { icon: Monitor, label: 'Écrans', color: 'from-cyan-500 to-cyan-600', delay: 0.1 },
-    { icon: Smartphone, label: 'Mobile', color: 'from-violet-500 to-violet-600', delay: 0.2 },
-    { icon: Wifi, label: 'Réseau', color: 'from-emerald-500 to-emerald-600', delay: 0.3 },
-    { icon: Shield, label: 'Sécurité', color: 'from-amber-500 to-amber-600', delay: 0.4 },
-    { icon: Cloud, label: 'Cloud', color: 'from-sky-500 to-sky-600', delay: 0.5 },
-    { icon: HardDrive, label: 'Stockage', color: 'from-pink-500 to-pink-600', delay: 0.6 },
-    { icon: Lock, label: 'Données', color: 'from-indigo-500 to-indigo-600', delay: 0.7 },
+  // Configuration des racks serveur
+  const racks = [
+    { id: 1, x: -120, z: 0, delay: 0 },
+    { id: 2, x: 0, z: 40, delay: 0.2 },
+    { id: 3, x: 120, z: 0, delay: 0.4 },
   ];
 
+  // LEDs par serveur (8 serveurs par rack)
+  const serverUnits = [0, 1, 2, 3, 4, 5, 6, 7];
+
   return (
-    <div ref={ref} className="relative w-full max-w-lg mx-auto py-8">
-      {/* Grille de services - icônes plus grosses */}
-      <div className="grid grid-cols-4 gap-6">
-        {services.map((service, i) => {
-          const Icon = service.icon;
-          return (
-            <div
-              key={i}
-              className="it-service-item flex flex-col items-center gap-3 transition-all duration-500"
-              style={{
-                opacity: isInView ? 1 : 0,
-                transform: isInView ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.8)',
-                transitionDelay: `${service.delay}s`,
-              }}
-            >
-              <div
-                className={`w-16 h-16 lg:w-20 lg:h-20 rounded-2xl bg-gradient-to-br ${service.color} flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl cursor-default`}
-                style={{
-                  animation: isInView ? `float-subtle 3s ease-in-out infinite` : 'none',
-                  animationDelay: `${service.delay * 2}s`,
-                }}
-              >
-                <Icon className="w-8 h-8 lg:w-10 lg:h-10 text-white" />
+    <div ref={ref} className="relative w-full max-w-xl mx-auto h-96 perspective-1000">
+      {/* Sol avec grille */}
+      <div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 w-80 h-40 transition-all duration-1000"
+        style={{
+          transform: `translateX(-50%) rotateX(60deg) rotateZ(-45deg)`,
+          background: `
+            linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+            linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px)
+          `,
+          backgroundSize: '20px 20px',
+          opacity: isInView ? 1 : 0,
+          transitionDelay: '0.2s',
+        }}
+      />
+
+      {/* Container isométrique */}
+      <div
+        className="absolute top-1/2 left-1/2 transition-all duration-1000"
+        style={{
+          transform: 'translate(-50%, -50%) rotateX(15deg) rotateY(-25deg)',
+          transformStyle: 'preserve-3d',
+          opacity: isInView ? 1 : 0,
+        }}
+      >
+        {/* Racks serveur */}
+        {racks.map((rack) => (
+          <div
+            key={rack.id}
+            className="server-rack absolute transition-all duration-700"
+            style={{
+              transform: `translateX(${rack.x}px) translateZ(${rack.z}px)`,
+              transformStyle: 'preserve-3d',
+              opacity: isInView ? 1 : 0,
+              transitionDelay: `${rack.delay}s`,
+            }}
+          >
+            {/* Corps du rack */}
+            <div className="relative w-20 h-56 bg-gradient-to-b from-dark-600 to-dark-800 rounded-lg border border-dark-500 shadow-2xl">
+              {/* Face avant avec serveurs */}
+              <div className="absolute inset-1 flex flex-col gap-1 p-1">
+                {serverUnits.map((unit) => (
+                  <div
+                    key={unit}
+                    className="server-unit relative h-6 bg-dark-700 rounded border border-dark-500 flex items-center px-2 gap-1"
+                  >
+                    {/* LEDs status */}
+                    <div
+                      className="led w-1.5 h-1.5 rounded-full bg-emerald-400"
+                      style={{
+                        animation: isInView ? `led-blink 2s ease-in-out infinite` : 'none',
+                        animationDelay: `${rack.delay + unit * 0.15}s`,
+                      }}
+                    />
+                    <div
+                      className="led w-1.5 h-1.5 rounded-full bg-blue-400"
+                      style={{
+                        animation: isInView ? `led-pulse 1.5s ease-in-out infinite` : 'none',
+                        animationDelay: `${rack.delay + unit * 0.1 + 0.5}s`,
+                      }}
+                    />
+                    <div
+                      className="led w-1.5 h-1.5 rounded-full bg-amber-400"
+                      style={{
+                        animation: isInView ? `led-blink 3s ease-in-out infinite` : 'none',
+                        animationDelay: `${rack.delay + unit * 0.2}s`,
+                      }}
+                    />
+                    {/* Ventilation slots */}
+                    <div className="flex-1 flex justify-end gap-0.5">
+                      {[0, 1, 2, 3].map((slot) => (
+                        <div key={slot} className="w-0.5 h-3 bg-dark-600 rounded-full" />
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
-              <span className="text-sm text-light-300 font-medium">{service.label}</span>
+
+              {/* Glow du rack */}
+              <div
+                className="absolute -inset-2 bg-blue-500/20 rounded-xl blur-xl -z-10"
+                style={{
+                  animation: isInView ? 'rack-glow 3s ease-in-out infinite' : 'none',
+                  animationDelay: `${rack.delay}s`,
+                }}
+              />
             </div>
-          );
-        })}
+
+            {/* Câbles réseau */}
+            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 flex gap-1">
+              <div className="w-1 h-8 bg-gradient-to-b from-cyan-500 to-transparent rounded-full opacity-60" />
+              <div className="w-1 h-6 bg-gradient-to-b from-blue-500 to-transparent rounded-full opacity-60" />
+              <div className="w-1 h-7 bg-gradient-to-b from-emerald-500 to-transparent rounded-full opacity-60" />
+            </div>
+          </div>
+        ))}
+
+        {/* Connexions réseau animées entre les racks */}
+        <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-32 pointer-events-none" style={{ transform: 'translate(-50%, 100%)' }}>
+          <defs>
+            <linearGradient id="cable-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.6" />
+              <stop offset="50%" stopColor="#06b6d4" stopOpacity="0.8" />
+              <stop offset="100%" stopColor="#3b82f6" stopOpacity="0.6" />
+            </linearGradient>
+          </defs>
+          {/* Câble gauche-centre */}
+          <path
+            d="M 40 10 Q 120 40 160 10"
+            stroke="url(#cable-gradient)"
+            strokeWidth="2"
+            fill="none"
+            className="cable-path"
+            style={{
+              strokeDasharray: '200',
+              strokeDashoffset: isInView ? '0' : '200',
+              transition: 'stroke-dashoffset 1.5s ease-out',
+              transitionDelay: '0.8s',
+            }}
+          />
+          {/* Câble centre-droite */}
+          <path
+            d="M 160 10 Q 200 40 280 10"
+            stroke="url(#cable-gradient)"
+            strokeWidth="2"
+            fill="none"
+            className="cable-path"
+            style={{
+              strokeDasharray: '200',
+              strokeDashoffset: isInView ? '0' : '200',
+              transition: 'stroke-dashoffset 1.5s ease-out',
+              transitionDelay: '1s',
+            }}
+          />
+          {/* Data packets animés */}
+          {isInView && (
+            <>
+              <circle r="3" fill="#06b6d4" className="data-packet">
+                <animateMotion dur="2s" repeatCount="indefinite" begin="0s">
+                  <mpath href="#packet-path-1" />
+                </animateMotion>
+              </circle>
+              <circle r="3" fill="#3b82f6" className="data-packet">
+                <animateMotion dur="2s" repeatCount="indefinite" begin="1s">
+                  <mpath href="#packet-path-2" />
+                </animateMotion>
+              </circle>
+            </>
+          )}
+          <path id="packet-path-1" d="M 40 10 Q 120 40 160 10" fill="none" />
+          <path id="packet-path-2" d="M 160 10 Q 200 40 280 10" fill="none" />
+        </svg>
       </div>
 
-      {/* Particules flottantes animées */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {isInView && (
-          <>
-            <div className="it-particle absolute w-2 h-2 bg-blue-400/40 rounded-full" style={{ top: '20%', left: '10%', animationDelay: '0s' }} />
-            <div className="it-particle absolute w-1.5 h-1.5 bg-cyan-400/40 rounded-full" style={{ top: '60%', left: '85%', animationDelay: '1s' }} />
-            <div className="it-particle absolute w-2 h-2 bg-violet-400/40 rounded-full" style={{ top: '80%', left: '20%', animationDelay: '2s' }} />
-            <div className="it-particle absolute w-1.5 h-1.5 bg-emerald-400/40 rounded-full" style={{ top: '30%', left: '90%', animationDelay: '0.5s' }} />
-            <div className="it-particle absolute w-2 h-2 bg-amber-400/40 rounded-full" style={{ top: '70%', left: '50%', animationDelay: '1.5s' }} />
-          </>
-        )}
+      {/* Effet de lumière ambiante */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-radial from-blue-500/10 via-cyan-500/5 to-transparent" />
       </div>
 
-      {/* Glow effect */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
+      {/* Label */}
+      <div
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full bg-dark-800/90 border border-blue-500/30 backdrop-blur-sm transition-all duration-500"
+        style={{
+          opacity: isInView ? 1 : 0,
+          transform: isInView ? 'translateX(-50%) translateY(0)' : 'translateX(-50%) translateY(20px)',
+          transitionDelay: '0.8s',
+        }}
+      >
+        <span className="text-sm font-medium text-blue-400">Infrastructure supervisée 24/7</span>
+      </div>
 
       {/* Styles pour animations */}
       <style jsx>{`
-        @keyframes float-subtle {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-5px); }
+        @keyframes led-blink {
+          0%, 100% { opacity: 1; box-shadow: 0 0 6px currentColor; }
+          50% { opacity: 0.3; box-shadow: none; }
         }
-        .it-particle {
-          animation: particle-float 4s ease-in-out infinite;
+        @keyframes led-pulse {
+          0%, 100% { opacity: 0.4; }
+          50% { opacity: 1; box-shadow: 0 0 8px currentColor; }
         }
-        @keyframes particle-float {
-          0%, 100% {
-            transform: translateY(0) translateX(0);
-            opacity: 0.4;
-          }
-          50% {
-            transform: translateY(-20px) translateX(10px);
-            opacity: 0.8;
-          }
+        @keyframes rack-glow {
+          0%, 100% { opacity: 0.3; }
+          50% { opacity: 0.6; }
+        }
+        .data-packet {
+          filter: drop-shadow(0 0 4px currentColor);
+        }
+        .perspective-1000 {
+          perspective: 1000px;
         }
       `}</style>
     </div>
@@ -333,7 +457,7 @@ function PoleSection({ pole, index, isReversed }: PoleSectionProps) {
   const renderVisual = () => {
     switch (pole.id) {
       case 'it':
-        return <ITServicesVisual />;
+        return <ServerRoomVisual />;
       case 'dev':
         return <AnimatedTerminal />;
       case 'formation':
