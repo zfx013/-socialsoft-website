@@ -347,7 +347,23 @@ function ColibriVisual() {
           </div>
         </div>
 
-        {/* Logo Colibri - centré avec lueur animée cyan/émeraude */}
+        {/* Lueur animée cyan/émeraude - couvre toute la card */}
+        <motion.div
+          className="absolute inset-0 z-[2]"
+          style={{
+            background: 'radial-gradient(ellipse at center, rgba(6, 182, 212, 0.35) 0%, rgba(16, 185, 129, 0.2) 30%, rgba(16, 185, 129, 0.1) 60%, transparent 100%)',
+          }}
+          animate={{
+            opacity: [0.7, 1, 0.7],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+
+        {/* Logo Colibri - centré */}
         <div
           className="absolute inset-0 flex items-center justify-center transition-all duration-700 z-10"
           style={{
@@ -356,22 +372,6 @@ function ColibriVisual() {
             transitionDelay: '0.3s',
           }}
         >
-          {/* Lueur animée cyan/émeraude - même style que page Formation */}
-          <motion.div
-            className="absolute w-72 h-80 lg:w-80 lg:h-96"
-            style={{
-              background: 'radial-gradient(circle, rgba(6, 182, 212, 0.4) 0%, rgba(16, 185, 129, 0.2) 40%, transparent 70%)',
-            }}
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.8, 1, 0.8],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
           <div className="relative w-52 h-64 lg:w-64 lg:h-80">
             <Image
               src="/images/logo-colibri.png"

@@ -96,7 +96,7 @@ export default function FormationHero() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: mounted ? 1 : 0, scale: mounted ? 1 : 0.9 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="mb-6 flex justify-center lg:justify-start"
+              className="mb-2 mt-4 flex justify-center lg:justify-start"
             >
               <div className="relative w-32 h-44 sm:w-40 sm:h-52 lg:w-48 lg:h-60">
                 <motion.div
