@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const APPSCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzPsqYbWGjfWrrx46kOkOQmfJkbOHFzlreLhNi99axCRnHu924OBlCETTkIBdx3EcdE/exec';
+const APPSCRIPT_URL = process.env.APPSCRIPT_TRACKING_URL;
 
 // Événements autorisés (sécurité)
 const ALLOWED_EVENTS = [
@@ -30,15 +30,17 @@ export async function POST(request: NextRequest) {
     }
 
     // Envoi à AppScript (fire and forget pour ne pas bloquer l'UI)
-    fetch(APPSCRIPT_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ event }),
-    }).catch(() => {
-      // Silently fail - analytics shouldn't break the site
-    });
+    if (APPSCRIPT_URL) {
+      fetch(APPSCRIPT_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ event }),
+      }).catch(() => {
+        // Silently fail - analytics shouldn't break the site
+      });
+    }
 
     return NextResponse.json({ success: true });
   } catch (error) {

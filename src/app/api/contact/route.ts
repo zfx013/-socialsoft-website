@@ -1,9 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const WEB3FORMS_KEY = '14594310-a3dc-4be5-a952-c249760aa2ca';
-
 export async function POST(request: NextRequest) {
   try {
+    const WEB3FORMS_KEY = process.env.WEB3FORMS_KEY;
+
+    if (!WEB3FORMS_KEY) {
+      console.error('WEB3FORMS_KEY is not configured');
+      return NextResponse.json(
+        { error: 'Server configuration error' },
+        { status: 500 }
+      );
+    }
+
     const { name, email, phone, subject, message } = await request.json();
 
     // Validation basique
