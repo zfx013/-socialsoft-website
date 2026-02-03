@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Inter, Montserrat } from 'next/font/google';
 import { metadata as seoMetadata, jsonLd, faqJsonLd } from '@/lib/seo';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -16,20 +15,6 @@ import ScrollToTop from '@/components/ScrollToTop';
 import PageVisitTracker from '@/components/effects/PageVisitTracker';
 import './globals.css';
 
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-inter',
-  display: 'swap',
-});
-
-const montserrat = Montserrat({
-  subsets: ['latin'],
-  weight: ['500', '600', '700', '800'],
-  variable: '--font-montserrat',
-  display: 'swap',
-});
-
 export const metadata: Metadata = seoMetadata;
 
 export default function RootLayout({
@@ -38,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" suppressHydrationWarning className={`${inter.variable} ${montserrat.variable}`}>
+    <html lang="fr" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
