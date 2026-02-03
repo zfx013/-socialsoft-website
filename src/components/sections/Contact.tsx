@@ -33,6 +33,7 @@ interface InputFieldProps {
 function InputField({ label, name, type = 'text', value, onChange, required, textarea }: InputFieldProps) {
   const [isFocused, setIsFocused] = useState(false);
   const hasValue = value.length > 0;
+  const inputId = `contact-${name}`;
 
   const inputClasses = `
     w-full bg-dark-700/50 border rounded-xl px-4 py-4 text-light-100
@@ -43,6 +44,7 @@ function InputField({ label, name, type = 'text', value, onChange, required, tex
   return (
     <div className="relative">
       <motion.label
+        htmlFor={inputId}
         initial={false}
         animate={{
           y: isFocused || hasValue ? -24 : 0,
@@ -51,22 +53,26 @@ function InputField({ label, name, type = 'text', value, onChange, required, tex
         }}
         className="absolute left-4 top-4 origin-left pointer-events-none transition-all duration-200 text-light-200"
       >
-        {label} {required && <span className="text-accent-blue">*</span>}
+        {label} {required && <span className="text-accent-blue" aria-hidden="true">*</span>}
       </motion.label>
 
       {textarea ? (
         <textarea
+          id={inputId}
           name={name}
           value={value}
           onChange={onChange}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           required={required}
+          aria-required={required}
+          aria-label={label}
           rows={4}
           className={`${inputClasses} resize-none`}
         />
       ) : (
         <input
+          id={inputId}
           type={type}
           name={name}
           value={value}
@@ -74,6 +80,8 @@ function InputField({ label, name, type = 'text', value, onChange, required, tex
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           required={required}
+          aria-required={required}
+          aria-label={label}
           className={inputClasses}
         />
       )}
@@ -263,6 +271,7 @@ export default function Contact() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       className="space-y-6"
+                      aria-label="Formulaire de contact"
                     >
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <InputField
@@ -309,7 +318,11 @@ export default function Contact() {
                       />
 
                       {error && (
-                        <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
+                        <div
+                          role="alert"
+                          aria-live="polite"
+                          className="p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-sm"
+                        >
                           {error}
                         </div>
                       )}
