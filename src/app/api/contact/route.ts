@@ -5,16 +5,24 @@ export async function POST(request: NextRequest) {
     const WEB3FORMS_KEY = process.env.WEB3FORMS_KEY;
 
     if (!WEB3FORMS_KEY) {
-      console.error('WEB3FORMS_KEY is not configured');
       return NextResponse.json(
-        { error: 'Configuration serveur manquante (WEB3FORMS_KEY)' },
+        { error: 'Erreur config: WEB3FORMS_KEY manquante' },
         { status: 500 }
       );
     }
 
-    const { name, email, phone, subject, message } = await request.json();
+    let body;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json(
+        { error: 'Erreur: données du formulaire invalides' },
+        { status: 400 }
+      );
+    }
 
-    // Validation basique
+    const { name, email, phone, subject, message } = body;
+
     if (!name || !email || !subject || !message) {
       return NextResponse.json(
         { error: 'Veuillez remplir tous les champs obligatoires' },
@@ -22,38 +30,52 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Envoi via Web3Forms
-    const response = await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        access_key: WEB3FORMS_KEY,
-        subject: `[Contact Site Web] ${subject}`,
-        from_name: 'SocialSoft Website',
-        name,
-        email,
-        phone: phone || 'Non renseigné',
-        message,
-      }),
-    });
+    let web3Response;
+    try {
+      web3Response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: `[Contact Site Web] ${subject}`,
+          from_name: 'SocialSoft Website',
+          name,
+          email,
+          phone: phone || 'Non renseigné',
+          message,
+        }),
+      });
+    } catch (fetchError) {
+      return NextResponse.json(
+        { error: 'Erreur réseau: impossible de contacter Web3Forms' },
+        { status: 500 }
+      );
+    }
 
-    const data = await response.json();
+    let data;
+    try {
+      data = await web3Response.json();
+    } catch {
+      return NextResponse.json(
+        { error: 'Erreur: réponse Web3Forms invalide' },
+        { status: 500 }
+      );
+    }
 
     if (!data.success) {
-      console.error('Web3Forms error:', data);
       return NextResponse.json(
-        { error: 'Erreur lors de l\'envoi du message' },
+        { error: `Erreur Web3Forms: ${data.message || 'envoi échoué'}` },
         { status: 500 }
       );
     }
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Contact API error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Erreur inconnue';
     return NextResponse.json(
-      { error: 'Une erreur est survenue' },
+      { error: `Erreur serveur: ${errorMessage}` },
       { status: 500 }
     );
   }
