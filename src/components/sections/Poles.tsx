@@ -318,14 +318,14 @@ function ColibriVisual() {
         <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 via-teal-500/10 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-tl from-emerald-500/15 via-transparent to-transparent" />
 
-        {/* Oiseaux 3D - DANS la box, visibles */}
+        {/* Oiseaux 3D - DANS la box, gros et visibles */}
         <div
           className="absolute inset-0 transition-opacity duration-1000 z-[1]"
           style={{ opacity: isInView ? 1 : 0 }}
         >
           <Suspense fallback={null}>
             <Scene className="!absolute inset-0">
-              <Hummingbirds count={6} spread={4} />
+              <Hummingbirds count={5} spread={3} birdScale={0.8} wanderStrength={1.5} />
             </Scene>
           </Suspense>
         </div>

@@ -22,6 +22,8 @@ interface HummingbirdsProps {
   mousePosition?: { x: number; y: number };
   fleeRadius?: number;
   fleeStrength?: number;
+  birdScale?: number;
+  wanderStrength?: number;
 }
 
 // Créer une aile simple et plate
@@ -44,6 +46,8 @@ export default function Hummingbirds({
   mousePosition = { x: 0, y: 0 },
   fleeRadius = 2.5,
   fleeStrength = 2,
+  birdScale = 0.35,
+  wanderStrength = 1,
 }: HummingbirdsProps) {
   const groupRef = useRef<THREE.Group>(null);
   const birdsRef = useRef<Bird[]>([]);
@@ -79,7 +83,7 @@ export default function Hummingbirds({
         velocity: new THREE.Vector3(0, 0, 0),
         wingPhase: Math.random() * Math.PI * 2,
         wingSpeed: 15 + Math.random() * 8,
-        scale: 0.3 + Math.random() * 0.15, // BEAUCOUP PLUS PETIT
+        scale: birdScale + Math.random() * (birdScale * 0.3),
         bodyColor: new THREE.Color(palette.body),
         wingColor: new THREE.Color(palette.wing),
         bellyColor: new THREE.Color(palette.belly),
@@ -88,7 +92,7 @@ export default function Hummingbirds({
 
     birdsRef.current = newBirds;
     return newBirds;
-  }, [count, spread, colorPalettes]);
+  }, [count, spread, colorPalettes, birdScale]);
 
   useFrame((state, delta) => {
     if (!groupRef.current) return;
@@ -117,12 +121,12 @@ export default function Hummingbirds({
       const returnForce = toBase.multiplyScalar(0.15 * delta);
       bird.velocity.add(returnForce);
 
-      // Mouvement de vol doux et aléatoire (-20% vitesse)
+      // Mouvement de vol dynamique - les oiseaux se baladent partout
       const hover = new THREE.Vector3(
-        Math.sin(time * 0.8 + index * 3.7) * 0.096 + Math.cos(time * 0.5 + index * 5) * 0.064,
-        Math.cos(time * 1.0 + index * 2.3) * 0.08 + Math.sin(time * 0.6 + index * 4) * 0.04,
-        Math.sin(time * 0.5 + index * 4.2) * 0.048
-      ).multiplyScalar(delta);
+        Math.sin(time * 1.2 + index * 3.7) * 0.15 + Math.cos(time * 0.7 + index * 5) * 0.12,
+        Math.cos(time * 1.4 + index * 2.3) * 0.12 + Math.sin(time * 0.8 + index * 4) * 0.08,
+        Math.sin(time * 0.6 + index * 4.2) * 0.06
+      ).multiplyScalar(delta * wanderStrength);
       bird.velocity.add(hover);
 
       // Friction pour mouvement fluide
