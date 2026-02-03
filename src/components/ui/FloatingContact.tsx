@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Phone, Mail, MessageSquare } from 'lucide-react';
 import { contact } from '@/lib/constants';
+import { trackEvent, TrackingEvent } from '@/lib/tracking';
 
 export default function FloatingContact() {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,24 +20,27 @@ export default function FloatingContact() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const options = [
+  const options: { icon: typeof Phone; label: string; href: string; color: string; trackingEvent?: TrackingEvent; onClick?: () => void }[] = [
     {
       icon: Phone,
       label: 'Appeler',
       href: contact.phoneLink,
       color: 'bg-green-500 hover:bg-green-600',
+      trackingEvent: 'phone_click',
     },
     {
       icon: Mail,
       label: 'Email',
       href: contact.emailLink,
       color: 'bg-accent-blue hover:bg-accent-blue/90',
+      trackingEvent: 'email_click',
     },
     {
       icon: MessageSquare,
       label: 'Formulaire',
       href: '#contact',
       color: 'bg-accent-cyan hover:bg-accent-cyan/90',
+      trackingEvent: 'contact_click',
       onClick: () => setIsOpen(false),
     },
   ];
@@ -69,7 +73,10 @@ export default function FloatingContact() {
                       exit={{ opacity: 0, x: 20 }}
                       transition={{ delay: index * 0.05 }}
                       href={option.href}
-                      onClick={option.onClick}
+                      onClick={() => {
+                        if (option.trackingEvent) trackEvent(option.trackingEvent);
+                        if (option.onClick) option.onClick();
+                      }}
                       className={`flex items-center gap-3 px-4 py-3 rounded-full ${option.color} text-white shadow-lg transition-all duration-200 whitespace-nowrap`}
                     >
                       <Icon className="w-5 h-5" />

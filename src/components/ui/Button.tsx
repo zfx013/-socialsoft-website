@@ -10,10 +10,11 @@ interface ButtonProps extends Omit<HTMLMotionProps<'button'>, 'ref' | 'children'
   size?: 'sm' | 'md' | 'lg';
   href?: string;
   magnetic?: boolean;
+  onClickTrack?: () => void;
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ children, variant = 'primary', size = 'md', className = '', href, magnetic = true, ...props }, ref) => {
+  ({ children, variant = 'primary', size = 'md', className = '', href, magnetic = true, onClickTrack, ...props }, ref) => {
     const magneticRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLSpanElement>(null);
     const rafRef = useRef<number | null>(null);
@@ -113,6 +114,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       setTimeout(() => {
         setRipples(prev => prev.filter(r => r.id !== newRipple.id));
       }, 600);
+
+      // Call tracking function if provided
+      if (onClickTrack) {
+        onClickTrack();
+      }
     };
 
     const buttonContent = (

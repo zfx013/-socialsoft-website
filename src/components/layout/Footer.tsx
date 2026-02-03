@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { Linkedin, Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react';
 import { contact } from '@/lib/constants';
 import { navigation } from '@/lib/config';
+import { trackEvent } from '@/lib/tracking';
 
 const services = [
   { name: 'Développement sur mesure', href: '/developpement' },
@@ -82,6 +83,7 @@ export default function Footer() {
               href={contact.linkedin}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackEvent('linkedin_click')}
               className="group inline-flex items-center gap-3 px-4 py-2.5 rounded-xl bg-dark-800 border border-dark-700 hover:border-accent-blue/50 transition-all duration-300"
             >
               <div className="w-8 h-8 rounded-lg bg-[#0A66C2] flex items-center justify-center">
@@ -146,6 +148,7 @@ export default function Footer() {
               <li>
                 <a
                   href={contact.phoneLink}
+                  onClick={() => trackEvent('phone_click')}
                   className="flex items-center gap-3 text-light-300 hover:text-light-100 transition-colors group"
                 >
                   <div className="w-10 h-10 rounded-xl bg-dark-800 flex items-center justify-center group-hover:bg-accent-blue/10 transition-colors">
@@ -157,6 +160,7 @@ export default function Footer() {
               <li>
                 <a
                   href={contact.emailLink}
+                  onClick={() => trackEvent('email_click')}
                   className="flex items-center gap-3 text-light-300 hover:text-light-100 transition-colors group"
                 >
                   <div className="w-10 h-10 rounded-xl bg-dark-800 flex items-center justify-center group-hover:bg-accent-blue/10 transition-colors">
@@ -170,6 +174,7 @@ export default function Footer() {
                   href={contact.mapsLink}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackEvent('address_click')}
                   className="flex items-start gap-3 text-light-300 hover:text-light-100 transition-colors group"
                 >
                   <div className="w-10 h-10 rounded-xl bg-dark-800 flex items-center justify-center group-hover:bg-accent-blue/10 transition-colors flex-shrink-0">

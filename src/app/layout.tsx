@@ -12,6 +12,7 @@ import GrainOverlay from '@/components/effects/GrainOverlay';
 import CursorTrail from '@/components/effects/CursorTrail';
 import PageWrapper from '@/components/effects/PageWrapper';
 import ScrollToTop from '@/components/ScrollToTop';
+import PageVisitTracker from '@/components/effects/PageVisitTracker';
 import './globals.css';
 
 export const metadata: Metadata = seoMetadata;
@@ -39,6 +40,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-dark-900" suppressHydrationWarning>
         <SmoothScroll>
+          <PageVisitTracker />
           <ScrollCleanup />
           <ScrollToTop />
           <SplashScreen />

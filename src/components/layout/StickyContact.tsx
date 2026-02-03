@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { MessageCircle, X, Phone, Mail } from 'lucide-react';
 import { contact } from '@/lib/constants';
+import { trackEvent } from '@/lib/tracking';
 
 export default function StickyContact() {
   const [isVisible, setIsVisible] = useState(false);
@@ -48,6 +49,7 @@ export default function StickyContact() {
       >
         <motion.a
           href={contact.phoneLink}
+          onClick={() => trackEvent('phone_click')}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="flex items-center gap-3 px-4 py-3 bg-dark-700 rounded-lg border border-dark-600 hover:border-accent-blue/50 transition-colors shadow-lg"
@@ -59,6 +61,7 @@ export default function StickyContact() {
         </motion.a>
         <motion.a
           href={contact.emailLink}
+          onClick={() => trackEvent('email_click')}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="flex items-center gap-3 px-4 py-3 bg-dark-700 rounded-lg border border-dark-600 hover:border-accent-blue/50 transition-colors shadow-lg"

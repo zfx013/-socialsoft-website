@@ -7,14 +7,16 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, ChevronDown } from 'lucide-react';
 import { gsap } from 'gsap';
 import { navigation } from '@/lib/constants';
+import { trackEvent, TrackingEvent } from '@/lib/tracking';
 import MenuOverlay from './MenuOverlay';
 
 interface NavLinkProps {
   href: string;
   children: React.ReactNode;
+  trackingEvent?: TrackingEvent;
 }
 
-function NavLink({ href, children }: NavLinkProps) {
+function NavLink({ href, children, trackingEvent }: NavLinkProps) {
   const linkRef = useRef<HTMLAnchorElement>(null);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -43,10 +45,17 @@ function NavLink({ href, children }: NavLinkProps) {
     setIsHovered(false);
   };
 
+  const handleClick = () => {
+    if (trackingEvent) {
+      trackEvent(trackingEvent);
+    }
+  };
+
   return (
     <Link
       ref={linkRef}
       href={href}
+      onClick={handleClick}
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={handleMouseLeave}
@@ -228,15 +237,24 @@ export default function Header() {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center gap-10">
-              {navigation.map((item) => (
-                <div key={item.name}>
-                  {item.dropdown && item.items ? (
-                    <NavDropdown label={item.name} items={item.items} />
-                  ) : (
-                    <NavLink href={item.href}>{item.name}</NavLink>
-                  )}
-                </div>
-              ))}
+              {navigation.map((item) => {
+                // Mapping navigation items to tracking events
+                const trackingMap: Record<string, TrackingEvent> = {
+                  'À propos': 'about_click',
+                  'Contact': 'contact_click',
+                };
+                const trackingEvent = trackingMap[item.name];
+
+                return (
+                  <div key={item.name}>
+                    {item.dropdown && item.items ? (
+                      <NavDropdown label={item.name} items={item.items} />
+                    ) : (
+                      <NavLink href={item.href} trackingEvent={trackingEvent}>{item.name}</NavLink>
+                    )}
+                  </div>
+                );
+              })}
             </div>
 
             {/* Mobile Menu Button */}

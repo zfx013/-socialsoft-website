@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { poles } from '@/lib/config';
+import { trackEvent, TrackingEvent } from '@/lib/tracking';
 
 const iconMap = {
   Server,
@@ -395,10 +396,24 @@ interface PoleSectionProps {
   isReversed: boolean;
 }
 
+// Mapping pole ID to tracking event
+const poleTrackingMap: Record<string, TrackingEvent> = {
+  'it': 'pole_infrastructure',
+  'dev': 'pole_developpement',
+  'formation': 'pole_formation',
+};
+
 function PoleSection({ pole, index, isReversed }: PoleSectionProps) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
   const Icon = iconMap[pole.icon as IconKey] || Server;
+
+  const handlePoleClick = () => {
+    const trackingEvent = poleTrackingMap[pole.id];
+    if (trackingEvent) {
+      trackEvent(trackingEvent);
+    }
+  };
 
   const colors = {
     it: {
@@ -496,6 +511,7 @@ function PoleSection({ pole, index, isReversed }: PoleSectionProps) {
             {/* CTA */}
             <Link
               href={pole.href}
+              onClick={handlePoleClick}
               className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r ${poleColors.gradient} text-white font-medium hover:opacity-90 transition-opacity group`}
             >
               Découvrir

@@ -6,6 +6,19 @@ import { X, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { navigation, contact } from '@/lib/constants';
+import { trackEvent, TrackingEvent } from '@/lib/tracking';
+
+// Mapping for tracking events
+const navTrackingMap: Record<string, TrackingEvent> = {
+  'À propos': 'about_click',
+  'Contact': 'contact_click',
+};
+
+const poleTrackingMap: Record<string, TrackingEvent> = {
+  '/it': 'pole_infrastructure',
+  '/developpement': 'pole_developpement',
+  '/formation': 'pole_formation',
+};
 
 interface MenuOverlayProps {
   onClose: () => void;
@@ -123,7 +136,11 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
                             <Link
                               key={subItem.href}
                               href={subItem.href}
-                              onClick={onClose}
+                              onClick={() => {
+                                const trackingEvent = poleTrackingMap[subItem.href];
+                                if (trackingEvent) trackEvent(trackingEvent);
+                                onClose();
+                              }}
                               className="text-xl text-light-300 hover:text-accent-blue transition-colors"
                             >
                               {subItem.name}
@@ -137,7 +154,11 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
               ) : (
                 <Link
                   href={item.href}
-                  onClick={onClose}
+                  onClick={() => {
+                    const trackingEvent = navTrackingMap[item.name];
+                    if (trackingEvent) trackEvent(trackingEvent);
+                    onClose();
+                  }}
                   className="text-3xl sm:text-4xl font-bold text-light-100 hover:text-accent-blue transition-colors duration-200"
                 >
                   {item.name}
@@ -156,12 +177,14 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
         >
           <a
             href={contact.phoneLink}
+            onClick={() => trackEvent('phone_click')}
             className="block text-xl text-light-200 hover:text-accent-blue transition-colors mb-2"
           >
             {contact.phoneFormatted}
           </a>
           <a
             href={contact.emailLink}
+            onClick={() => trackEvent('email_click')}
             className="block text-lg text-light-200 hover:text-accent-blue transition-colors"
           >
             {contact.email}

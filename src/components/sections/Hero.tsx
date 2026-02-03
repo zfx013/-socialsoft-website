@@ -8,6 +8,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import dynamic from 'next/dynamic';
 import Button from '@/components/ui/Button';
 import GlowEffect from '@/components/effects/GlowEffect';
+import { trackEvent } from '@/lib/tracking';
 import LogoReveal from '@/components/effects/LogoReveal';
 import NeuralNetwork from '@/components/effects/NeuralNetwork';
 
@@ -245,7 +246,7 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.7 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <Button href="#contact" size="lg">
+          <Button href="#contact" size="lg" onClickTrack={() => trackEvent('contact_click')}>
             Demander un devis
           </Button>
           <Button href="#services" variant="secondary" size="lg">

@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, Mail, MapPin, Linkedin, ArrowRight, Send, CheckCircle, Loader2, LucideIcon } from 'lucide-react';
 import { contact } from '@/lib/constants';
+import { trackEvent, TrackingEvent } from '@/lib/tracking';
 import Button from '@/components/ui/Button';
 import GlowEffect from '@/components/effects/GlowEffect';
 import SplitText from '@/components/effects/SplitText';
@@ -144,6 +145,7 @@ export default function Contact() {
       });
 
       setIsSubmitted(true);
+      trackEvent('contact_form_submit');
 
       // Reset form after showing success
       setTimeout(() => {
@@ -344,6 +346,7 @@ export default function Contact() {
                 label="Téléphone"
                 value={contact.phoneFormatted}
                 delay={0}
+                trackingEvent="phone_click"
               />
 
               <ContactCard
@@ -352,6 +355,7 @@ export default function Contact() {
                 label="Email"
                 value={contact.email}
                 delay={0.1}
+                trackingEvent="email_click"
               />
 
               <ContactCard
@@ -362,6 +366,7 @@ export default function Contact() {
                 external
                 delay={0.2}
                 multiline
+                trackingEvent="address_click"
               />
 
               <ContactCard
@@ -371,6 +376,7 @@ export default function Contact() {
                 value="Suivez-nous"
                 external
                 delay={0.3}
+                trackingEvent="linkedin_click"
               />
             </div>
           </SectionTransition>
@@ -388,10 +394,17 @@ interface ContactCardProps {
   external?: boolean;
   delay?: number;
   multiline?: boolean;
+  trackingEvent?: TrackingEvent;
 }
 
-function ContactCard({ href, icon: Icon, label, value, external, delay = 0, multiline }: ContactCardProps) {
+function ContactCard({ href, icon: Icon, label, value, external, delay = 0, multiline, trackingEvent }: ContactCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+
+  const handleClick = () => {
+    if (trackingEvent) {
+      trackEvent(trackingEvent);
+    }
+  };
 
   return (
     <motion.a
@@ -401,6 +414,7 @@ function ContactCard({ href, icon: Icon, label, value, external, delay = 0, mult
       href={href}
       target={external ? '_blank' : undefined}
       rel={external ? 'noopener noreferrer' : undefined}
+      onClick={handleClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className="flex items-center gap-4 p-4 rounded-xl bg-dark-700/50 border border-dark-600 hover:border-accent-blue/50 transition-all duration-300 group relative overflow-hidden"
