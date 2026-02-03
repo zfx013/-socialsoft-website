@@ -307,16 +307,16 @@ function ColibriVisual() {
     <div ref={ref} className="relative w-full max-w-2xl mx-auto h-80 lg:h-96">
       {/* Grande box rectangulaire Colibri */}
       <div
-        className="absolute inset-4 lg:inset-6 rounded-2xl bg-dark-800/50 border border-emerald-500/40 overflow-hidden transition-all duration-700"
+        className="absolute inset-4 lg:inset-6 rounded-2xl bg-dark-800/60 border border-dark-600 overflow-hidden transition-all duration-700"
         style={{
           opacity: isInView ? 1 : 0,
           transform: isInView ? 'scale(1)' : 'scale(0.95)',
           transitionDelay: '0.2s',
         }}
       >
-        {/* Lueur intérieure rectangulaire - en fond */}
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 via-teal-500/10 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-tl from-emerald-500/15 via-transparent to-transparent" />
+        {/* Lueur subtile qui pulse dans les coins */}
+        <div className="absolute top-0 left-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl animate-pulse-slow" />
+        <div className="absolute bottom-0 right-0 w-32 h-32 bg-teal-500/10 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }} />
 
         {/* Oiseaux 3D - DANS la box, sur les bords */}
         <div
@@ -339,7 +339,7 @@ function ColibriVisual() {
             transitionDelay: '0.5s',
           }}
         >
-          <div className="flex items-center gap-2 px-3 py-1.5 lg:px-4 lg:py-2 rounded-lg bg-dark-900/95 border border-emerald-500/50 shadow-lg backdrop-blur-sm">
+          <div className="flex items-center gap-2 px-3 py-1.5 lg:px-4 lg:py-2 rounded-lg bg-dark-900/90 border border-emerald-500/40 shadow-lg backdrop-blur-sm">
             <svg className="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
@@ -347,7 +347,7 @@ function ColibriVisual() {
           </div>
         </div>
 
-        {/* Logo Colibri - centré avec fond subtil pour lisibilité */}
+        {/* Logo Colibri - centré */}
         <div
           className="absolute inset-0 flex items-center justify-center transition-all duration-700 z-10"
           style={{
@@ -356,11 +356,11 @@ function ColibriVisual() {
             transitionDelay: '0.3s',
           }}
         >
-          {/* Halo subtil derrière le logo pour la lisibilité */}
+          {/* Halo très subtil derrière le logo - juste pour la lisibilité */}
           <div
-            className="absolute w-56 h-72 lg:w-72 lg:h-88 rounded-full"
+            className="absolute w-48 h-64 lg:w-60 lg:h-80 rounded-full opacity-50"
             style={{
-              background: 'radial-gradient(ellipse, rgba(17, 24, 39, 0.7) 0%, rgba(17, 24, 39, 0.4) 50%, transparent 70%)',
+              background: 'radial-gradient(ellipse, rgba(17, 24, 39, 0.8) 0%, transparent 60%)',
             }}
           />
           <div className="relative w-52 h-64 lg:w-64 lg:h-80">
@@ -368,7 +368,7 @@ function ColibriVisual() {
               src="/images/logo-colibri.png"
               alt="Formation Colibri"
               fill
-              className="object-contain drop-shadow-[0_0_30px_rgba(16,185,129,0.3)]"
+              className="object-contain drop-shadow-[0_0_20px_rgba(16,185,129,0.2)]"
             />
           </div>
         </div>
