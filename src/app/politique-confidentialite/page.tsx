@@ -39,9 +39,9 @@ export default function PolitiqueConfidentialite() {
                 2. Responsable du traitement
               </h2>
               <div className="text-light-300 space-y-2">
-                <p><strong className="text-light-100">Raison sociale :</strong> {contact.company}</p>
-                <p><strong className="text-light-100">Adresse :</strong> {contact.address.street}, {contact.address.postalCode} {contact.address.city}</p>
-                <p><strong className="text-light-100">Email :</strong> <a href={contact.emailLink} className="text-accent-blue hover:underline">{contact.email}</a></p>
+                <p><strong className="text-light-100">Raison sociale :</strong> <span className="select-all">{contact.company}</span></p>
+                <p><strong className="text-light-100">Adresse :</strong> <span className="select-all">{contact.address.street}, {contact.address.postalCode} {contact.address.city}</span></p>
+                <p><strong className="text-light-100">Email :</strong> <a href={contact.emailLink} className="text-accent-blue hover:underline select-all">{contact.email}</a></p>
               </div>
             </section>
 
@@ -133,7 +133,7 @@ export default function PolitiqueConfidentialite() {
                 <li><strong className="text-light-100">Droit d&apos;opposition :</strong> vous opposer au traitement de vos données</li>
               </ul>
               <p className="text-light-300 mt-4">
-                Pour exercer ces droits, contactez-nous à : <a href={contact.emailLink} className="text-accent-blue hover:underline">{contact.email}</a>
+                Pour exercer ces droits, contactez-nous à : <a href={contact.emailLink} className="text-accent-blue hover:underline select-all">{contact.email}</a>
               </p>
             </section>
 

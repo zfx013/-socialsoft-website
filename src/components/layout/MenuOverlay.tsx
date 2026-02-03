@@ -194,14 +194,14 @@ export default function MenuOverlay({ onClose }: MenuOverlayProps) {
             onClick={() => trackEvent('phone_click')}
             className="block text-xl text-light-200 hover:text-accent-blue transition-colors mb-2"
           >
-            {contact.phoneFormatted}
+            <span className="select-all">{contact.phoneFormatted}</span>
           </a>
           <a
             href={contact.emailLink}
             onClick={() => trackEvent('email_click')}
             className="block text-lg text-light-200 hover:text-accent-blue transition-colors"
           >
-            {contact.email}
+            <span className="select-all">{contact.email}</span>
           </a>
         </motion.div>
       </motion.div>

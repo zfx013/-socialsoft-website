@@ -55,7 +55,7 @@ export default function StickyContact() {
           className="flex items-center gap-3 px-4 py-3 bg-dark-700 rounded-lg border border-dark-600 hover:border-accent-blue/50 transition-colors shadow-lg"
         >
           <Phone className="w-5 h-5 text-accent-blue" />
-          <span className="text-light-100 font-medium whitespace-nowrap">
+          <span className="text-light-100 font-medium whitespace-nowrap select-all">
             {contact.phoneFormatted}
           </span>
         </motion.a>

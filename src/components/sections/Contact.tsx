@@ -474,7 +474,7 @@ function ContactCard({ href, icon: Icon, label, value, external, delay = 0, mult
       </div>
       <div className="flex-1 min-w-0 relative">
         <p className="text-light-200 text-sm mb-0.5">{label}</p>
-        <p className={`text-light-100 font-semibold text-sm leading-relaxed ${multiline ? 'whitespace-pre-line' : ''}`}>{value}</p>
+        <p className={`text-light-100 font-semibold text-sm leading-relaxed select-all ${multiline ? 'whitespace-pre-line' : ''}`}>{value}</p>
       </div>
       <ArrowRight className="w-5 h-5 text-light-200 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 relative" />
     </motion.a>

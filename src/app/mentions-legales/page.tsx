@@ -23,11 +23,11 @@ export default function MentionsLegales() {
                 1. Éditeur du site
               </h2>
               <div className="text-light-300 space-y-2">
-                <p><strong className="text-light-100">Raison sociale :</strong> {contact.company}</p>
-                <p><strong className="text-light-100">Adresse :</strong> {contact.address.street}, {contact.address.postalCode} {contact.address.city}</p>
-                <p><strong className="text-light-100">Téléphone :</strong> {contact.phoneFormatted}</p>
-                <p><strong className="text-light-100">Email :</strong> {contact.email}</p>
-                <p><strong className="text-light-100">SIRET :</strong> 881 685 077 00011</p>
+                <p><strong className="text-light-100">Raison sociale :</strong> <span className="select-all">{contact.company}</span></p>
+                <p><strong className="text-light-100">Adresse :</strong> <span className="select-all">{contact.address.street}, {contact.address.postalCode} {contact.address.city}</span></p>
+                <p><strong className="text-light-100">Téléphone :</strong> <span className="select-all">{contact.phoneFormatted}</span></p>
+                <p><strong className="text-light-100">Email :</strong> <span className="select-all">{contact.email}</span></p>
+                <p><strong className="text-light-100">SIRET :</strong> <span className="select-all">881 685 077 00011</span></p>
                 <p><strong className="text-light-100">Directrice de la publication :</strong> Géraldine BLIN, Présidente</p>
               </div>
             </section>
@@ -38,9 +38,9 @@ export default function MentionsLegales() {
                 2. Hébergement
               </h2>
               <div className="text-light-300 space-y-2">
-                <p><strong className="text-light-100">Hébergeur :</strong> {contact.company}</p>
-                <p><strong className="text-light-100">Adresse :</strong> {contact.address.street}, {contact.address.postalCode} {contact.address.city}</p>
-                <p><strong className="text-light-100">Téléphone :</strong> {contact.phoneFormatted}</p>
+                <p><strong className="text-light-100">Hébergeur :</strong> <span className="select-all">{contact.company}</span></p>
+                <p><strong className="text-light-100">Adresse :</strong> <span className="select-all">{contact.address.street}, {contact.address.postalCode} {contact.address.city}</span></p>
+                <p><strong className="text-light-100">Téléphone :</strong> <span className="select-all">{contact.phoneFormatted}</span></p>
               </div>
             </section>
 
@@ -70,7 +70,7 @@ export default function MentionsLegales() {
               </p>
               <p className="text-light-300 mt-4">
                 Conformément à la loi « informatique et libertés », vous pouvez exercer votre droit d&apos;accès aux données
-                vous concernant et les faire rectifier en contactant : <a href={contact.emailLink} className="text-accent-blue hover:underline">{contact.email}</a>
+                vous concernant et les faire rectifier en contactant : <a href={contact.emailLink} className="text-accent-blue hover:underline select-all">{contact.email}</a>
               </p>
               <p className="text-light-300 mt-4">
                 Pour plus d&apos;informations sur la gestion de vos données personnelles, consultez notre{' '}

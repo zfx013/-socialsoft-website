@@ -42,7 +42,7 @@ export default function HeroCTA({
           className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-dark-700 border border-dark-600 text-light-100 font-medium ${hoverBorderColor} transition-colors`}
         >
           <Phone className={`w-4 h-4 ${phoneIconColor}`} />
-          {phoneNumber}
+          <span className="select-all">{phoneNumber}</span>
         </a>
       </MagneticButton>
     </div>

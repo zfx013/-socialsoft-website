@@ -154,7 +154,7 @@ export default function Footer() {
                   <div className="w-10 h-10 rounded-xl bg-dark-800 flex items-center justify-center group-hover:bg-accent-blue/10 transition-colors">
                     <Phone className="w-4 h-4 text-accent-blue" />
                   </div>
-                  <span className="text-sm">{contact.phoneFormatted}</span>
+                  <span className="text-sm select-all">{contact.phoneFormatted}</span>
                 </a>
               </li>
               <li>
@@ -166,7 +166,7 @@ export default function Footer() {
                   <div className="w-10 h-10 rounded-xl bg-dark-800 flex items-center justify-center group-hover:bg-accent-blue/10 transition-colors">
                     <Mail className="w-4 h-4 text-accent-blue" />
                   </div>
-                  <span className="text-sm">{contact.email}</span>
+                  <span className="text-sm select-all">{contact.email}</span>
                 </a>
               </li>
               <li>
@@ -180,7 +180,7 @@ export default function Footer() {
                   <div className="w-10 h-10 rounded-xl bg-dark-800 flex items-center justify-center group-hover:bg-accent-blue/10 transition-colors flex-shrink-0">
                     <MapPin className="w-4 h-4 text-accent-blue" />
                   </div>
-                  <span className="text-sm leading-relaxed">
+                  <span className="text-sm leading-relaxed select-all">
                     {contact.address.street}
                     <br />
                     {contact.address.postalCode} {contact.address.city}

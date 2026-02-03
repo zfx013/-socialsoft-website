@@ -216,7 +216,7 @@ export default function FormationHero() {
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-dark-700 border border-dark-600 text-light-100 font-medium hover:border-emerald-500/50 transition-colors"
                 >
                   <Phone className="w-4 h-4 text-emerald-400" />
-                  {siteContact.phoneFormatted}
+                  <span className="select-all">{siteContact.phoneFormatted}</span>
                 </a>
               </MagneticButton>
             </motion.div>
