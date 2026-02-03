@@ -1,11 +1,32 @@
 'use client';
 
+import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Home, ArrowLeft, Search } from 'lucide-react';
+import Link from 'next/link';
 import Button from '@/components/ui/Button';
 import GlowEffect from '@/components/effects/GlowEffect';
 
+// Pre-defined particle positions (deterministic)
+const PARTICLE_POSITIONS = [
+  { left: 25, top: 30 },
+  { left: 45, top: 55 },
+  { left: 70, top: 25 },
+  { left: 35, top: 70 },
+  { left: 60, top: 45 },
+  { left: 80, top: 65 },
+];
+
 export default function NotFound() {
+  // Memoize particle configurations to avoid hydration issues
+  const particles = useMemo(() =>
+    PARTICLE_POSITIONS.map((pos, i) => ({
+      ...pos,
+      duration: 3 + (i * 0.4),
+      delay: i * 0.3,
+    })),
+  []);
+
   return (
     <div className="min-h-screen bg-dark-900 flex items-center justify-center relative overflow-hidden">
       {/* Background effects */}
@@ -131,28 +152,28 @@ export default function NotFound() {
           className="mt-12 text-light-400 text-sm"
         >
           Besoin d&apos;aide ?{' '}
-          <a href="/#contact" className="text-accent-blue hover:text-accent-cyan transition-colors">
+          <Link href="/#contact" className="text-accent-blue hover:text-accent-cyan transition-colors">
             Contactez-nous
-          </a>
+          </Link>
         </motion.p>
 
         {/* Floating particles decoration */}
-        {[...Array(6)].map((_, i) => (
+        {particles.map((particle, i) => (
           <motion.div
             key={i}
             className="absolute w-2 h-2 rounded-full bg-accent-blue/30"
             style={{
-              left: `${20 + Math.random() * 60}%`,
-              top: `${20 + Math.random() * 60}%`,
+              left: `${particle.left}%`,
+              top: `${particle.top}%`,
             }}
             animate={{
               y: [0, -20, 0],
               opacity: [0.3, 0.8, 0.3],
             }}
             transition={{
-              duration: 3 + Math.random() * 2,
+              duration: particle.duration,
               repeat: Infinity,
-              delay: Math.random() * 2,
+              delay: particle.delay,
             }}
           />
         ))}

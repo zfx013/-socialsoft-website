@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
@@ -26,6 +26,20 @@ interface MenuOverlayProps {
 
 export default function MenuOverlay({ onClose }: MenuOverlayProps) {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+
+  // Escape key handler for accessibility
+  const handleEscape = useCallback((event: KeyboardEvent) => {
+    if (event.key === 'Escape') {
+      onClose();
+    }
+  }, [onClose]);
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleEscape);
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  }, [handleEscape]);
 
   const overlayVariants = {
     hidden: { opacity: 0 },

@@ -278,7 +278,7 @@ function NetworkTopology() {
                 {/* Status LED */}
                 <span className="absolute -bottom-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-400 status-dot border border-dark-900" />
               </div>
-              <p className="text-[10px] text-light-400 mt-1 font-medium whitespace-nowrap">{device.label}</p>
+              <p className="text-xs text-light-400 mt-1 font-medium whitespace-nowrap">{device.label}</p>
             </div>
           </div>
         );
@@ -376,7 +376,7 @@ function ColibriVisual() {
         >
           <div className="relative w-52 h-64 lg:w-64 lg:h-80">
             <Image
-              src="/images/logo-colibri.png"
+              src="/images/logo-colibri.webp"
               alt="Formation Colibri"
               fill
               className="object-contain"

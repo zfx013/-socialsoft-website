@@ -8,6 +8,9 @@ import { servicesDev, siteStats, siteContact } from '@/lib/config';
 export const metadata: Metadata = {
   title: "Développement Web & Logiciel | Applications Sur Mesure",
   description: "Développement de sites web, applications métier et logiciels sur mesure. Solutions personnalisées pour PME : React, Next.js, Node.js. Devis gratuit.",
+  alternates: {
+    canonical: 'https://socialsoft.fr/developpement',
+  },
   openGraph: {
     title: "Développement Web & Logiciel | SOCIAL SOFT",
     description: "Sites web, applications métier, logiciels sur mesure. 25 ans d'expertise en développement pour PME.",

@@ -121,7 +121,7 @@ export default function Colibri() {
                     }}
                   />
                   <Image
-                    src="/images/logo-colibri.png"
+                    src="/images/logo-colibri.webp"
                     alt="Colibri - Organisme de Formation"
                     fill
                     className="object-contain relative z-10"

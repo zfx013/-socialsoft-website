@@ -85,23 +85,36 @@ interface NavDropdownProps {
 
 function NavDropdown({ label, items }: NavDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [focusedIndex, setFocusedIndex] = useState(-1);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setIsOpen(false);
+        setFocusedIndex(-1);
       }
     };
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+        setFocusedIndex(-1);
+      }
+    };
+
     document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleEscape);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleEscape);
       if (closeTimeoutRef.current) {
         clearTimeout(closeTimeoutRef.current);
       }
     };
-  }, []);
+  }, [isOpen]);
 
   const handleMouseEnter = () => {
     if (closeTimeoutRef.current) {
@@ -114,8 +127,46 @@ function NavDropdown({ label, items }: NavDropdownProps) {
   const handleMouseLeave = () => {
     closeTimeoutRef.current = setTimeout(() => {
       setIsOpen(false);
+      setFocusedIndex(-1);
     }, 150);
   };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (!isOpen && (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown')) {
+      e.preventDefault();
+      setIsOpen(true);
+      setFocusedIndex(0);
+      return;
+    }
+
+    if (isOpen) {
+      switch (e.key) {
+        case 'ArrowDown':
+          e.preventDefault();
+          setFocusedIndex((prev) => (prev + 1) % items.length);
+          break;
+        case 'ArrowUp':
+          e.preventDefault();
+          setFocusedIndex((prev) => (prev - 1 + items.length) % items.length);
+          break;
+        case 'Escape':
+          e.preventDefault();
+          setIsOpen(false);
+          setFocusedIndex(-1);
+          break;
+        case 'Tab':
+          setIsOpen(false);
+          setFocusedIndex(-1);
+          break;
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (focusedIndex >= 0 && itemRefs.current[focusedIndex]) {
+      itemRefs.current[focusedIndex]?.focus();
+    }
+  }, [focusedIndex]);
 
   return (
     <div
@@ -127,6 +178,9 @@ function NavDropdown({ label, items }: NavDropdownProps) {
       <button
         className="flex items-center gap-1 text-light-200 hover:text-light-100 transition-colors duration-200 font-medium py-2"
         onClick={() => setIsOpen(!isOpen)}
+        onKeyDown={handleKeyDown}
+        aria-expanded={isOpen}
+        aria-haspopup="true"
       >
         {label}
         <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
@@ -149,13 +203,22 @@ function NavDropdown({ label, items }: NavDropdownProps) {
         className="absolute top-full left-0 pt-3 w-64"
         style={{ pointerEvents: isOpen ? 'auto' : 'none' }}
       >
-        <div className="py-2 bg-dark-800 border border-dark-600 rounded-xl shadow-xl">
-          {items.map((item) => (
+        <div className="py-2 bg-dark-800 border border-dark-600 rounded-xl shadow-xl" role="menu">
+          {items.map((item, index) => (
             <Link
               key={item.href}
+              ref={(el) => { itemRefs.current[index] = el; }}
               href={item.href}
-              className="block px-4 py-3 hover:bg-dark-700 transition-colors"
-              onClick={() => setIsOpen(false)}
+              role="menuitem"
+              tabIndex={isOpen ? 0 : -1}
+              className="block px-4 py-3 hover:bg-dark-700 focus:bg-dark-700 focus:outline-none transition-colors"
+              onClick={() => { setIsOpen(false); setFocusedIndex(-1); }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  setIsOpen(false);
+                  setFocusedIndex(-1);
+                }
+              }}
             >
               <span className="block text-light-100 font-medium">{item.name}</span>
               {item.description && (

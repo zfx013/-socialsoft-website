@@ -11,6 +11,9 @@ import { whyUsReasons, siteStats, siteContact } from '@/lib/config';
 export const metadata: Metadata = {
   title: "Pourquoi nous choisir | SOCIAL SOFT",
   description: "25 ans d'expertise IT en Île-de-France. Interlocuteur unique, solutions sur mesure, réactivité garantie. Plus de 60 clients TPE/PME accompagnés. Découvrez notre approche.",
+  alternates: {
+    canonical: 'https://socialsoft.fr/pourquoi-nous',
+  },
   openGraph: {
     title: "Pourquoi choisir SOCIAL SOFT",
     description: "25 ans d'expertise, 60+ clients, interlocuteur unique. Infogérance, développement et formation pour PME en Île-de-France.",

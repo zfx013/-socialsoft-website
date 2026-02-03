@@ -9,6 +9,9 @@ import { programmesFormation, siteContact } from '@/lib/config';
 export const metadata: Metadata = {
   title: "Formation Colibri | Formations Certifiées Qualiopi",
   description: "Formations certifiées Qualiopi pour entreprises. Bureautique, Excel, compétences numériques. Éligible OPCO et CPF. Programmes adaptés tous niveaux.",
+  alternates: {
+    canonical: 'https://socialsoft.fr/formation',
+  },
   openGraph: {
     title: "Formation Colibri | SOCIAL SOFT",
     description: "Formations certifiées Qualiopi. Bureautique, Excel, numérique. Éligible OPCO/CPF.",

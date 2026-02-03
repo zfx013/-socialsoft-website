@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { rateLimit, getClientIP } from '@/lib/rate-limit';
 
 const APPSCRIPT_URL = process.env.APPSCRIPT_TRACKING_URL;
 
@@ -15,14 +16,44 @@ const ALLOWED_EVENTS = [
   'email_click',
   'phone_click',
   'contact_form_submit',
-];
+] as const;
+
+// Rate limit: 30 tracking events per minute per IP (more lenient for analytics)
+const RATE_LIMIT_CONFIG = {
+  limit: 30,
+  windowMs: 60 * 1000,
+};
 
 export async function POST(request: NextRequest) {
   try {
-    const { event } = await request.json();
+    // Rate limiting
+    const clientIP = getClientIP(request);
+    const rateLimitResult = rateLimit(`track:${clientIP}`, RATE_LIMIT_CONFIG);
 
-    // Validation
-    if (!event || !ALLOWED_EVENTS.includes(event)) {
+    if (!rateLimitResult.success) {
+      return NextResponse.json(
+        { error: 'Rate limit exceeded' },
+        { status: 429 }
+      );
+    }
+
+    let body;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json(
+        { error: 'Invalid JSON' },
+        { status: 400 }
+      );
+    }
+
+    const { event } = body;
+
+    // Validation: check event is string and in allowed list
+    if (
+      typeof event !== 'string' ||
+      !ALLOWED_EVENTS.includes(event as typeof ALLOWED_EVENTS[number])
+    ) {
       return NextResponse.json(
         { error: 'Invalid event' },
         { status: 400 }

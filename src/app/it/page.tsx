@@ -9,6 +9,9 @@ import { servicesIT, siteStats, siteContact } from '@/lib/config';
 export const metadata: Metadata = {
   title: "IT & Infrastructure | Infogérance PME Île-de-France",
   description: "Services d'infogérance et infrastructure IT pour TPE/PME en Île-de-France. Supervision 24/7, cybersécurité, cloud, support technique. Intervention rapide sur site.",
+  alternates: {
+    canonical: 'https://socialsoft.fr/it',
+  },
   openGraph: {
     title: "IT & Infrastructure | SOCIAL SOFT",
     description: "Infogérance, cybersécurité, infrastructure réseau pour PME. 25 ans d'expertise IT en Île-de-France.",
