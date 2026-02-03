@@ -6,6 +6,7 @@ import { Phone, Mail, MapPin, Linkedin, ArrowRight, Send, CheckCircle, Loader2, 
 import { contact } from '@/lib/constants';
 import { trackEvent, TrackingEvent } from '@/lib/tracking';
 import Button from '@/components/ui/Button';
+import MagneticButton from '@/components/effects/MagneticButton';
 import GlowEffect from '@/components/effects/GlowEffect';
 import SplitText from '@/components/effects/SplitText';
 import DataStream from '@/components/effects/DataStream';
@@ -313,23 +314,25 @@ export default function Contact() {
                         </div>
                       )}
 
-                      <Button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="w-full sm:w-auto"
-                      >
-                        {isSubmitting ? (
-                          <>
-                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                            Envoi en cours...
-                          </>
-                        ) : (
-                          <>
-                            <Send className="w-4 h-4 mr-2" />
-                            Envoyer le message
-                          </>
-                        )}
-                      </Button>
+                      <MagneticButton strength={0.2} radius={100}>
+                        <Button
+                          type="submit"
+                          disabled={isSubmitting}
+                          className="w-full sm:w-auto"
+                        >
+                          {isSubmitting ? (
+                            <>
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                              Envoi en cours...
+                            </>
+                          ) : (
+                            <>
+                              <Send className="w-4 h-4 mr-2" />
+                              Envoyer le message
+                            </>
+                          )}
+                        </Button>
+                      </MagneticButton>
                     </motion.form>
                   )}
                 </AnimatePresence>

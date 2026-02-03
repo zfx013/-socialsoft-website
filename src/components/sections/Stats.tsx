@@ -6,6 +6,7 @@ import { gsap } from 'gsap';
 import { Users, Briefcase, Award, Heart, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { siteStats } from '@/lib/config';
+import MagneticButton from '@/components/effects/MagneticButton';
 
 const stats = [
   {
@@ -167,13 +168,15 @@ export default function Stats() {
           viewport={{ once: true }}
           className="flex justify-center"
         >
-          <Link
-            href="/pourquoi-nous"
-            className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-accent-blue to-accent-cyan text-white font-semibold hover:opacity-90 transition-all group shadow-lg shadow-accent-blue/25 hover:shadow-accent-blue/40"
-          >
-            En savoir plus sur nous
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </Link>
+          <MagneticButton strength={0.2} radius={100}>
+            <Link
+              href="/pourquoi-nous"
+              className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-accent-blue to-accent-cyan text-white font-semibold hover:opacity-90 transition-all group shadow-lg shadow-accent-blue/25 hover:shadow-accent-blue/40"
+            >
+              En savoir plus sur nous
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </MagneticButton>
         </motion.div>
       </div>
     </section>

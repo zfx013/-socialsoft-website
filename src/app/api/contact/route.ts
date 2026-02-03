@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
     if (!WEB3FORMS_KEY) {
       console.error('WEB3FORMS_KEY is not configured');
       return NextResponse.json(
-        { error: 'Server configuration error' },
+        { error: 'Configuration serveur manquante (WEB3FORMS_KEY)' },
         { status: 500 }
       );
     }
