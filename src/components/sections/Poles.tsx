@@ -305,41 +305,41 @@ function ColibriVisual() {
 
   return (
     <div ref={ref} className="relative w-full max-w-2xl mx-auto h-80 lg:h-96">
-      {/* Oiseaux 3D en arrière-plan */}
-      <div
-        className="absolute inset-0 transition-opacity duration-1000"
-        style={{ opacity: isInView ? 1 : 0 }}
-      >
-        <Suspense fallback={null}>
-          <Scene className="!absolute inset-0">
-            <Hummingbirds count={5} spread={5} />
-          </Scene>
-        </Suspense>
-      </div>
-
       {/* Grande box rectangulaire Colibri */}
       <div
-        className="absolute inset-4 lg:inset-6 rounded-2xl bg-dark-800/80 border border-emerald-500/40 backdrop-blur-sm overflow-hidden transition-all duration-700"
+        className="absolute inset-4 lg:inset-6 rounded-2xl bg-dark-800/50 border border-emerald-500/40 overflow-hidden transition-all duration-700"
         style={{
           opacity: isInView ? 1 : 0,
           transform: isInView ? 'scale(1)' : 'scale(0.95)',
           transitionDelay: '0.2s',
         }}
       >
-        {/* Lueur intérieure rectangulaire */}
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/15 via-teal-500/10 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-tl from-emerald-500/10 via-transparent to-transparent" />
+        {/* Lueur intérieure rectangulaire - en fond */}
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 via-teal-500/10 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-tl from-emerald-500/15 via-transparent to-transparent" />
+
+        {/* Oiseaux 3D - DANS la box, visibles */}
+        <div
+          className="absolute inset-0 transition-opacity duration-1000 z-[1]"
+          style={{ opacity: isInView ? 1 : 0 }}
+        >
+          <Suspense fallback={null}>
+            <Scene className="!absolute inset-0">
+              <Hummingbirds count={6} spread={4} />
+            </Scene>
+          </Suspense>
+        </div>
 
         {/* Badge Qualiopi - petit, en haut à droite */}
         <div
-          className="absolute top-3 right-3 lg:top-4 lg:right-4 z-10 transition-all duration-500"
+          className="absolute top-3 right-3 lg:top-4 lg:right-4 z-20 transition-all duration-500"
           style={{
             opacity: isInView ? 1 : 0,
             transform: isInView ? 'translateY(0)' : 'translateY(-10px)',
             transitionDelay: '0.5s',
           }}
         >
-          <div className="flex items-center gap-2 px-3 py-1.5 lg:px-4 lg:py-2 rounded-lg bg-dark-900/90 border border-emerald-500/50 shadow-lg">
+          <div className="flex items-center gap-2 px-3 py-1.5 lg:px-4 lg:py-2 rounded-lg bg-dark-900/95 border border-emerald-500/50 shadow-lg backdrop-blur-sm">
             <svg className="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
@@ -347,21 +347,28 @@ function ColibriVisual() {
           </div>
         </div>
 
-        {/* Logo Colibri - centré et grand */}
+        {/* Logo Colibri - centré avec fond subtil pour lisibilité */}
         <div
-          className="absolute inset-0 flex items-center justify-center transition-all duration-700"
+          className="absolute inset-0 flex items-center justify-center transition-all duration-700 z-10"
           style={{
             opacity: isInView ? 1 : 0,
             transform: isInView ? 'scale(1)' : 'scale(0.8)',
             transitionDelay: '0.3s',
           }}
         >
+          {/* Halo subtil derrière le logo pour la lisibilité */}
+          <div
+            className="absolute w-56 h-72 lg:w-72 lg:h-88 rounded-full"
+            style={{
+              background: 'radial-gradient(ellipse, rgba(17, 24, 39, 0.7) 0%, rgba(17, 24, 39, 0.4) 50%, transparent 70%)',
+            }}
+          />
           <div className="relative w-52 h-64 lg:w-64 lg:h-80">
             <Image
               src="/images/logo-colibri.png"
               alt="Formation Colibri"
               fill
-              className="object-contain drop-shadow-2xl"
+              className="object-contain drop-shadow-[0_0_30px_rgba(16,185,129,0.3)]"
             />
           </div>
         </div>
