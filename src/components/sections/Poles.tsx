@@ -8,6 +8,7 @@ import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import { poles } from '@/lib/config';
 import { trackEvent, TrackingEvent } from '@/lib/tracking';
+import MagneticButton from '@/components/effects/MagneticButton';
 
 const iconMap = {
   Server,
@@ -509,14 +510,16 @@ function PoleSection({ pole, index, isReversed }: PoleSectionProps) {
             </div>
 
             {/* CTA */}
-            <Link
-              href={pole.href}
-              onClick={handlePoleClick}
-              className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r ${poleColors.gradient} text-white font-medium hover:opacity-90 transition-opacity group`}
-            >
-              Découvrir
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
+            <MagneticButton strength={0.2} radius={100}>
+              <Link
+                href={pole.href}
+                onClick={handlePoleClick}
+                className={`inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r ${poleColors.gradient} text-white font-medium hover:opacity-90 transition-opacity group`}
+              >
+                Découvrir
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </MagneticButton>
           </motion.div>
 
           {/* Visuel spécifique */}
