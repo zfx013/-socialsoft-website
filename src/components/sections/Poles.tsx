@@ -347,7 +347,7 @@ function ColibriVisual() {
           </div>
         </div>
 
-        {/* Logo Colibri - centré avec fond pour contraste */}
+        {/* Logo Colibri - centré avec fond CLAIR pour texte noir */}
         <div
           className="absolute inset-0 flex items-center justify-center transition-all duration-700 z-10"
           style={{
@@ -356,18 +356,18 @@ function ColibriVisual() {
             transitionDelay: '0.3s',
           }}
         >
-          {/* Fond sombre pour lisibilité du texte Colibri */}
+          {/* Fond clair pour lisibilité du texte noir */}
           <div
             className="absolute w-56 h-72 lg:w-72 lg:h-96 rounded-3xl"
             style={{
-              background: 'radial-gradient(ellipse, rgba(10, 15, 25, 0.95) 0%, rgba(10, 15, 25, 0.7) 50%, transparent 75%)',
+              background: 'radial-gradient(ellipse, rgba(255, 255, 255, 0.9) 0%, rgba(240, 253, 244, 0.7) 50%, transparent 75%)',
             }}
           />
           {/* Lueur douce animée autour */}
           <div
             className="absolute w-60 h-76 lg:w-76 lg:h-100 rounded-3xl animate-pulse-slow"
             style={{
-              background: 'radial-gradient(ellipse, rgba(16, 185, 129, 0.15) 0%, transparent 60%)',
+              background: 'radial-gradient(ellipse, rgba(16, 185, 129, 0.2) 0%, transparent 60%)',
             }}
           />
           <div className="relative w-52 h-64 lg:w-64 lg:h-80">
@@ -375,7 +375,7 @@ function ColibriVisual() {
               src="/images/logo-colibri.png"
               alt="Formation Colibri"
               fill
-              className="object-contain drop-shadow-[0_0_25px_rgba(16,185,129,0.25)]"
+              className="object-contain"
             />
           </div>
         </div>
