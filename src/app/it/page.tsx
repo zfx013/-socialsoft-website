@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
-import { Server, Shield, Network, Cloud, HardDrive, Headphones, CheckCircle, ArrowRight, Zap, Phone } from 'lucide-react';
-import Link from 'next/link';
+import { Server, Shield, Network, Cloud, HardDrive, Headphones, CheckCircle, Zap } from 'lucide-react';
 import Coverage from '@/components/sections/Coverage';
 import Contact from '@/components/sections/Contact';
 import FloatingContact from '@/components/ui/FloatingContact';
+import HeroCTA from '@/components/ui/HeroCTA';
 import { servicesIT, siteStats, siteContact } from '@/lib/config';
 
 export const metadata: Metadata = {
@@ -97,22 +97,16 @@ export default function ITPage() {
             </p>
 
             {/* CTA */}
-            <div className="flex flex-wrap gap-4">
-              <Link
-                href="#contact"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-medium hover:opacity-90 transition-opacity"
-              >
-                Demander un devis
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <a
-                href={siteContact.phoneLink}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-dark-700 border border-dark-600 text-light-100 font-medium hover:border-blue-500/50 transition-colors"
-              >
-                <Phone className="w-4 h-4 text-blue-400" />
-                {siteContact.phoneFormatted}
-              </a>
-            </div>
+            <HeroCTA
+              primaryText="Demander un devis"
+              primaryHref="#contact"
+              phoneNumber={siteContact.phoneFormatted}
+              phoneLink={siteContact.phoneLink}
+              gradientFrom="from-blue-500"
+              gradientTo="to-cyan-500"
+              hoverBorderColor="hover:border-blue-500/50"
+              phoneIconColor="text-blue-400"
+            />
           </div>
         </div>
       </section>

@@ -145,8 +145,14 @@ export default function Contact() {
       });
 
       if (!response.ok) {
-        const data = await response.json();
-        throw new Error(data.error || 'Erreur lors de l\'envoi');
+        let errorMessage = 'Erreur lors de l\'envoi';
+        try {
+          const data = await response.json();
+          errorMessage = data.error || errorMessage;
+        } catch {
+          errorMessage = `Erreur serveur (${response.status})`;
+        }
+        throw new Error(errorMessage);
       }
 
       setIsSubmitted(true);

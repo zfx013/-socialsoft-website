@@ -8,7 +8,6 @@ interface MagneticButtonProps {
   className?: string;
   strength?: number;
   radius?: number;
-  glowColor?: string;
 }
 
 export default function MagneticButton({
@@ -16,7 +15,6 @@ export default function MagneticButton({
   className = '',
   strength = 0.3,
   radius = 150,
-  glowColor = 'rgba(6, 182, 212, 0.3)',
 }: MagneticButtonProps) {
   const buttonRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
@@ -54,7 +52,7 @@ export default function MagneticButton({
   return (
     <motion.div
       ref={buttonRef}
-      className={`relative inline-block ${className}`}
+      className={`relative ${className}`}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -71,13 +69,14 @@ export default function MagneticButton({
     >
       {/* Glow effect */}
       <motion.div
-        className="absolute -inset-2 rounded-2xl blur-lg pointer-events-none"
+        className="absolute inset-0 rounded-full blur-xl"
         style={{
-          background: `radial-gradient(circle, ${glowColor} 0%, transparent 70%)`,
+          background: 'radial-gradient(circle, rgba(6, 182, 212, 0.4) 0%, transparent 70%)',
         }}
-        initial={{ opacity: 0 }}
+        initial={{ opacity: 0, scale: 0.8 }}
         animate={{
           opacity: isHovered ? 1 : 0,
+          scale: isHovered ? 1.2 : 0.8,
         }}
         transition={{ duration: 0.3 }}
       />
@@ -86,6 +85,16 @@ export default function MagneticButton({
       <div className="relative">
         {children}
       </div>
+
+      {/* Ripple effect on hover */}
+      {isHovered && (
+        <motion.div
+          className="absolute inset-0 rounded-full border border-accent-cyan/50"
+          initial={{ scale: 1, opacity: 0.5 }}
+          animate={{ scale: 1.5, opacity: 0 }}
+          transition={{ duration: 0.6, repeat: Infinity }}
+        />
+      )}
     </motion.div>
   );
 }

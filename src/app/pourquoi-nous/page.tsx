@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
-import { CheckCircle, Users, Target, Shield, Clock, Lightbulb, MapPin, ArrowRight, Phone } from 'lucide-react';
-import Link from 'next/link';
+import { CheckCircle, Users, Target, Shield, Clock, Lightbulb, MapPin } from 'lucide-react';
 import Clients from '@/components/sections/Clients';
 import FAQ from '@/components/sections/FAQ';
 import Contact from '@/components/sections/Contact';
 import FloatingContact from '@/components/ui/FloatingContact';
 import MethodologyTimeline from '@/components/sections/MethodologyTimeline';
+import HeroCTA from '@/components/ui/HeroCTA';
 import { whyUsReasons, siteStats, siteContact } from '@/lib/config';
 
 export const metadata: Metadata = {
@@ -87,21 +87,17 @@ export default function PourquoiNousPage() {
             </div>
 
             {/* CTA */}
-            <div className="flex flex-wrap justify-center gap-4">
-              <Link
-                href="#contact"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-blue-500 to-violet-500 text-white font-medium hover:opacity-90 transition-opacity"
-              >
-                Discuter de votre projet
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <a
-                href={siteContact.phoneLink}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-dark-700 border border-dark-600 text-light-100 font-medium hover:border-blue-500/50 transition-colors"
-              >
-                <Phone className="w-4 h-4 text-blue-400" />
-                {siteContact.phoneFormatted}
-              </a>
+            <div className="flex justify-center">
+              <HeroCTA
+                primaryText="Discuter de votre projet"
+                primaryHref="#contact"
+                phoneNumber={siteContact.phoneFormatted}
+                phoneLink={siteContact.phoneLink}
+                gradientFrom="from-blue-500"
+                gradientTo="to-violet-500"
+                hoverBorderColor="hover:border-blue-500/50"
+                phoneIconColor="text-blue-400"
+              />
             </div>
           </div>
         </div>
