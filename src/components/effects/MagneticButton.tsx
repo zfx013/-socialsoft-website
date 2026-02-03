@@ -18,7 +18,6 @@ export default function MagneticButton({
 }: MagneticButtonProps) {
   const buttonRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (!buttonRef.current) return;
@@ -40,21 +39,15 @@ export default function MagneticButton({
     }
   }, [strength, radius]);
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
   const handleMouseLeave = () => {
-    setIsHovered(false);
     setPosition({ x: 0, y: 0 });
   };
 
   return (
     <motion.div
       ref={buttonRef}
-      className={`relative ${className}`}
+      className={`inline-block ${className}`}
       onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       animate={{
         x: position.x,
@@ -67,34 +60,7 @@ export default function MagneticButton({
         mass: 0.5,
       }}
     >
-      {/* Glow effect */}
-      <motion.div
-        className="absolute inset-0 rounded-full blur-xl"
-        style={{
-          background: 'radial-gradient(circle, rgba(6, 182, 212, 0.4) 0%, transparent 70%)',
-        }}
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{
-          opacity: isHovered ? 1 : 0,
-          scale: isHovered ? 1.2 : 0.8,
-        }}
-        transition={{ duration: 0.3 }}
-      />
-
-      {/* Content */}
-      <div className="relative">
-        {children}
-      </div>
-
-      {/* Ripple effect on hover */}
-      {isHovered && (
-        <motion.div
-          className="absolute inset-0 rounded-full border border-accent-cyan/50"
-          initial={{ scale: 1, opacity: 0.5 }}
-          animate={{ scale: 1.5, opacity: 0 }}
-          transition={{ duration: 0.6, repeat: Infinity }}
-        />
-      )}
+      {children}
     </motion.div>
   );
 }
