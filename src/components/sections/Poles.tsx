@@ -297,7 +297,7 @@ function NetworkTopology() {
 }
 
 // ============================================
-// COLIBRI VISUAL - Layout horizontal : Logo + Qualiopi
+// COLIBRI VISUAL - Grande box avec Qualiopi imbriqué
 // ============================================
 function ColibriVisual() {
   const ref = useRef<HTMLDivElement>(null);
@@ -317,69 +317,52 @@ function ColibriVisual() {
         </Suspense>
       </div>
 
-      {/* Container horizontal : Colibri à gauche, Qualiopi à droite */}
-      <div className="absolute inset-0 flex items-center justify-center gap-8 lg:gap-12 px-4">
-        {/* Logo Colibri - GRAND */}
+      {/* Grande box rectangulaire Colibri */}
+      <div
+        className="absolute inset-4 lg:inset-6 rounded-2xl bg-dark-800/80 border border-emerald-500/40 backdrop-blur-sm overflow-hidden transition-all duration-700"
+        style={{
+          opacity: isInView ? 1 : 0,
+          transform: isInView ? 'scale(1)' : 'scale(0.95)',
+          transitionDelay: '0.2s',
+        }}
+      >
+        {/* Lueur intérieure rectangulaire */}
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/15 via-teal-500/10 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-tl from-emerald-500/10 via-transparent to-transparent" />
+
+        {/* Badge Qualiopi - petit, en haut à droite */}
         <div
-          className="relative flex-shrink-0 transition-all duration-700"
+          className="absolute top-3 right-3 lg:top-4 lg:right-4 z-10 transition-all duration-500"
           style={{
             opacity: isInView ? 1 : 0,
-            transform: isInView ? 'scale(1) translateX(0)' : 'scale(0.8) translateX(-20px)',
+            transform: isInView ? 'translateY(0)' : 'translateY(-10px)',
+            transitionDelay: '0.5s',
+          }}
+        >
+          <div className="flex items-center gap-2 px-3 py-1.5 lg:px-4 lg:py-2 rounded-lg bg-dark-900/90 border border-emerald-500/50 shadow-lg">
+            <svg className="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            <span className="text-xs lg:text-sm font-semibold text-emerald-400">Certifié Qualiopi</span>
+          </div>
+        </div>
+
+        {/* Logo Colibri - centré et grand */}
+        <div
+          className="absolute inset-0 flex items-center justify-center transition-all duration-700"
+          style={{
+            opacity: isInView ? 1 : 0,
+            transform: isInView ? 'scale(1)' : 'scale(0.8)',
             transitionDelay: '0.3s',
           }}
         >
-          {/* Glow derrière le logo */}
-          <div
-            className="absolute inset-0 -m-16 animate-pulse-slow"
-            style={{
-              background: 'radial-gradient(circle, rgba(16, 185, 129, 0.35) 0%, transparent 70%)',
-            }}
-          />
-
-          {/* Logo - grande taille */}
-          <div className="relative w-56 h-72 lg:w-72 lg:h-96">
+          <div className="relative w-52 h-64 lg:w-64 lg:h-80">
             <Image
               src="/images/logo-colibri.png"
               alt="Formation Colibri"
               fill
               className="object-contain drop-shadow-2xl"
             />
-          </div>
-        </div>
-
-        {/* Badge Qualiopi - à droite, grand format */}
-        <div
-          className="flex flex-col items-center gap-4 transition-all duration-700"
-          style={{
-            opacity: isInView ? 1 : 0,
-            transform: isInView ? 'translateX(0)' : 'translateX(20px)',
-            transitionDelay: '0.5s',
-          }}
-        >
-          {/* Box Qualiopi */}
-          <div className="relative px-8 py-6 rounded-2xl bg-dark-800/90 border-2 border-emerald-500/50 backdrop-blur-sm shadow-xl shadow-emerald-500/10">
-            {/* Glow */}
-            <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-teal-500/5" />
-
-            <div className="relative flex flex-col items-center gap-3">
-              {/* Icône check */}
-              <div className="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                <svg className="w-6 h-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
-
-              {/* Texte */}
-              <div className="text-center">
-                <div className="text-lg lg:text-xl font-bold text-emerald-400">Certifié</div>
-                <div className="text-2xl lg:text-3xl font-bold text-white tracking-wide">QUALIOPI</div>
-              </div>
-
-              {/* Sous-texte */}
-              <div className="text-xs text-light-400 text-center max-w-[140px]">
-                Qualité des formations professionnelles
-              </div>
-            </div>
           </div>
         </div>
       </div>
