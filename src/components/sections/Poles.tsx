@@ -347,7 +347,7 @@ function ColibriVisual() {
           </div>
         </div>
 
-        {/* Logo Colibri - centré avec fond CLAIR pour texte noir */}
+        {/* Logo Colibri - centré avec lueur animée cyan/émeraude */}
         <div
           className="absolute inset-0 flex items-center justify-center transition-all duration-700 z-10"
           style={{
@@ -356,18 +356,20 @@ function ColibriVisual() {
             transitionDelay: '0.3s',
           }}
         >
-          {/* Fond clair pour lisibilité du texte noir */}
-          <div
-            className="absolute w-56 h-72 lg:w-72 lg:h-96 rounded-3xl"
+          {/* Lueur animée cyan/émeraude - même style que page Formation */}
+          <motion.div
+            className="absolute w-72 h-80 lg:w-80 lg:h-96"
             style={{
-              background: 'radial-gradient(ellipse, rgba(255, 255, 255, 0.9) 0%, rgba(240, 253, 244, 0.7) 50%, transparent 75%)',
+              background: 'radial-gradient(circle, rgba(6, 182, 212, 0.4) 0%, rgba(16, 185, 129, 0.2) 40%, transparent 70%)',
             }}
-          />
-          {/* Lueur douce animée autour */}
-          <div
-            className="absolute w-60 h-76 lg:w-76 lg:h-100 rounded-3xl animate-pulse-slow"
-            style={{
-              background: 'radial-gradient(ellipse, rgba(16, 185, 129, 0.2) 0%, transparent 60%)',
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.8, 1, 0.8],
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              ease: 'easeInOut',
             }}
           />
           <div className="relative w-52 h-64 lg:w-64 lg:h-80">

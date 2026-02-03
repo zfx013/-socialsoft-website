@@ -98,9 +98,9 @@ export default function FormationHero() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="mb-6 flex justify-center lg:justify-start"
             >
-              <div className="relative w-24 h-32 sm:w-32 sm:h-40">
+              <div className="relative w-32 h-44 sm:w-40 sm:h-52 lg:w-48 lg:h-60">
                 <motion.div
-                  className="absolute -inset-16 -z-10"
+                  className="absolute -inset-20 -z-10"
                   style={{
                     background: 'radial-gradient(circle, rgba(6, 182, 212, 0.35) 0%, rgba(16, 185, 129, 0.15) 40%, transparent 70%)',
                   }}
