@@ -56,10 +56,19 @@ export async function POST(request: NextRequest) {
 
     let data;
     try {
-      data = await web3Response.json();
-    } catch {
+      const responseText = await web3Response.text();
+
+      if (!web3Response.ok) {
+        return NextResponse.json(
+          { error: `Erreur Web3Forms (${web3Response.status}): ${responseText.substring(0, 100)}` },
+          { status: 500 }
+        );
+      }
+
+      data = JSON.parse(responseText);
+    } catch (parseError) {
       return NextResponse.json(
-        { error: 'Erreur: réponse Web3Forms invalide' },
+        { error: `Erreur parsing Web3Forms: ${parseError instanceof Error ? parseError.message : 'JSON invalide'}` },
         { status: 500 }
       );
     }
