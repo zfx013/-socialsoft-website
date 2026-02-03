@@ -5,13 +5,13 @@ export const siteConfig = {
   url: 'https://socialsoft.fr',
   ogImage: '/og-image.jpg',
   description:
-    "SOCIAL SOFT est une entreprise de services informatiques basée à Saint-Ouen-l'Aumône (Val-d'Oise). Nous accompagnons les TPE et PME en Île-de-France : développement sur mesure, infrastructure, cybersécurité, infogérance et support technique.",
+    "Expert IT pour entreprises : infogérance, cybersécurité, infrastructure et support. Accompagnement TPE, PME et associations avec intervention sur site en Île-de-France. Développement logiciel sur mesure en France et à l'international.",
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "SOCIAL SOFT | Prestataire Informatique Val-d'Oise & Île-de-France | Infogérance PME",
+    default: "SOCIAL SOFT | Services IT & Développement sur Mesure | Expert Informatique",
     template: '%s | SOCIAL SOFT - Services IT',
   },
   description: siteConfig.description,
