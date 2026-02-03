@@ -64,15 +64,28 @@ export default function Hummingbirds({
     { body: '#14b8a6', wing: '#2dd4bf', belly: '#5eead4' }, // Turquoise
   ], []);
 
-  // Initialize birds - PLUS PETITS
+  // Initialize birds - positionnés sur les bords, pas au centre
   const birds = useMemo(() => {
     const newBirds: Bird[] = [];
 
+    // Positions de base réparties sur les bords du cadre
+    const edgePositions = [
+      { x: -0.7, y: 0.5 },   // Haut gauche
+      { x: 0.7, y: 0.5 },    // Haut droite
+      { x: -0.8, y: 0 },     // Milieu gauche
+      { x: 0.8, y: 0 },      // Milieu droite
+      { x: -0.7, y: -0.5 },  // Bas gauche
+      { x: 0.7, y: -0.5 },   // Bas droite
+      { x: 0, y: 0.7 },      // Haut centre
+      { x: 0, y: -0.7 },     // Bas centre
+    ];
+
     for (let i = 0; i < count; i++) {
+      const edge = edgePositions[i % edgePositions.length];
       const basePos = new THREE.Vector3(
-        (Math.random() - 0.5) * spread,
-        (Math.random() - 0.5) * spread * 0.5,
-        (Math.random() - 0.5) * 2
+        edge.x * spread + (Math.random() - 0.5) * 0.5,
+        edge.y * spread * 0.6 + (Math.random() - 0.5) * 0.3,
+        (Math.random() - 0.5) * 1.5
       );
 
       const palette = colorPalettes[i % colorPalettes.length];
@@ -116,16 +129,25 @@ export default function Hummingbirds({
         bird.velocity.add(fleeForce);
       }
 
-      // Retour plus lent vers la position de base (permet plus d'errance)
+      // Éviter le centre (où se trouve le logo)
+      const distFromCenter = Math.sqrt(bird.position.x * bird.position.x + bird.position.y * bird.position.y);
+      const centerAvoidRadius = 1.2;
+      if (distFromCenter < centerAvoidRadius) {
+        const awayFromCenter = new THREE.Vector3(bird.position.x, bird.position.y, 0).normalize();
+        const avoidForce = awayFromCenter.multiplyScalar((centerAvoidRadius - distFromCenter) * 2 * delta);
+        bird.velocity.add(avoidForce);
+      }
+
+      // Retour doux vers la position de base
       const toBase = new THREE.Vector3().subVectors(bird.basePosition, bird.position);
-      const returnForce = toBase.multiplyScalar(0.15 * delta);
+      const returnForce = toBase.multiplyScalar(0.08 * delta);
       bird.velocity.add(returnForce);
 
-      // Mouvement de vol dynamique - les oiseaux se baladent partout
+      // Mouvement de vol dynamique - les oiseaux se baladent sur les bords
       const hover = new THREE.Vector3(
-        Math.sin(time * 1.2 + index * 3.7) * 0.15 + Math.cos(time * 0.7 + index * 5) * 0.12,
-        Math.cos(time * 1.4 + index * 2.3) * 0.12 + Math.sin(time * 0.8 + index * 4) * 0.08,
-        Math.sin(time * 0.6 + index * 4.2) * 0.06
+        Math.sin(time * 0.8 + index * 3.7) * 0.2 + Math.cos(time * 0.5 + index * 5) * 0.15,
+        Math.cos(time * 0.9 + index * 2.3) * 0.15 + Math.sin(time * 0.6 + index * 4) * 0.1,
+        Math.sin(time * 0.4 + index * 4.2) * 0.08
       ).multiplyScalar(delta * wanderStrength);
       bird.velocity.add(hover);
 
