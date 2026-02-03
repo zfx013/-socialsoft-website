@@ -130,21 +130,24 @@ export default function Contact() {
     setError(null);
 
     try {
-      // Envoi direct à AppScript (contourne les restrictions Cloudflare)
-      await fetch('https://script.google.com/macros/s/AKfycby2klpY8gBsa2euIznYGGyfMCVLkGoBvFsXvCCnJ2Hd48CVHxJaHGyWgkIK5nt0HMyeUA/exec', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
-        mode: 'no-cors',
         headers: {
-          'Content-Type': 'text/plain',
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
-          phone: formData.phone || 'Non renseigné',
+          phone: formData.phone,
           subject: formData.subject,
           message: formData.message,
         }),
       });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Erreur lors de l\'envoi');
+      }
 
       setIsSubmitted(true);
       trackEvent('contact_form_submit');
