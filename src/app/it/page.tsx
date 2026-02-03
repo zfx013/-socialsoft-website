@@ -96,7 +96,7 @@ export default function ITPage() {
 
             {/* Badge associations */}
             <p className="text-sm text-emerald-400 mb-8">
-              ✓ Également pour les Associations — tarifs adaptés
+              ✓ Également pour les Associations
             </p>
 
             {/* CTA */}
