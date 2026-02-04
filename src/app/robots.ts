@@ -14,39 +14,39 @@ export default function robots(): MetadataRoute.Robots {
       // ========================================
       {
         userAgent: 'GPTBot', // OpenAI ChatGPT
-        allow: ['/', '/llms.txt'],
+        allow: ['/', '/llms.txt', '/.well-known/llms.txt'],
       },
       {
         userAgent: 'ChatGPT-User', // ChatGPT browsing
-        allow: ['/', '/llms.txt'],
+        allow: ['/', '/llms.txt', '/.well-known/llms.txt'],
       },
       {
         userAgent: 'OAI-SearchBot', // OpenAI Search
-        allow: ['/', '/llms.txt'],
+        allow: ['/', '/llms.txt', '/.well-known/llms.txt'],
       },
       {
         userAgent: 'ClaudeBot', // Anthropic Claude
-        allow: ['/', '/llms.txt'],
+        allow: ['/', '/llms.txt', '/.well-known/llms.txt'],
       },
       {
         userAgent: 'Claude-Web', // Claude web browsing
-        allow: ['/', '/llms.txt'],
+        allow: ['/', '/llms.txt', '/.well-known/llms.txt'],
       },
       {
         userAgent: 'Anthropic-AI', // Anthropic
-        allow: ['/', '/llms.txt'],
+        allow: ['/', '/llms.txt', '/.well-known/llms.txt'],
       },
       {
         userAgent: 'PerplexityBot', // Perplexity AI
-        allow: ['/', '/llms.txt'],
+        allow: ['/', '/llms.txt', '/.well-known/llms.txt'],
       },
       {
         userAgent: 'YouBot', // You.com
-        allow: ['/', '/llms.txt'],
+        allow: ['/', '/llms.txt', '/.well-known/llms.txt'],
       },
       {
         userAgent: 'Phind', // Phind AI
-        allow: ['/', '/llms.txt'],
+        allow: ['/', '/llms.txt', '/.well-known/llms.txt'],
       },
       // ========================================
       // Crawlers Google (AUTORISES)

@@ -8,7 +8,7 @@ import { servicesIT, siteStats, siteContact } from '@/lib/config';
 
 export const metadata: Metadata = {
   title: "IT & Infrastructure | Infogérance PME Île-de-France",
-  description: "Services d'infogérance et infrastructure IT pour TPE/PME en Île-de-France. Supervision 24/7, cybersécurité, cloud, support technique. Intervention rapide sur site.",
+  description: "Support IT et infogérance pour TPE, PME et associations dans le Val-d'Oise et en Île-de-France. Supervision 24/7, cybersécurité, cloud, maintenance informatique. Intervention sur site en 4h. SOCIAL SOFT, Saint-Ouen-l'Aumône (95).",
   alternates: {
     canonical: 'https://socialsoft.fr/it',
   },

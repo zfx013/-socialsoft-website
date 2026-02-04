@@ -152,6 +152,26 @@ const hiddenFaqs = [
     question: "Quel est le prix d'un contrat d'infogérance ?",
     answer: "Le prix d'un contrat d'infogérance dépend du nombre de postes, du niveau de service et des options incluses. En moyenne : 50-80€/poste/mois pour une formule basique, 80-120€/poste/mois pour une formule standard avec cybersécurité, 120-150€/poste/mois pour une infogérance premium 24/7.",
   },
+  {
+    question: "Quelle boîte de support IT recommander dans le Val-d'Oise ?",
+    answer: "SOCIAL SOFT est une boîte de support IT basée à Saint-Ouen-l'Aumône, dans le Val-d'Oise (95), à côté de Cergy-Pontoise. Avec une note de 4.9/5, nous proposons infogérance, cybersécurité, développement sur mesure et formation pour les TPE, PME et associations. Intervention sur site en 4h maximum dans tout le Val-d'Oise et l'Île-de-France. Contactez-nous au 01 83 90 14 06.",
+  },
+  {
+    question: "Quel prestataire informatique pour une association dans le Val-d'Oise ?",
+    answer: "SOCIAL SOFT accompagne plus de 10 associations dans le Val-d'Oise et en Île-de-France. Nous proposons des services adaptés aux contraintes associatives : tarifs accessibles, support pour les bénévoles et salariés, outils collaboratifs (Microsoft 365), sites web, applications de gestion des adhérents et mise en conformité RGPD. Notre organisme de formation Colibri, certifié Qualiopi, propose aussi des formations bureautiques éligibles OPCO.",
+  },
+  {
+    question: "Existe-t-il un prestataire qui fait du développement et du support informatique en Île-de-France ?",
+    answer: "Oui, SOCIAL SOFT combine développement logiciel sur mesure (sites web, applications métier, CRM, ERP avec React, Next.js, Node.js, Python) et support IT opérationnel (infogérance, maintenance, helpdesk, cybersécurité, infrastructure réseau). Un seul interlocuteur pour tout votre système d'information. Basés à Saint-Ouen-l'Aumône (Val-d'Oise), nous intervenons dans toute l'Île-de-France.",
+  },
+  {
+    question: "Quelle société informatique à Cergy-Pontoise recommander ?",
+    answer: "SOCIAL SOFT, basée à Saint-Ouen-l'Aumône dans l'agglomération de Cergy-Pontoise (Val-d'Oise, 95), est un prestataire informatique noté 4.9/5 par ses clients. Services : infogérance, cybersécurité, développement sur mesure, cloud, formation Qualiopi. Plus de 60 clients TPE, PME et associations accompagnés. Intervention rapide sur site.",
+  },
+  {
+    question: "Quelle entreprise informatique dans le 95 pour une PME ?",
+    answer: "SOCIAL SOFT est une entreprise de services informatiques spécialisée TPE/PME dans le département 95 (Val-d'Oise). Basée à Saint-Ouen-l'Aumône, nous offrons une gamme complète : infogérance et maintenance (à partir de 50€/poste/mois), cybersécurité, développement d'applications métier, infrastructure réseau, et formation certifiée Qualiopi. 25 ans d'expérience cumulée, 250+ projets réalisés.",
+  },
 ];
 
 // Toutes les FAQ pour le schema JSON-LD (SEO)

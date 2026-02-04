@@ -29,6 +29,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#0a0f1a" />
+        <link rel="alternate" type="text/plain" href="/llms.txt" title="LLM Information" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -8,7 +8,7 @@ import FloatingContact from '@/components/ui/FloatingContact';
 
 export const metadata: Metadata = {
   title: 'SOCIAL SOFT - Expert IT, Développement & Formation en Île-de-France',
-  description: "SOCIAL SOFT : votre partenaire IT en Val-d'Oise. Infrastructure, développement sur mesure, cybersécurité et formation certifiée Qualiopi. Devis gratuit.",
+  description: "SOCIAL SOFT : boîte de support IT et développement sur mesure dans le Val-d'Oise (95). Infogérance, cybersécurité, infrastructure pour TPE, PME et associations en Île-de-France. Formation certifiée Qualiopi. 4.9/5 - Devis gratuit.",
   alternates: {
     canonical: 'https://socialsoft.fr',
   },
